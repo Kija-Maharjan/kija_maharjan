@@ -1,9 +1,5 @@
 {
-  "outputDirectory": "laravel/public",
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/laravel/public/index.php"
-    }
-  ]
+  "buildCommand": "true",
+  "outputDirectory": ".",
+  "public": "./"
 }
