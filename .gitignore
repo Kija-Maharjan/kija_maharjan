@@ -1,9 +1,5 @@
-*.log
-.DS_Store
-/.idea
-/.vscode
-/.zed
 node_modules/
-Homestead.json
-Homestead.yaml
-Thumbs.db
+.next/
+.env.local
+.env
+out/
