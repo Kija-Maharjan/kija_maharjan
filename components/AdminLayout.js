@@ -10,9 +10,11 @@ export default function AdminLayout({ children, title }) {
   const router = useRouter()
 
   const logout = async () => {
+    console.log('[Admin] Logging out...')
     clearAdminSession()
     await fetch('/api/admin/logout', { method: 'POST' })
-    window.location.href = '/admin/login'
+    console.log('[Admin] Redirecting to home page')
+    window.location.href = '/'
   }
 
   useEffect(() => { setSidebarOpen(false) }, [router.pathname])
@@ -181,7 +183,7 @@ export default function AdminLayout({ children, title }) {
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[200] flex items-center justify-center p-4">
           <div className="bg-dark-2 border border-gold/20 p-8 w-full max-w-sm">
             <div className="font-serif text-2xl text-cream mb-2">Sign out?</div>
-            <p className="text-xs text-text-dim mb-7 leading-relaxed tracking-wide">You will be redirected back to the login page.</p>
+            <p className="text-xs text-text-dim mb-7 leading-relaxed tracking-wide">You will be redirected to the home page.</p>
             <div className="flex gap-3">
               <button onClick={logout} className="btn-danger flex-1 py-3 text-[10px]">Confirm</button>
               <button onClick={() => setLogoutModal(false)} className="btn-outline flex-1 py-3 text-[10px]">Cancel</button>

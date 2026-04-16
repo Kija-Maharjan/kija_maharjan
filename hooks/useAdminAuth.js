@@ -32,11 +32,12 @@ export function useAdminAuth() {
           return
         }
         
-        // Token invalid, clear cache and redirect
+        // Token invalid, clear cache and redirect to home
         localStorage.removeItem('admin_session')
         setIsAuthenticated(false)
         setLoading(false)
-        router.replace('/admin/login')
+        console.log('[Admin Auth] Session invalid, redirecting to home')
+        router.replace('/')
       } else {
         // No cached session, verify with backend
         try {
@@ -46,11 +47,13 @@ export function useAdminAuth() {
             localStorage.setItem('admin_session', 'true')
           } else {
             setIsAuthenticated(false)
-            router.replace('/admin/login')
+            console.log('[Admin Auth] No valid session, redirecting to home')
+            router.replace('/')
           }
         } catch {
           setIsAuthenticated(false)
-          router.replace('/admin/login')
+          console.log('[Admin Auth] Auth check failed, redirecting to home')
+          router.replace('/')
         } finally {
           setLoading(false)
         }
@@ -66,5 +69,6 @@ export function useAdminAuth() {
 export function clearAdminSession() {
   if (typeof window !== 'undefined') {
     localStorage.removeItem('admin_session')
+    console.log('[Admin Auth] Session cleared')
   }
 }
