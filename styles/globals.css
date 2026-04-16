@@ -48,28 +48,28 @@
   --gold-lighter: rgba(166,124,47,0.2);
   
   /* ─── Light Mode Palette ─── */
-  --dark: #f8f7f5;
-  --dark2: #ffffff;
-  --dark3: #f0ede8;
+  --dark: #f5f0ea;
+  --dark2: #f9f5f0;
+  --dark3: #ede8e0;
   --cream: #1a1a1a;
   --text: #2d2d2d;
-  --text-dim: rgba(45,45,45,0.6);
+  --text-dim: rgba(45,45,45,0.65);
   
   /* ─── Component Backgrounds ─── */
-  --bg-primary: #f8f7f5;
-  --bg-secondary: #ffffff;
-  --bg-tertiary: #f0ede8;
-  --bg-quaternary: rgba(200,195,190,0.15);
-  --bg-hover: rgba(166,124,47,0.08);
-  --bg-overlay: rgba(255,255,255,0.9);
+  --bg-primary: #f5f0ea;
+  --bg-secondary: #f9f5f0;
+  --bg-tertiary: #ede8e0;
+  --bg-quaternary: rgba(166,124,47,0.08);
+  --bg-hover: rgba(166,124,47,0.1);
+  --bg-overlay: rgba(249,245,240,0.95);
   
   /* ─── Borders ─── */
-  --border-light: rgba(166,124,47,0.1);
-  --border-medium: rgba(166,124,47,0.15);
-  --border-strong: rgba(166,124,47,0.3);
+  --border-light: rgba(166,124,47,0.12);
+  --border-medium: rgba(166,124,47,0.18);
+  --border-strong: rgba(166,124,47,0.35);
   
   /* ─── Input Fields ─── */
-  --input-bg: rgba(245,240,235,0.6);
+  --input-bg: rgba(237,232,224,0.7);
   --input-border: rgba(166,124,47,0.2);
   --input-border-hover: rgba(166,124,47,0.35);
   --input-border-focus: var(--gold);
