@@ -8,9 +8,9 @@ const categoryKeywords = {
   'Education': ['education', 'learn', 'course', 'school', 'training', 'tutorial', 'educational', 'python', 'java', 'academy', 'learning platform', 'study', 'nexus', 'student', 'teacher', 'course platform', 'e-learning', 'online class', 'online course', 'classroom', 'lesson', 'training program', 'skill learning', 'knowledge base', 'learning app', 'educational platform'],
   'Brand & Fashion': ['brand', 'fashion', 'design', 'ui', 'ux', 'portfolio', 'swift', 'kotlin', 'mobile app', 'clothing', 'cloths', 'apparel', 'aura', 'luswaa', 'style', 'wardrobe', 'boutique', 'ecommerce', 'shopping', 'fashion app', 'clothing store', 'brand identity', 'product design', 'merchandise', 'designer'],
   'Browser Extension': ['extension', 'chrome', 'firefox', 'addon', 'plugin', 'keyboard', 'sound', 'vscode', 'vs code', 'brave', 'productivity', 'tool', 'browser tool', 'automation', 'chrome extension', 'browser addon', 'typing', 'keystroke', 'shortcut', 'utility'],
-  'Fitness': ['fitness', 'gym', '100kg', '71kg', 'workout', 'exercise', 'health', 'wellness', 'diet', 'trainer', 'sport', 'athlete', 'running', 'yoga', 'gym-bro', 'beast', 'strength', 'bodyweight', 'cardio', 'weights', 'training program', 'fitness tracker', 'gym app', 'workout plan', 'exercise routine', 'health app', 'sports', 'athletic'],
+  'Fitness': ['fitness', 'gym', '100kg', '71kg', 'workout', 'exercise', 'health', 'wellness', 'diet', 'trainer', 'sport', 'athlete', 'running', 'yoga', 'gym bro', 'beast', 'strength', 'bodyweight', 'cardio', 'weights', 'training program', 'fitness tracker', 'gym app', 'workout plan', 'exercise routine', 'health app', 'sports', 'athletic', 'cub', 'bro', 'website for gym', 'fitness website'],
   'Personal Growth': ['blog', 'portfolio', 'personal', 'resume', 'cv', 'website', 'landing', 'growth', 'development', 'learning', 'self', 'improvement', 'personal project', 'kija', 'programmer', 'coding', 'freestyle', 'workflow', 'portfolio website', 'personal site', 'personal blog', 'dev portfolio', 'self improvement', 'professional growth', 'skill development', 'coding project'],
-  'Food & Community': ['food', 'community', 'social', 'networking', 'meetup', 'forum', 'discussion', 'restaurant', 'meal', 'cook', 'recipe', 'delivery', 'recipe streak', 'recipe learning', 'cooking', 'food learning', 'sharing', 'social cooking', 'community cooking', 'recipe sharing', 'food sharing', 'meal sharing', 'culinary', 'kitchen', 'ingredient', 'food blog', 'cooking community'],
+  'Food & Community': ['food', 'community', 'social', 'networking', 'meetup', 'forum', 'discussion', 'restaurant', 'meal', 'cook', 'recipe', 'delivery', 'recipe streak', 'recipe learning', 'cooking', 'food learning', 'sharing', 'social cooking', 'community cooking', 'recipe sharing', 'food sharing', 'meal sharing', 'culinary', 'kitchen', 'ingredient', 'food blog', 'cooking community', 'share and enjoy', 'learn share'],
   'Web Development': ['web', 'website', 'frontend', 'backend', 'fullstack', 'react', 'vue', 'angular', 'nodejs', 'express', 'django', 'flask', 'next', 'svelte', 'api', 'rest', 'graphql', 'tech', 'app', 'application', 'server', 'client', 'database', 'web app', 'full stack', 'javascript', 'typescript', 'html', 'css', 'web framework', 'web service', 'saas', 'platform'],
 }
 
@@ -30,19 +30,15 @@ const languageFallback = {
 }
 
 function categorizeProject(project) {
-  const name = project.name?.toLowerCase() || ''
-  const desc = project.description?.toLowerCase() || ''
+  const name = project.name?.toLowerCase().replace(/[-_]/g, ' ') || ''
+  const desc = project.description?.toLowerCase().replace(/[-_]/g, ' ') || ''
   const tech = (project.tech_stack || []).join(' ').toLowerCase()
-  // Normalize by replacing hyphens with spaces for better matching
-  const combined = `${name} ${desc} ${tech}`.replace(/[-_]/g, ' ')
+  const combined = `${name} ${desc} ${tech}`
 
   for (const [category, keywords] of Object.entries(categoryKeywords)) {
     for (const keyword of keywords) {
-      // Normalize keyword as well
       const normalizedKeyword = keyword.toLowerCase().replace(/[-_]/g, ' ')
-      // Check for word boundary match (not just substring)
-      const regex = new RegExp(`\\b${normalizedKeyword.split(' ').join('\\b|\\b')}\\b`)
-      if (regex.test(combined)) {
+      if (combined.includes(normalizedKeyword)) {
         return category
       }
     }
