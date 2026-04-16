@@ -114,7 +114,9 @@ export default function Home({ projects, certs }) {
 
         <div className="relative z-10 w-full max-w-4xl mx-auto px-6 text-center">
           <div className={`mb-12 transition-all duration-700 ${isVisible('home') ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-            <img src="/logo.png" alt="Kija Maharjan" className="w-full max-w-2xl mx-auto h-auto" />
+            <div className="font-serif text-8xl md:text-9xl font-light text-cream tracking-wider">
+              K<span style={{ color: 'var(--gold)' }}>M</span>
+            </div>
           </div>
 
           <div className={`text-[9px] tracking-[5px] text-gold uppercase mb-6 transition-all duration-700 delay-100 ${isVisible('home') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>

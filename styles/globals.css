@@ -42,38 +42,32 @@
 
 /* Light mode */
 [data-theme="light"] {
-  --gold: #a67c2f;
-  --gold-light: #b8860b;
-  --gold-dim: rgba(166,124,47,0.12);
-  --gold-lighter: rgba(166,124,47,0.2);
+  --gold: #b8960c;
+  --gold-light: #d4a017;
+  --gold-dim: rgba(184,150,12,0.15);
+  --dark: #111010;
+  --dark2: #1a1a1a;
+  --dark3: #222;
+  --cream: #f5f0ea;
+  --text: #c8c4bc;
+  --text-dim: rgba(200,196,188,0.5);
   
-  /* ─── Light Mode Palette ─── */
-  --dark: #f5f0ea;
-  --dark2: #f9f5f0;
-  --dark3: #ede8e0;
-  --cream: #1a1a1a;
-  --text: #2d2d2d;
-  --text-dim: rgba(45,45,45,0.65);
+  --bg-primary: #111010;
+  --bg-secondary: #1a1a1a;
+  --bg-tertiary: #222;
+  --bg-quaternary: rgba(34,34,34,0.6);
+  --bg-hover: rgba(184,150,12,0.08);
+  --bg-overlay: rgba(17,16,16,0.85);
   
-  /* ─── Component Backgrounds ─── */
-  --bg-primary: #f5f0ea;
-  --bg-secondary: #f9f5f0;
-  --bg-tertiary: #ede8e0;
-  --bg-quaternary: rgba(166,124,47,0.08);
-  --bg-hover: rgba(166,124,47,0.1);
-  --bg-overlay: rgba(249,245,240,0.95);
+  --border-light: rgba(184,150,12,0.1);
+  --border-medium: rgba(184,150,12,0.15);
+  --border-strong: rgba(184,150,12,0.25);
   
-  /* ─── Borders ─── */
-  --border-light: rgba(166,124,47,0.12);
-  --border-medium: rgba(166,124,47,0.18);
-  --border-strong: rgba(166,124,47,0.35);
-  
-  /* ─── Input Fields ─── */
-  --input-bg: rgba(237,232,224,0.7);
-  --input-border: rgba(166,124,47,0.2);
-  --input-border-hover: rgba(166,124,47,0.35);
+  --input-bg: rgba(34,34,34,0.6);
+  --input-border: rgba(184,150,12,0.2);
+  --input-border-hover: rgba(184,150,12,0.35);
   --input-border-focus: var(--gold);
-  --input-text: #1a1a1a;
+  --input-text: #f5f0ea;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
