@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import AdminLayout from '../../components/AdminLayout'
+import { useAdminAuth } from '../../hooks/useAdminAuth'
 
 export default function Dashboard() {
+  const { isAuthenticated, loading: authLoading } = useAdminAuth()
   const [stats, setStats] = useState({ projects: 0, certs: 0, messages: 0 })
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    if (!authLoading && !isAuthenticated) return
+
     Promise.all([
       fetch('/api/projects').then(r => r.json()).catch(() => []),
       fetch('/api/certificates').then(r => r.json()).catch(() => []),
@@ -18,7 +22,7 @@ export default function Dashboard() {
       })
       setLoading(false)
     })
-  }, [])
+  }, [authLoading, isAuthenticated])
 
   const cards = [
     { label: 'Total Projects', value: stats.projects, href: '/admin/projects', color: 'text-gold', bg: 'bg-gold-dim' },

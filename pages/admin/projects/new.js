@@ -2,12 +2,17 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import AdminLayout from '../../../components/AdminLayout'
 import Toast from '../../../components/Toast'
+import { useAdminAuth } from '../../../hooks/useAdminAuth'
 
 const CATEGORIES = ['Restaurant Tech','Cafe Tech','Education','Brand & Fashion','Browser Extension','Fitness','Personal Growth','Food & Community','Web Development','Other']
 
 export default function NewProject() {
   const router = useRouter()
+  const { isAuthenticated, loading: authLoading } = useAdminAuth()
   const [form, setForm] = useState({ name: '', description: '', category: '', tech_stack: '', github_url: '', hosted_url: '' })
+
+  if (authLoading) return <AdminLayout title="New Project"><div className="text-center py-8 text-text-dim">Loading...</div></AdminLayout>
+  if (!isAuthenticated) return null
   const [toast, setToast] = useState(null)
   const [loading, setLoading] = useState(false)
 

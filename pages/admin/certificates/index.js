@@ -1,13 +1,18 @@
 import { useEffect, useState } from 'react'
 import AdminLayout from '../../../components/AdminLayout'
 import Toast from '../../../components/Toast'
+import { useAdminAuth } from '../../../hooks/useAdminAuth'
 
 export default function AdminCertificates() {
+  const { isAuthenticated, loading: authLoading } = useAdminAuth()
   const [certs, setCerts] = useState([])
   const [toast, setToast] = useState(null)
   const [form, setForm] = useState({ name: '', issuer: '', date: '', url: '', status: 'Completed' })
   const [loading, setLoading] = useState(false)
   const [showForm, setShowForm] = useState(true)
+
+  if (authLoading) return <AdminLayout title="Certificates"><div className="text-center py-8 text-text-dim">Loading...</div></AdminLayout>
+  if (!isAuthenticated) return null
 
   const fetchCerts = async () => {
     const res = await fetch('/api/certificates')

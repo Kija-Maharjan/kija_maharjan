@@ -1,13 +1,18 @@
 import { useState, useEffect } from 'react'
 import AdminLayout from '../../components/AdminLayout'
 import Toast from '../../components/Toast'
+import { useAdminAuth } from '../../hooks/useAdminAuth'
 
 export default function GithubRepos() {
+  const { isAuthenticated, loading: authLoading } = useAdminAuth()
   const [repos, setRepos] = useState([])
   const [excluded, setExcluded] = useState([])
   const [toast, setToast] = useState(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
+
+  if (authLoading) return <AdminLayout title="GitHub Repos"><div className="text-center py-8 text-text-dim">Loading...</div></AdminLayout>
+  if (!isAuthenticated) return null
 
   useEffect(() => {
     fetchData()

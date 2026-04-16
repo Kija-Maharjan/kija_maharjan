@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react'
 import AdminLayout from '../../../components/AdminLayout'
 import Toast from '../../../components/Toast'
 import Link from 'next/link'
+import { useAdminAuth } from '../../../hooks/useAdminAuth'
 
 export default function AdminProjects() {
+  const { isAuthenticated, loading: authLoading } = useAdminAuth()
   const [projects, setProjects] = useState([])
   const [toast, setToast] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -15,7 +17,11 @@ export default function AdminProjects() {
     setLoading(false)
   }
 
-  useEffect(() => { fetchProjects() }, [])
+  useEffect(() => {
+    if (!authLoading && isAuthenticated) {
+      fetchProjects()
+    }
+  }, [authLoading, isAuthenticated])
 
   const deleteProject = async (id) => {
     if (!confirm('Delete this project?')) return
