@@ -1,28 +1,36 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Head from 'next/head'
-import { ThemeProvider } from '../../hooks/useTheme'
 
 export default function AdminLogin() {
   const router = useRouter()
-  const [form, setForm] = useState({ username: '', password: '' })
+  const usernameRef = useRef(null)
+  const passwordRef = useRef(null)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
+  const [rememberMe, setRememberMe] = useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
     setError('')
+
+    const username = usernameRef.current?.value || ''
+    const password = passwordRef.current?.value || ''
+
     try {
       const res = await fetch('/api/admin/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ username, password }),
       })
       if (res.ok) {
         localStorage.setItem('admin_session', 'true')
+        if (rememberMe) {
+          localStorage.setItem('rememberMe', 'true')
+        }
         router.push('/admin/dashboard')
       } else {
         const data = await res.json()
@@ -34,31 +42,40 @@ export default function AdminLogin() {
     setLoading(false)
   }
 
-  const LoginContent = () => (
+  return (
     <>
       <Head>
         <title>Admin Login — Kija Maharjan</title>
         <link rel="icon" type="image/png" href="/logo.png" />
       </Head>
-      <div className="min-h-screen flex items-center justify-center p-5 bg-dark relative" style={{ backgroundColor: 'var(--dark)' }}>
-        {/* Backdrop blur overlay */}
-        <div className="fixed inset-0 bg-dark/30 backdrop-blur-sm z-40" />
+      <div className="min-h-screen flex items-center justify-center p-5 relative overflow-hidden" style={{ backgroundColor: 'var(--dark)' }}>
+        {/* Background blur effect - shows page behind */}
+        <div 
+          className="fixed inset-0 z-40" 
+          style={{ 
+            backdropFilter: 'blur(50px)',
+            WebkitBackdropFilter: 'blur(50px)',
+            background: 'rgba(17, 16, 16, 0.6)'
+          }} 
+        />
         
         {/* Floating login box */}
-        <div className="w-full max-w-md relative z-50">
-          <div className="text-center mb-10">
-            <div className="font-serif text-5xl font-light mb-2" style={{ color: 'var(--cream)' }}>
-              K<span style={{ color: 'var(--gold)' }}>M</span>
-            </div>
-            <div className="text-[9px] tracking-[4px] uppercase mb-4" style={{ color: 'var(--text-dim)' }}>
-              Admin Access
-            </div>
-            <div className="text-[8px] tracking-[2px] uppercase" style={{ color: '#ef4444' }}>
-              Admins Only
-            </div>
-          </div>
-
+        <div className="w-full max-w-lg relative z-50">
+          {/* Login Form Box */}
           <div className="p-10 md:p-12 border bg-dark/50 backdrop-blur-xl rounded-xl" style={{ borderColor: 'rgba(184,150,12,0.25)' }}>
+            {/* Header - Inside the box */}
+            <div className="text-center mb-8 pb-8 border-b border-white/10">
+              <div className="font-serif text-4xl font-light mb-2" style={{ color: 'var(--cream)' }}>
+                K<span style={{ color: 'var(--gold)' }}>M</span>
+              </div>
+              <div className="text-[9px] tracking-[4px] uppercase mb-2" style={{ color: 'var(--text-dim)' }}>
+                Admin Access
+              </div>
+              <div className="text-[8px] tracking-[2px] uppercase" style={{ color: '#ef4444' }}>
+                Admins Only
+              </div>
+            </div>
+
             <div className="text-[9px] tracking-[3px] uppercase mb-8 text-center" style={{ color: 'var(--gold)' }}>
               Sign In
             </div>
@@ -69,36 +86,41 @@ export default function AdminLogin() {
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5" autoComplete="off" noValidate>
               <div>
                 <label className="text-[9px] tracking-[2px] uppercase block mb-2" style={{ color: 'var(--text-dim)' }}>Username</label>
                 <input
+                  ref={usernameRef}
                   type="text"
                   placeholder="Enter username"
-                  value={form.username}
-                  onChange={e => setForm({ ...form, username: e.target.value })}
-                  className="form-input bg-dark/40 backdrop-blur-md"
+                  className="form-input bg-dark/40 backdrop-blur-md w-full"
                   required
+                  autoComplete="off"
+                  spellCheck="false"
+                  data-lpignore="true"
                 />
               </div>
               <div>
                 <label className="text-[9px] tracking-[2px] uppercase block mb-2" style={{ color: 'var(--text-dim)' }}>Password</label>
-                <div className="relative">
+                <div className="relative flex items-center">
                   <input
+                    ref={passwordRef}
                     type={showPassword ? 'text' : 'password'}
                     placeholder="Enter password"
-                    value={form.password}
-                    onChange={e => setForm({ ...form, password: e.target.value })}
-                    className="form-input pr-10 bg-dark/40 backdrop-blur-md"
+                    className="form-input pr-10 bg-dark/40 backdrop-blur-md w-full"
                     required
+                    autoComplete="off"
+                    spellCheck="false"
+                    data-lpignore="true"
                   />
-                  <button
-                    type="button"
+                  <div
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 transition-colors"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 transition-colors cursor-pointer select-none"
                     style={{ color: 'var(--text-dim)' }}
                     onMouseEnter={(e) => e.currentTarget.style.color = 'var(--gold)'}
                     onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-dim)'}
+                    role="button"
+                    tabIndex="-1"
                   >
                     {showPassword ? (
                       <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -111,28 +133,43 @@ export default function AdminLogin() {
                         <circle cx="12" cy="12" r="3" />
                       </svg>
                     )}
-                  </button>
+                  </div>
                 </div>
               </div>
-              <button type="submit" className="btn-primary py-4 tracking-[3px] mt-4 rounded-lg" disabled={loading}>
-                {loading ? 'Signing in...' : 'Sign In'}
-              </button>
-            </form>
-          </div>
 
-          <div className="text-center mt-6">
-            <Link href="/" className="text-[9px] tracking-[2px] uppercase hover:underline" style={{ color: 'var(--gold)' }}>
-              ← Back to site
-            </Link>
+              {/* Remember Me */}
+              <label className="flex items-center gap-2 cursor-pointer group">
+                <input
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  className="w-4 h-4 rounded"
+                  style={{ 
+                    accentColor: 'var(--gold)',
+                    cursor: 'pointer'
+                  }}
+                />
+                <span className="text-[9px] tracking-[1px] uppercase" style={{ color: 'var(--text-dim)' }}>
+                  Remember me
+                </span>
+              </label>
+
+              <div className="flex gap-3 mt-4">
+                <button type="submit" className="flex-1 btn-primary py-4 tracking-[3px] rounded-lg" disabled={loading}>
+                  {loading ? 'Signing in...' : 'Log In'}
+                </button>
+              </div>
+            </form>
+
+            {/* Back to site - Inside the box at bottom */}
+            <div className="text-center mt-8 pt-6 border-t border-white/10">
+              <Link href="/" className="text-[9px] tracking-[2px] uppercase hover:text-gold transition-colors" style={{ color: 'var(--gold)' }}>
+                ← Back to site
+              </Link>
+            </div>
           </div>
         </div>
       </div>
     </>
-  );
-
-  return (
-    <ThemeProvider>
-      <LoginContent />
-    </ThemeProvider>
   )
 }

@@ -11,6 +11,7 @@ export default function GithubRepos() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [syncing, setSyncing] = useState(false)
+  const [recategorizing, setRecategorizing] = useState(false)
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -61,6 +62,29 @@ export default function GithubRepos() {
       setToast({ message: 'Auto-sync error', type: 'error' })
     }
     setSyncing(false)
+  }
+
+  const recategorizeProjects = async () => {
+    setRecategorizing(true)
+    try {
+      const res = await fetch('/api/projects/recategorize', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      })
+      
+      if (res.ok) {
+        const data = await res.json()
+        setToast({ 
+          message: `✓ Recategorization complete! Updated ${data.recategorized} of ${data.total} projects`, 
+          type: 'success' 
+        })
+      } else {
+        setToast({ message: 'Recategorization failed', type: 'error' })
+      }
+    } catch {
+      setToast({ message: 'Recategorization error', type: 'error' })
+    }
+    setRecategorizing(false)
   }
 
   const toggleRepo = (repoName) => {
@@ -115,6 +139,13 @@ export default function GithubRepos() {
               className="btn-outline text-[10px] px-5 py-2.5"
             >
               {syncing ? 'Syncing...' : '⟳ Auto Sync All'}
+            </button>
+            <button 
+              onClick={recategorizeProjects} 
+              disabled={recategorizing}
+              className="btn-outline text-[10px] px-5 py-2.5"
+            >
+              {recategorizing ? 'Recategorizing...' : '🏷️ Recategorize'}
             </button>
             <button 
               onClick={saveChanges} 

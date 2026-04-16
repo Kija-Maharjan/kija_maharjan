@@ -71,7 +71,15 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; overflow-y: scroll; }
+html { 
+  scroll-behavior: smooth; 
+  overflow-y: scroll; 
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+html::-webkit-scrollbar {
+  display: none;
+}
 
 body {
   background: var(--dark);
@@ -79,6 +87,8 @@ body {
   font-family: 'Montserrat', sans-serif;
   font-weight: 300;
   overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
 }
 
 html, body, #__next {
@@ -194,6 +204,8 @@ a { text-decoration: none; color: inherit; }
   height: 100%;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  width: 100%;
 }
 .project-card:hover {
   border-color: var(--border-medium);
@@ -206,6 +218,9 @@ a { text-decoration: none; color: inherit; }
   column-count: 1;
   column-gap: 1.5rem;
   margin: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 @media (min-width: 640px) {
@@ -224,6 +239,8 @@ a { text-decoration: none; color: inherit; }
   break-inside: avoid;
   margin-bottom: 1.5rem;
   animation: fadeInUp 0.5s ease-out;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 @keyframes fadeInUp {
@@ -257,6 +274,8 @@ a { text-decoration: none; color: inherit; }
   color: var(--text-dim);
   margin-bottom: 24px;
   flex-grow: 1;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 .project-tech {
   display: flex;
@@ -271,12 +290,16 @@ a { text-decoration: none; color: inherit; }
   border: 1px solid rgba(184,150,12,0.25);
   color: var(--gold);
   text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .project-links {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
   margin-top: auto;
+  width: 100%;
 }
 
 /* Badges */
@@ -484,7 +507,12 @@ td:last-child {
 }
 
 /* Section Styles */
-.section-padding { padding: 80px 20px; position: relative; }
+.section-padding { 
+  padding: 80px 20px; 
+  position: relative;
+  width: 100%;
+  overflow-x: hidden;
+}
 @media (min-width: 768px) { .section-padding { padding: 100px 64px; } }
 @media (min-width: 1024px) { .section-padding { padding: 100px 80px; } }
 .section-alt { background: var(--dark2); }
@@ -580,6 +608,7 @@ td:last-child {
   max-width: 1400px;
   margin: 0 auto;
   width: 100%;
+  overflow-x: hidden;
 }
 @media (min-width: 768px) {
   .admin-page-content { padding: 36px; }

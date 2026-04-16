@@ -44,7 +44,7 @@ export default function Projects({ projects }) {
       id: r.id,
       name: r.name,
       description: r.description,
-      category: r.language || 'GitHub',
+      category: r.category,
       tech_stack: r.language ? [r.language] : [],
       github_url: r.github_url,
       hosted_url: r.homepage || null,
@@ -55,14 +55,12 @@ export default function Projects({ projects }) {
   const categories = ['All', 'Restaurant Tech', 'Cafe Tech', 'Education', 'Brand & Fashion', 'Browser Extension', 'Fitness', 'Personal Growth', 'Food & Community', 'GitHub']
   const filtered = filter === 'All' 
     ? allItems 
-    : filter === 'GitHub'
-      ? allItems.filter(item => item.type === 'repo')
-      : allItems.filter(item => item.category === filter)
+    : allItems.filter(item => item.category === filter)
 
   return (
     <Layout>
-      <div className="section-padding bg-dark-2">
-        <div className="max-w-7xl mx-auto">
+      <div className="section-padding bg-dark-2 overflow-x-hidden">
+        <div className="max-w-7xl mx-auto overflow-x-hidden">
           <div className="flex items-center gap-5 mb-12">
             <span className="font-serif text-sm text-gold tracking-[2px]">03</span>
             <div className="w-12 h-px bg-gold/50" />

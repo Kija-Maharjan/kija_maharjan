@@ -98,12 +98,12 @@ export default function Layout({ children, singlePage = false }) {
         </>
       )}
 
-      {/* KM Logo - Fixed top left */}
-      <Link href="/" className="fixed top-4 left-6 z-[101] font-serif text-2xl font-semibold text-cream tracking-wider hover:opacity-80 transition-opacity">
-        K<span style={{ color: 'var(--gold)' }}>M</span>
-      </Link>
+      <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-[100] transition-all duration-300 bg-dark/40 backdrop-blur-xl border border-white/10 rounded-lg px-6 py-3 flex items-center gap-8">
+        {/* KM Logo */}
+        <Link href="/" className="font-serif text-2xl font-semibold text-cream tracking-wider hover:opacity-80 transition-opacity flex-shrink-0">
+          K<span style={{ color: 'var(--gold)' }}>M</span>
+        </Link>
 
-      <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-[100] transition-all duration-300 bg-dark/40 backdrop-blur-xl border border-white/10 rounded-lg px-6 py-3">
         <div className="flex items-center justify-center h-full">
           <ul className="hidden lg:flex items-center gap-6 list-none m-0">
             {navLinks.map(link => (

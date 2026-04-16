@@ -2,44 +2,56 @@ import { fetchGithubRepos } from '../../../lib/github'
 import { supabase } from '../../../lib/supabase'
 import { isAdmin } from '../../../lib/auth'
 
-// Language to category mapping
-const languageToCategory = {
+// Comprehensive keyword to category mapping
+const categoryKeywords = {
+  'Restaurant Tech': ['restaurant', 'food delivery', 'menu', 'ordering', 'pos system', 'dine'],
+  'Cafe Tech': ['cafe', 'coffee', 'bakery', 'shop', 'retail'],
+  'Education': ['education', 'learn', 'course', 'school', 'training', 'tutorial', 'educational', 'python', 'java'],
+  'Brand & Fashion': ['brand', 'fashion', 'design', 'ui', 'ux', 'portfolio', 'swift', 'kotlin', 'mobile app'],
+  'Browser Extension': ['extension', 'chrome', 'firefox', 'addon', 'plugin'],
+  'Fitness': ['fitness', 'gym', 'workout', 'exercise', 'health', 'wellness', 'diet', 'tracker'],
+  'Personal Growth': ['blog', 'portfolio', 'personal', 'resume', 'cv', 'website', 'landing'],
+  'Food & Community': ['food', 'community', 'social', 'networking', 'meetup', 'forum', 'discussion'],
+  'Web Development': ['web', 'website', 'frontend', 'backend', 'fullstack', 'react', 'vue', 'angular', 'nodejs', 'express', 'django', 'flask', 'next', 'svelte', 'api', 'rest', 'graphql'],
+}
+
+// Language to category fallback
+const languageFallback = {
   'javascript': 'Web Development',
   'typescript': 'Web Development',
   'python': 'Education',
   'java': 'Web Development',
   'go': 'Web Development',
   'rust': 'Web Development',
-  'react': 'Web Development',
-  'vue': 'Web Development',
   'swift': 'Brand & Fashion',
   'kotlin': 'Brand & Fashion',
-  'fitness': 'Fitness',
-  'health': 'Fitness',
-  'restaurant': 'Restaurant Tech',
-  'cafe': 'Cafe Tech',
-  'education': 'Education',
-  'blog': 'Personal Growth',
-  'portfolio': 'Personal Growth',
+  'ruby': 'Web Development',
+  'php': 'Web Development',
+  'c#': 'Web Development',
+  'c++': 'Web Development',
 }
 
 function categorizeRepo(repo) {
   const name = repo.name.toLowerCase()
   const desc = repo.description?.toLowerCase() || ''
   const lang = repo.language?.toLowerCase() || ''
-  const combined = `${name} ${desc} ${lang}`.toLowerCase()
+  const combined = `${name} ${desc} ${lang}`
 
-  // Check for keywords in name, description, or language
-  for (const [keyword, category] of Object.entries(languageToCategory)) {
-    if (combined.includes(keyword)) {
-      return category
+  // Check each category's keywords
+  for (const [category, keywords] of Object.entries(categoryKeywords)) {
+    for (const keyword of keywords) {
+      if (combined.includes(keyword)) {
+        return category
+      }
     }
   }
 
-  // Default fallback
-  if (lang) {
-    return languageToCategory[lang] || 'Web Development'
+  // Language fallback
+  if (lang && languageFallback[lang]) {
+    return languageFallback[lang]
   }
+
+  // Default fallback
   return 'Web Development'
 }
 
