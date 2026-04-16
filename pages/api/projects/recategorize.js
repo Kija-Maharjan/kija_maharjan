@@ -3,15 +3,15 @@ import { isAdmin } from '../../../lib/auth'
 
 // Comprehensive keyword to category mapping
 const categoryKeywords = {
-  'Restaurant Tech': ['restaurant', 'food delivery', 'menu', 'ordering', 'pos system', 'pos', 'dine', 'restaurant system', 'ordering system', 'food service', 'restaurant app'],
-  'Cafe Tech': ['cafe', 'coffee', 'bakery', 'shop', 'retail', 'menu system', 'cafe system', 'cafe website', 'coffee shop', 'online menu', 'trios'],
-  'Education': ['education', 'learn', 'course', 'school', 'training', 'tutorial', 'educational', 'python', 'java', 'academy', 'learning platform', 'study', 'nexus'],
-  'Brand & Fashion': ['brand', 'fashion', 'design', 'ui', 'ux', 'portfolio', 'swift', 'kotlin', 'mobile app', 'clothing', 'cloths', 'apparel', 'aura', 'luswaa'],
-  'Browser Extension': ['extension', 'chrome', 'firefox', 'addon', 'plugin', 'keyboard', 'sound', 'vscode', 'vs code', 'brave'],
-  'Fitness': ['fitness', 'gym', 'workout', 'exercise', 'health', 'wellness', 'diet', 'tracker', 'gym-bro', 'beast'],
-  'Personal Growth': ['blog', 'portfolio', 'personal', 'resume', 'cv', 'website', 'landing', 'growth', 'development', 'learning', 'self', 'improvement', 'personal project', 'kija'],
-  'Food & Community': ['food', 'community', 'social', 'networking', 'meetup', 'forum', 'discussion', 'recipe', 'cook', 'recipe streak', 'recipe learning'],
-  'Web Development': ['web', 'website', 'frontend', 'backend', 'fullstack', 'react', 'vue', 'angular', 'nodejs', 'express', 'django', 'flask', 'next', 'svelte', 'api', 'rest', 'graphql', 'tech', 'app', 'application'],
+  'Restaurant Tech': ['restaurant', 'food delivery', 'menu', 'ordering', 'pos system', 'pos', 'dine', 'restaurant system', 'ordering system', 'food service', 'restaurant app', 'food truck', 'catering', 'online ordering', 'table management', 'reservation', 'order management', 'qr code', 'digital menu', 'dining', 'restaurant website', 'food ordering', 'delivery system', 'takeout'],
+  'Cafe Tech': ['cafe', 'coffee', 'bakery', 'shop', 'retail', 'menu system', 'cafe system', 'cafe website', 'coffee shop', 'online menu', 'trios', 'coffee app', 'barista', 'pastry', 'cafe ordering', 'coffee ordering', 'cafe management', 'store system', 'shop system', 'retail system'],
+  'Education': ['education', 'learn', 'course', 'school', 'training', 'tutorial', 'educational', 'python', 'java', 'academy', 'learning platform', 'study', 'nexus', 'student', 'teacher', 'course platform', 'e-learning', 'online class', 'online course', 'classroom', 'lesson', 'training program', 'skill learning', 'knowledge base', 'learning app', 'educational platform'],
+  'Brand & Fashion': ['brand', 'fashion', 'design', 'ui', 'ux', 'portfolio', 'swift', 'kotlin', 'mobile app', 'clothing', 'cloths', 'apparel', 'aura', 'luswaa', 'style', 'wardrobe', 'boutique', 'ecommerce', 'shopping', 'fashion app', 'clothing store', 'brand identity', 'product design', 'merchandise', 'designer'],
+  'Browser Extension': ['extension', 'chrome', 'firefox', 'addon', 'plugin', 'keyboard', 'sound', 'vscode', 'vs code', 'brave', 'productivity', 'tool', 'browser tool', 'automation', 'chrome extension', 'browser addon', 'typing', 'keystroke', 'shortcut', 'utility'],
+  'Fitness': ['fitness', 'gym', '100kg', '71kg', 'workout', 'exercise', 'health', 'wellness', 'diet', 'trainer', 'sport', 'athlete', 'running', 'yoga', 'gym-bro', 'beast', 'strength', 'bodyweight', 'cardio', 'weights', 'training program', 'fitness tracker', 'gym app', 'workout plan', 'exercise routine', 'health app', 'sports', 'athletic'],
+  'Personal Growth': ['blog', 'portfolio', 'personal', 'resume', 'cv', 'website', 'landing', 'growth', 'development', 'learning', 'self', 'improvement', 'personal project', 'kija', 'programmer', 'coding', 'freestyle', 'workflow', 'portfolio website', 'personal site', 'personal blog', 'dev portfolio', 'self improvement', 'professional growth', 'skill development', 'coding project'],
+  'Food & Community': ['food', 'community', 'social', 'networking', 'meetup', 'forum', 'discussion', 'restaurant', 'meal', 'cook', 'recipe', 'delivery', 'recipe streak', 'recipe learning', 'cooking', 'food learning', 'sharing', 'social cooking', 'community cooking', 'recipe sharing', 'food sharing', 'meal sharing', 'culinary', 'kitchen', 'ingredient', 'food blog', 'cooking community'],
+  'Web Development': ['web', 'website', 'frontend', 'backend', 'fullstack', 'react', 'vue', 'angular', 'nodejs', 'express', 'django', 'flask', 'next', 'svelte', 'api', 'rest', 'graphql', 'tech', 'app', 'application', 'server', 'client', 'database', 'web app', 'full stack', 'javascript', 'typescript', 'html', 'css', 'web framework', 'web service', 'saas', 'platform'],
 }
 
 const languageFallback = {
