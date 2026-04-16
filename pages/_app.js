@@ -1,14 +1,19 @@
-import Layout from '../components/Layout'
 import '../styles/globals.css'
+import { ThemeProvider } from '../hooks/useTheme'
 
 export default function App({ Component, pageProps }) {
-  // Admin pages use their own layout
-  if (pageProps.adminPage) {
-    return <Component {...pageProps} />
+  // Pages that manage their own Layout (admin pages, or pages with singlePage layout)
+  if (pageProps.adminPage || pageProps.customLayout) {
+    return (
+      <ThemeProvider>
+        <Component {...pageProps} />
+      </ThemeProvider>
+    )
   }
+  // Default: component handles its own Layout (as index.js does with singlePage)
   return (
-    <Layout>
+    <ThemeProvider>
       <Component {...pageProps} />
-    </Layout>
+    </ThemeProvider>
   )
 }
