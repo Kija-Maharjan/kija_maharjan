@@ -5,12 +5,13 @@ import { useAdminAuth } from '../../hooks/useAdminAuth'
 
 export default function GithubSync() {
   const { isAuthenticated, loading: authLoading } = useAdminAuth()
-  if (authLoading) return <AdminLayout title="GitHub Sync"><div className="text-center py-8 text-text-dim">Loading...</div></AdminLayout>
-  if (!isAuthenticated) return null
   const [repos, setRepos] = useState([])
   const [toast, setToast] = useState(null)
   const [fetching, setFetching] = useState(false)
   const [syncing, setSyncing] = useState(null)
+
+  if (authLoading) return <AdminLayout title="GitHub Sync"><div className="text-center py-8 text-text-dim">Loading...</div></AdminLayout>
+  if (!isAuthenticated) return null
 
   const fetchRepos = async () => {
     setFetching(true)

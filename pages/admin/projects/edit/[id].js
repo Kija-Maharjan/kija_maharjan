@@ -14,9 +14,6 @@ export default function EditProject() {
   const [toast, setToast] = useState(null)
   const [loading, setLoading] = useState(false)
 
-  if (authLoading) return <AdminLayout title="Edit Project"><div className="text-center py-8 text-text-dim">Loading...</div></AdminLayout>
-  if (!isAuthenticated) return null
-
   useEffect(() => {
     if (!id) return
     fetch('/api/projects').then(r => r.json()).then(projects => {
@@ -24,6 +21,9 @@ export default function EditProject() {
       if (p) setForm({ ...p, tech_stack: (p.tech_stack || []).join(', ') })
     })
   }, [id])
+
+  if (authLoading) return <AdminLayout title="Edit Project"><div className="text-center py-8 text-text-dim">Loading...</div></AdminLayout>
+  if (!isAuthenticated) return null
 
   const handleSubmit = async (e) => {
     e.preventDefault()

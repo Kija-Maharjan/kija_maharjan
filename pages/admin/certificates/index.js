@@ -11,9 +11,6 @@ export default function AdminCertificates() {
   const [loading, setLoading] = useState(false)
   const [showForm, setShowForm] = useState(true)
 
-  if (authLoading) return <AdminLayout title="Certificates"><div className="text-center py-8 text-text-dim">Loading...</div></AdminLayout>
-  if (!isAuthenticated) return null
-
   const fetchCerts = async () => {
     const res = await fetch('/api/certificates')
     const data = await res.json()
@@ -21,6 +18,9 @@ export default function AdminCertificates() {
   }
 
   useEffect(() => { fetchCerts() }, [])
+
+  if (authLoading) return <AdminLayout title="Certificates"><div className="text-center py-8 text-text-dim">Loading...</div></AdminLayout>
+  if (!isAuthenticated) return null
 
   const addCert = async (e) => {
     e.preventDefault()

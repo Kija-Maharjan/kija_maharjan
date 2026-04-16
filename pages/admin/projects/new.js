@@ -10,11 +10,11 @@ export default function NewProject() {
   const router = useRouter()
   const { isAuthenticated, loading: authLoading } = useAdminAuth()
   const [form, setForm] = useState({ name: '', description: '', category: '', tech_stack: '', github_url: '', hosted_url: '' })
+  const [toast, setToast] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   if (authLoading) return <AdminLayout title="New Project"><div className="text-center py-8 text-text-dim">Loading...</div></AdminLayout>
   if (!isAuthenticated) return null
-  const [toast, setToast] = useState(null)
-  const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault()

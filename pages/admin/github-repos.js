@@ -11,12 +11,14 @@ export default function GithubRepos() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchData()
+    }
+  }, [isAuthenticated])
+
   if (authLoading) return <AdminLayout title="GitHub Repos"><div className="text-center py-8 text-text-dim">Loading...</div></AdminLayout>
   if (!isAuthenticated) return null
-
-  useEffect(() => {
-    fetchData()
-  }, [])
 
   const fetchData = async () => {
     setLoading(true)

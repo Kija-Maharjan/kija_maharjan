@@ -92,9 +92,11 @@ export default function Projects({ projects }) {
           ) : filtered.length === 0 ? (
             <div className="text-center py-16 text-text-dim text-xs">No projects found</div>
           ) : (
-            <div className="grid md:grid-cols-2 gap-0.5">
-              {filtered.map(item => (
-                <ProjectCard key={`${item.type}-${item.id}`} project={item} />
+            <div className="masonry-grid">
+              {filtered.map((item, index) => (
+                <div key={`${item.type}-${item.id}`} className="masonry-item">
+                  <ProjectCard project={item} />
+                </div>
               ))}
             </div>
           )}
