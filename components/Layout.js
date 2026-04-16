@@ -99,10 +99,7 @@ export default function Layout({ children, singlePage = false }) {
       <nav className="fixed top-0 left-0 right-0 z-[100] transition-all duration-300 h-16 md:h-20 bg-dark/80 backdrop-blur-md border-b border-white/5">
         <div className="max-w-6xl mx-auto px-6 lg:px-8 flex items-center justify-between h-full">
           <Link href="/" className="font-serif text-xl md:text-2xl font-semibold text-cream tracking-wider flex items-center gap-2">
-            <svg className="w-4 h-4 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
-            <span>K<span className="text-gold">M</span></span>
+            <img src="/logo.png" alt="Kija Maharjan" className="h-12 md:h-14 w-auto" />
           </Link>
 
           <ul className="hidden lg:flex items-center gap-6 list-none m-0">

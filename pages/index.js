@@ -112,19 +112,14 @@ export default function Home({ projects, certs }) {
         <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-gold/5 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-gold/3 rounded-full blur-3xl" />
 
-        <div className="absolute right-10 md:right-20 top-1/2 -translate-y-1/2 font-serif text-[120px] md:text-[180px] font-light text-gold/5 leading-none pointer-events-none select-none hidden lg:block">
-          KM
-        </div>
-
         <div className="relative z-10 w-full max-w-4xl mx-auto px-6 text-center">
-          <div className={`text-[9px] tracking-[5px] text-gold uppercase mb-6 transition-all duration-700 ${isVisible('home') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            Based in Kathmandu, Nepal
+          <div className={`mb-12 transition-all duration-700 ${isVisible('home') ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+            <img src="/logo.png" alt="Kija Maharjan" className="w-full max-w-2xl mx-auto h-auto" />
           </div>
 
-          <h1 className={`font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-cream leading-[1] tracking-[-1px] mb-5 transition-all duration-700 delay-100 ${isVisible('home') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            Kija<br />
-            <em className="text-gold italic">Maharjan</em>
-          </h1>
+          <div className={`text-[9px] tracking-[5px] text-gold uppercase mb-6 transition-all duration-700 delay-100 ${isVisible('home') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            Based in Kathmandu, Nepal
+          </div>
 
           <div className={`text-[11px] tracking-[4px] text-text-dim uppercase mt-5 mb-8 transition-all duration-700 delay-200 ${isVisible('home') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             Fullstack Developer &nbsp;·&nbsp; UI Designer &nbsp;·&nbsp; Freelancer

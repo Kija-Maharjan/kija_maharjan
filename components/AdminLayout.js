@@ -64,12 +64,10 @@ export default function AdminLayout({ children, title }) {
     <div className="flex flex-col h-full">
       <div className="px-6 py-7 border-b border-gold/15 bg-gradient-to-r from-gold-dim/30 to-transparent">
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-9 h-9 border-2 border-gold/40 flex items-center justify-center group-hover:border-gold/80 transition-all shrink-0 rounded">
-            <span className="font-serif text-sm text-cream leading-none font-medium">K<span className="text-gold">M</span></span>
-          </div>
+          <img src="/logo.png" alt="Kija Maharjan" className="h-10 w-auto" />
           <div>
-            <div className="text-[10px] tracking-[2px] uppercase text-cream font-semibold">Kija Maharjan</div>
-            <div className="text-[8px] tracking-[2px] uppercase text-gold/60 mt-1">Admin Console</div>
+            <div className="text-[10px] tracking-[2px] uppercase text-cream font-semibold">Admin Console</div>
+            <div className="text-[8px] tracking-[2px] uppercase text-gold/60 mt-1">Dashboard</div>
           </div>
         </Link>
       </div>
