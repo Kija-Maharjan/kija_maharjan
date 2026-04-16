@@ -80,7 +80,7 @@ export default function Layout({ children, singlePage = false }) {
     <div className="min-h-screen flex flex-col">
       <Head>
         <title>Kija Maharjan</title>
-        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="icon" type="image/png" href="/logo.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       {!isTouchDevice && (

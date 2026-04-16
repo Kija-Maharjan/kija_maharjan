@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
+import { useTheme } from '../hooks/useTheme'
 
 export default function AdminLayout({ children, title }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [logoutModal, setLogoutModal] = useState(false)
+  const { theme, toggleTheme, mounted } = useTheme()
   const router = useRouter()
 
   const logout = async () => {
@@ -64,7 +66,6 @@ export default function AdminLayout({ children, title }) {
     <div className="flex flex-col h-full">
       <div className="px-6 py-7 border-b border-gold/15 bg-gradient-to-r from-gold-dim/30 to-transparent">
         <Link href="/" className="flex items-center gap-3 group">
-          <img src="/logo.png" alt="Kija Maharjan" className="h-10 w-auto" />
           <div>
             <div className="text-[10px] tracking-[2px] uppercase text-cream font-semibold">Admin Console</div>
             <div className="text-[8px] tracking-[2px] uppercase text-gold/60 mt-1">Dashboard</div>
@@ -165,6 +166,32 @@ export default function AdminLayout({ children, title }) {
                 <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
                 <span className="text-[8px] tracking-[2px] uppercase text-green-400/70">Live</span>
               </div>
+              {mounted && (
+                <button
+                  onClick={toggleTheme}
+                  className="flex items-center justify-center w-9 h-9 border border-gold/20 hover:border-gold/50 transition-colors"
+                  aria-label="Toggle theme"
+                  title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                >
+                  {theme === 'dark' ? (
+                    <svg className="w-4 h-4 text-gold" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                    </svg>
+                  ) : (
+                    <svg className="w-4 h-4 text-gold" viewBox="0 0 24 24" fill="currentColor">
+                      <circle cx="12" cy="12" r="5" />
+                      <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                      <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                      <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                      <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                    </svg>
+                  )}
+                </button>
+              )}
             </div>
           </header>
 
