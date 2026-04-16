@@ -10,6 +10,7 @@ export default function GithubRepos() {
   const [toast, setToast] = useState(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
+  const [syncing, setSyncing] = useState(false)
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -37,6 +38,29 @@ export default function GithubRepos() {
       setToast({ message: 'Failed to fetch repos', type: 'error' })
     }
     setLoading(false)
+  }
+
+  const autoSyncRepos = async () => {
+    setSyncing(true)
+    try {
+      const res = await fetch('/api/projects/auto-sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      })
+      
+      if (res.ok) {
+        const data = await res.json()
+        setToast({ 
+          message: `✓ Auto-sync complete! Synced ${data.synced} new projects, updated ${data.updated}`, 
+          type: 'success' 
+        })
+      } else {
+        setToast({ message: 'Auto-sync failed', type: 'error' })
+      }
+    } catch {
+      setToast({ message: 'Auto-sync error', type: 'error' })
+    }
+    setSyncing(false)
   }
 
   const toggleRepo = (repoName) => {
@@ -84,13 +108,22 @@ export default function GithubRepos() {
               <span className="text-text-dim ml-1">{excludedCount} hidden</span>
             </p>
           </div>
-          <button 
-            onClick={saveChanges} 
-            disabled={saving}
-            className="btn-primary text-[10px] px-5 py-2.5"
-          >
-            {saving ? 'Saving...' : 'Save Changes'}
-          </button>
+          <div className="flex gap-3">
+            <button 
+              onClick={autoSyncRepos} 
+              disabled={syncing}
+              className="btn-outline text-[10px] px-5 py-2.5"
+            >
+              {syncing ? 'Syncing...' : '⟳ Auto Sync All'}
+            </button>
+            <button 
+              onClick={saveChanges} 
+              disabled={saving}
+              className="btn-primary text-[10px] px-5 py-2.5"
+            >
+              {saving ? 'Saving...' : 'Save Changes'}
+            </button>
+          </div>
         </div>
       </div>
 
