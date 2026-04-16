@@ -62,7 +62,7 @@ export default function AdminLogin() {
         {/* Floating login box */}
         <div className="w-full max-w-lg relative z-50">
           {/* Login Form Box */}
-          <div className="p-10 md:p-12 border bg-dark/50 backdrop-blur-xl rounded-xl" style={{ borderColor: 'rgba(184,150,12,0.25)' }}>
+          <div className="p-10 md:p-12 border bg-dark/30 backdrop-blur-2xl rounded-lg shadow-2xl" style={{ borderColor: 'rgba(255,255,255,0.15)', boxShadow: '0 8px 32px rgba(0,0,0,0.3)' }}>
             {/* Header - Inside the box */}
             <div className="text-center mb-8 pb-8 border-b border-white/10">
               <div className="font-serif text-4xl font-light mb-2" style={{ color: 'var(--cream)' }}>
