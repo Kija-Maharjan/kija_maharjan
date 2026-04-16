@@ -22,6 +22,7 @@ export default function AdminLogin() {
         body: JSON.stringify(form),
       })
       if (res.ok) {
+        localStorage.setItem('admin_session', 'true')
         router.push('/admin/dashboard')
       } else {
         const data = await res.json()

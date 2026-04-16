@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
+import { clearAdminSession } from '../hooks/useAdminAuth'
 
 export default function AdminLayout({ children, title }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -9,6 +10,7 @@ export default function AdminLayout({ children, title }) {
   const router = useRouter()
 
   const logout = async () => {
+    clearAdminSession()
     await fetch('/api/admin/logout', { method: 'POST' })
     window.location.href = '/admin/login'
   }
