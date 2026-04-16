@@ -39,11 +39,14 @@ export default async function handler(req, res) {
       
       const { data, error } = await supabase
         .from('settings')
-        .upsert({
-          key: 'github_excluded',
-          value: { repos },
-          updated_at: new Date().toISOString()
-        })
+        .upsert(
+          {
+            key: 'github_excluded',
+            value: { repos },
+            updated_at: new Date().toISOString()
+          },
+          { onConflict: 'key' }
+        )
         .select()
       
       if (error) {
