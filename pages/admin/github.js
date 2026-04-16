@@ -48,9 +48,9 @@ export default function GithubSync() {
     <AdminLayout title="GitHub Sync">
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
 
-      <div className="bg-dark-2 p-7 border border-gold/10 mb-8">
-        <div className="text-xs text-text leading-relaxed mb-5">
-          Pull your repositories directly from GitHub and add them to your projects database. Click <strong className="text-gold">Fetch Repos</strong> to load your repos, then <strong className="text-gold">Sync</strong> to add them to your site.
+      <div className="p-7 border mb-8" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-light)' }}>
+        <div className="text-xs leading-relaxed mb-5" style={{ color: 'var(--text)' }}>
+          Pull your repositories directly from GitHub and add them to your projects database. Click <strong style={{ color: 'var(--gold)' }}>Fetch Repos</strong> to load your repos, then <strong style={{ color: 'var(--gold)' }}>Sync</strong> to add them to your site.
         </div>
         <button className="btn-primary px-7 py-3" onClick={fetchRepos} disabled={fetching}>
           {fetching ? 'Fetching...' : '⟳ Fetch My GitHub Repos'}
@@ -60,21 +60,21 @@ export default function GithubSync() {
       {repos.length > 0 ? (
         <div className="flex flex-col gap-0.5">
           {repos.map(repo => (
-            <div key={repo.github_id} className="bg-dark-2 p-5 md:p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border border-gold/5">
+            <div key={repo.github_id} className="p-5 md:p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-light)' }}>
               <div className="flex-1">
-                <div className="font-serif text-lg text-cream mb-1">{repo.name}</div>
-                <div className="text-xs text-text-dim mb-3">{repo.description || 'No description'}</div>
+                <div className="font-serif text-lg mb-1" style={{ color: 'var(--cream)' }}>{repo.name}</div>
+                <div className="text-xs mb-3" style={{ color: 'var(--text-dim)' }}>{repo.description || 'No description'}</div>
                 <div className="flex flex-wrap gap-3">
                   {repo.language && (
-                    <span className="text-[9px] text-gold tracking-[1px] border border-gold/20 px-2 py-1">{repo.language}</span>
+                    <span className="text-[9px] tracking-[1px] border px-2 py-1" style={{ color: 'var(--gold)', borderColor: 'rgba(184,150,12,0.2)' }}>{repo.language}</span>
                   )}
                   {repo.stars > 0 && (
-                    <span className="text-[9px] text-text-dim">★ {repo.stars}</span>
+                    <span className="text-[9px]" style={{ color: 'var(--text-dim)' }}>★ {repo.stars}</span>
                   )}
                   {repo.homepage && (
-                    <a href={repo.homepage} target="_blank" rel="noreferrer" className="text-[9px] text-green-400 hover:underline">Live ↗</a>
+                    <a href={repo.homepage} target="_blank" rel="noreferrer" className="text-[9px] hover:underline" style={{ color: '#4caf50' }}>Live ↗</a>
                   )}
-                  <a href={repo.github_url} target="_blank" rel="noreferrer" className="text-[9px] text-gold hover:underline">GitHub ↗</a>
+                  <a href={repo.github_url} target="_blank" rel="noreferrer" className="text-[9px] hover:underline" style={{ color: 'var(--gold)' }}>GitHub ↗</a>
                 </div>
               </div>
               <button
@@ -88,7 +88,7 @@ export default function GithubSync() {
           ))}
         </div>
       ) : (
-        <div className="text-center text-text-dim text-xs py-16">
+        <div className="text-center text-xs py-16" style={{ color: 'var(--text-dim)' }}>
           Click "Fetch My GitHub Repos" to load your repositories
         </div>
       )}

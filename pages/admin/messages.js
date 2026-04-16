@@ -7,27 +7,30 @@ export default function Messages({ messages }) {
   return (
     <AdminLayout title="Messages">
       {messages.length === 0 ? (
-        <div className="text-center py-16 text-text-dim text-xs">No messages yet</div>
+        <div className="text-center py-16 text-xs" style={{ color: 'var(--text-dim)' }}>No messages yet</div>
       ) : (
         <div className="flex flex-col gap-0.5">
           {messages.map(msg => (
-            <div key={msg.id} className="bg-dark-2 border border-gold/5 overflow-hidden">
+            <div key={msg.id} style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-light)', border: '1px solid' }}>
               <div
-                className="p-5 md:p-6 flex items-center justify-between cursor-pointer hover:bg-dark-3/50 transition-colors"
+                className="p-5 md:p-6 flex items-center justify-between cursor-pointer transition-colors"
+                style={{ color: 'var(--text)' }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(184,150,12,0.05)'}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                 onClick={() => setExpanded(expanded === msg.id ? null : msg.id)}
               >
                 <div>
-                  <div className="font-serif text-lg text-cream">{msg.name}</div>
-                  <div className="text-xs text-text-dim mt-1">{msg.email} · {msg.subject}</div>
+                  <div className="font-serif text-lg" style={{ color: 'var(--cream)' }}>{msg.name}</div>
+                  <div className="text-xs mt-1" style={{ color: 'var(--text-dim)' }}>{msg.email} · {msg.subject}</div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="text-[9px] text-text-dim">{new Date(msg.created_at).toLocaleDateString()}</div>
-                  <div className="text-gold text-sm">{expanded === msg.id ? '▲' : '▼'}</div>
+                  <div className="text-[9px]" style={{ color: 'var(--text-dim)' }}>{new Date(msg.created_at).toLocaleDateString()}</div>
+                  <div className="text-sm" style={{ color: 'var(--gold)' }}>{expanded === msg.id ? '▲' : '▼'}</div>
                 </div>
               </div>
               {expanded === msg.id && (
-                <div className="px-5 md:px-6 pb-6 border-t border-gold/10">
-                  <p className="text-sm leading-relaxed text-text mt-4">{msg.message}</p>
+                <div className="px-5 md:px-6 pb-6" style={{ borderTop: '1px solid var(--border-light)' }}>
+                  <p className="text-sm leading-relaxed mt-4" style={{ color: 'var(--text)' }}>{msg.message}</p>
                   <a href={`mailto:${msg.email}`} className="btn-outline text-[10px] px-5 py-2.5 inline-block mt-4">
                     Reply →
                   </a>

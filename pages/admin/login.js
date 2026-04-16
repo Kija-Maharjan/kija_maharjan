@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import Head from 'next/head'
+import { ThemeProvider } from '../../hooks/useTheme'
 
 export default function AdminLogin() {
   const router = useRouter()
@@ -31,86 +33,101 @@ export default function AdminLogin() {
     setLoading(false)
   }
 
-  return (
-    <div className="min-h-screen bg-dark flex items-center justify-center p-5">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-10">
-          <div className="font-serif text-5xl font-light text-cream mb-2">
-            K<span className="text-gold">M</span>
-          </div>
-          <div className="text-[9px] tracking-[4px] uppercase text-text-dim mb-4">
-            Admin Access
-          </div>
-          <div className="text-[8px] tracking-[2px] text-red-400/60 uppercase">
-            Admins Only
-          </div>
-        </div>
-
-        <div className="bg-dark-2 p-10 md:p-12 border border-gold/10">
-          <div className="text-[9px] tracking-[3px] uppercase text-gold mb-8 text-center">
-            Sign In
-          </div>
-
-          {error && (
-            <div className="bg-red-900/20 border border-red-500/30 text-red-300 p-3 text-xs mb-5 text-center">
-              {error}
+  const LoginContent = () => (
+    <>
+      <Head>
+        <title>Admin Login — Kija Maharjan</title>
+        <link rel="icon" type="image/png" href="/logo.png" />
+      </Head>
+      <div className="min-h-screen flex items-center justify-center p-5" style={{ backgroundColor: 'var(--dark)' }}>
+        <div className="w-full max-w-md">
+          <div className="text-center mb-10">
+            <div className="font-serif text-5xl font-light mb-2" style={{ color: 'var(--cream)' }}>
+              K<span style={{ color: 'var(--gold)' }}>M</span>
             </div>
-          )}
-
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <div>
-              <label className="text-[9px] tracking-[2px] uppercase text-text-dim block mb-2">Username</label>
-              <input
-                type="text"
-                placeholder="Enter username"
-                value={form.username}
-                onChange={e => setForm({ ...form, username: e.target.value })}
-                className="form-input"
-                required
-              />
+            <div className="text-[9px] tracking-[4px] uppercase mb-4" style={{ color: 'var(--text-dim)' }}>
+              Admin Access
             </div>
-            <div>
-              <label className="text-[9px] tracking-[2px] uppercase text-text-dim block mb-2">Password</label>
-              <div className="relative">
+            <div className="text-[8px] tracking-[2px] uppercase" style={{ color: '#ef4444' }}>
+              Admins Only
+            </div>
+          </div>
+
+          <div className="p-10 md:p-12 border" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-light)' }}>
+            <div className="text-[9px] tracking-[3px] uppercase mb-8 text-center" style={{ color: 'var(--gold)' }}>
+              Sign In
+            </div>
+
+            {error && (
+              <div className="p-3 text-xs mb-5 text-center border" style={{ backgroundColor: 'rgba(239,68,68,0.1)', borderColor: 'rgba(239,68,68,0.3)', color: '#ef4444' }}>
+                {error}
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              <div>
+                <label className="text-[9px] tracking-[2px] uppercase block mb-2" style={{ color: 'var(--text-dim)' }}>Username</label>
                 <input
-                  type={showPassword ? 'text' : 'password'}
-                  placeholder="Enter password"
-                  value={form.password}
-                  onChange={e => setForm({ ...form, password: e.target.value })}
-                  className="form-input pr-10"
+                  type="text"
+                  placeholder="Enter username"
+                  value={form.username}
+                  onChange={e => setForm({ ...form, username: e.target.value })}
+                  className="form-input"
                   required
                 />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-text-dim hover:text-gold transition-colors"
-                >
-                  {showPassword ? (
-                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24" />
-                      <line x1="1" y1="1" x2="23" y2="23" />
-                    </svg>
-                  ) : (
-                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                      <circle cx="12" cy="12" r="3" />
-                    </svg>
-                  )}
-                </button>
               </div>
-            </div>
-            <button type="submit" className="btn-primary py-4 tracking-[3px] mt-4" disabled={loading}>
-              {loading ? 'Signing in...' : 'Sign In'}
-            </button>
-          </form>
-        </div>
+              <div>
+                <label className="text-[9px] tracking-[2px] uppercase block mb-2" style={{ color: 'var(--text-dim)' }}>Password</label>
+                <div className="relative">
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder="Enter password"
+                    value={form.password}
+                    onChange={e => setForm({ ...form, password: e.target.value })}
+                    className="form-input pr-10"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 transition-colors"
+                    style={{ color: 'var(--text-dim)' }}
+                    onMouseEnter={(e) => e.currentTarget.style.color = 'var(--gold)'}
+                    onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-dim)'}
+                  >
+                    {showPassword ? (
+                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                        <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24" />
+                        <line x1="1" y1="1" x2="23" y2="23" />
+                      </svg>
+                    ) : (
+                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                        <circle cx="12" cy="12" r="3" />
+                      </svg>
+                    )}
+                  </button>
+                </div>
+              </div>
+              <button type="submit" className="btn-primary py-4 tracking-[3px] mt-4" disabled={loading}>
+                {loading ? 'Signing in...' : 'Sign In'}
+              </button>
+            </form>
+          </div>
 
-        <div className="text-center mt-6">
-          <Link href="/" className="text-[9px] tracking-[2px] uppercase text-gold hover:underline">
-            ← Back to site
-          </Link>
+          <div className="text-center mt-6">
+            <Link href="/" className="text-[9px] tracking-[2px] uppercase hover:underline" style={{ color: 'var(--gold)' }}>
+              ← Back to site
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
+    </>
+  );
+
+  return (
+    <ThemeProvider>
+      <LoginContent />
+    </ThemeProvider>
   )
 }

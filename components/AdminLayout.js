@@ -64,17 +64,17 @@ export default function AdminLayout({ children, title }) {
 
   const SidebarContent = () => (
     <div className="flex flex-col h-full">
-      <div className="px-6 py-7 border-b border-gold/15 bg-gradient-to-r from-gold-dim/30 to-transparent">
+      <div className="px-6 py-7" style={{ borderBottom: '1px solid var(--border-light)', background: 'linear-gradient(135deg, rgba(184,150,12,0.08) 0%, transparent 100%)' }}>
         <Link href="/" className="flex items-center gap-3 group">
           <div>
-            <div className="text-[10px] tracking-[2px] uppercase text-cream font-semibold">Admin Console</div>
-            <div className="text-[8px] tracking-[2px] uppercase text-gold/60 mt-1">Dashboard</div>
+            <div className="text-[10px] tracking-[2px] uppercase font-semibold" style={{ color: 'var(--cream)' }}>Admin Console</div>
+            <div className="text-[8px] tracking-[2px] uppercase mt-1" style={{ color: 'var(--gold)' }}>Dashboard</div>
           </div>
         </Link>
       </div>
 
       <nav className="flex-1 px-4 py-5 overflow-y-auto">
-        <div className="text-[7px] tracking-[3px] uppercase text-text-dim px-2 mb-4 mt-2 font-medium">Menu</div>
+        <div className="text-[7px] tracking-[3px] uppercase px-2 mb-4 mt-2 font-medium" style={{ color: 'var(--text-dim)' }}>Menu</div>
         {navItems.map(item => (
           <Link
             key={item.href}
@@ -88,8 +88,8 @@ export default function AdminLayout({ children, title }) {
         ))}
       </nav>
 
-      <div className="px-4 py-5 border-t border-gold/15 bg-gold-dim/10">
-        <Link href="/" className="flex items-center gap-2.5 px-3 py-2.5 rounded hover:bg-gold/10 text-[9px] tracking-[2px] uppercase text-text-dim hover:text-gold transition-all mb-1.5">
+      <div className="px-4 py-5" style={{ borderTop: '1px solid var(--border-light)', background: 'rgba(184,150,12,0.05)' }}>
+        <Link href="/" className="flex items-center gap-2.5 px-3 py-2.5 rounded text-[9px] tracking-[2px] uppercase transition-all mb-1.5" style={{ color: 'var(--text-dim)' }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'rgba(184,150,12,0.1)'; e.currentTarget.style.color = 'var(--gold)'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = 'var(--text-dim)'; }}>
           <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M19 12H5M12 19l-7-7 7-7"/>
           </svg>
@@ -97,7 +97,7 @@ export default function AdminLayout({ children, title }) {
         </Link>
         <button
           onClick={() => setLogoutModal(true)}
-          className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded text-[9px] tracking-[2px] uppercase text-text-dim hover:text-red-400 hover:bg-red-500/10 transition-all"
+          className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded text-[9px] tracking-[2px] uppercase transition-all" style={{ color: 'var(--text-dim)' }} onMouseEnter={(e) => { e.currentTarget.style.color = '#ef4444'; e.currentTarget.style.backgroundColor = 'rgba(239,68,68,0.1)'; }} onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-dim)'; e.currentTarget.style.backgroundColor = 'transparent'; }}
         >
           <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
