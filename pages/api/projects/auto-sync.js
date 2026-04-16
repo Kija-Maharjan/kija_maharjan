@@ -35,12 +35,17 @@ function categorizeRepo(repo) {
   const name = repo.name.toLowerCase()
   const desc = repo.description?.toLowerCase() || ''
   const lang = repo.language?.toLowerCase() || ''
-  const combined = `${name} ${desc} ${lang}`
+  // Normalize by replacing hyphens with spaces for better matching
+  const combined = `${name} ${desc} ${lang}`.replace(/[-_]/g, ' ')
 
   // Check each category's keywords
   for (const [category, keywords] of Object.entries(categoryKeywords)) {
     for (const keyword of keywords) {
-      if (combined.includes(keyword)) {
+      // Normalize keyword as well
+      const normalizedKeyword = keyword.toLowerCase().replace(/[-_]/g, ' ')
+      // Check for word boundary match (not just substring)
+      const regex = new RegExp(`\\b${normalizedKeyword.split(' ').join('\\b|\\b')}\\b`)
+      if (regex.test(combined)) {
         return category
       }
     }

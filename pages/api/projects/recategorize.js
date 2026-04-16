@@ -33,11 +33,16 @@ function categorizeProject(project) {
   const name = project.name?.toLowerCase() || ''
   const desc = project.description?.toLowerCase() || ''
   const tech = (project.tech_stack || []).join(' ').toLowerCase()
-  const combined = `${name} ${desc} ${tech}`
+  // Normalize by replacing hyphens with spaces for better matching
+  const combined = `${name} ${desc} ${tech}`.replace(/[-_]/g, ' ')
 
   for (const [category, keywords] of Object.entries(categoryKeywords)) {
     for (const keyword of keywords) {
-      if (combined.includes(keyword)) {
+      // Normalize keyword as well
+      const normalizedKeyword = keyword.toLowerCase().replace(/[-_]/g, ' ')
+      // Check for word boundary match (not just substring)
+      const regex = new RegExp(`\\b${normalizedKeyword.split(' ').join('\\b|\\b')}\\b`)
+      if (regex.test(combined)) {
         return category
       }
     }
