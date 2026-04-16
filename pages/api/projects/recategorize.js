@@ -3,15 +3,15 @@ import { isAdmin } from '../../../lib/auth'
 
 // Comprehensive keyword to category mapping
 const categoryKeywords = {
-  'Restaurant Tech': ['restaurant', 'food delivery', 'menu', 'ordering', 'pos system', 'dine'],
-  'Cafe Tech': ['cafe', 'coffee', 'bakery', 'shop', 'retail'],
-  'Education': ['education', 'learn', 'course', 'school', 'training', 'tutorial', 'educational', 'python', 'java'],
-  'Brand & Fashion': ['brand', 'fashion', 'design', 'ui', 'ux', 'portfolio', 'swift', 'kotlin', 'mobile app'],
-  'Browser Extension': ['extension', 'chrome', 'firefox', 'addon', 'plugin'],
-  'Fitness': ['fitness', 'gym', 'workout', 'exercise', 'health', 'wellness', 'diet', 'tracker'],
-  'Personal Growth': ['blog', 'portfolio', 'personal', 'resume', 'cv', 'website', 'landing'],
-  'Food & Community': ['food', 'community', 'social', 'networking', 'meetup', 'forum', 'discussion'],
-  'Web Development': ['web', 'website', 'frontend', 'backend', 'fullstack', 'react', 'vue', 'angular', 'nodejs', 'express', 'django', 'flask', 'next', 'svelte', 'api', 'rest', 'graphql'],
+  'Restaurant Tech': ['restaurant', 'food delivery', 'menu', 'ordering', 'pos system', 'pos', 'dine', 'restaurant system', 'ordering system', 'food service', 'restaurant app'],
+  'Cafe Tech': ['cafe', 'coffee', 'bakery', 'shop', 'retail', 'menu system', 'cafe system', 'cafe website', 'coffee shop', 'online menu', 'trios'],
+  'Education': ['education', 'learn', 'course', 'school', 'training', 'tutorial', 'educational', 'python', 'java', 'academy', 'learning platform', 'study', 'nexus'],
+  'Brand & Fashion': ['brand', 'fashion', 'design', 'ui', 'ux', 'portfolio', 'swift', 'kotlin', 'mobile app', 'clothing', 'cloths', 'apparel', 'aura', 'luswaa'],
+  'Browser Extension': ['extension', 'chrome', 'firefox', 'addon', 'plugin', 'keyboard', 'sound', 'vscode', 'vs code', 'brave'],
+  'Fitness': ['fitness', 'gym', 'workout', 'exercise', 'health', 'wellness', 'diet', 'tracker', 'gym-bro', 'beast'],
+  'Personal Growth': ['blog', 'portfolio', 'personal', 'resume', 'cv', 'website', 'landing', 'growth', 'development', 'learning', 'self', 'improvement', 'personal project', 'kija'],
+  'Food & Community': ['food', 'community', 'social', 'networking', 'meetup', 'forum', 'discussion', 'recipe', 'cook', 'recipe streak', 'recipe learning'],
+  'Web Development': ['web', 'website', 'frontend', 'backend', 'fullstack', 'react', 'vue', 'angular', 'nodejs', 'express', 'django', 'flask', 'next', 'svelte', 'api', 'rest', 'graphql', 'tech', 'app', 'application'],
 }
 
 const languageFallback = {
