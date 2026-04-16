@@ -1,12 +1,17 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/router'
 
 export function useAdminAuth() {
   const router = useRouter()
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [loading, setLoading] = useState(true)
+  const hasChecked = useRef(false)
 
   useEffect(() => {
+    if (!router.isReady || hasChecked.current) return
+
+    hasChecked.current = true
+
     const checkAuth = async () => {
       try {
         const res = await fetch('/api/admin/verify')
@@ -23,7 +28,7 @@ export function useAdminAuth() {
     }
 
     checkAuth()
-  }, [router])
+  }, [router, router.isReady])
 
   return { isAuthenticated, loading }
 }
