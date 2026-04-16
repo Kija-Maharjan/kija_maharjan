@@ -8,7 +8,9 @@ export function useAdminAuth() {
   const hasChecked = useRef(false)
 
   useEffect(() => {
-    if (!router.isReady) return
+    if (!router.isReady || hasChecked.current) return
+
+    hasChecked.current = true
 
     const checkAuth = async () => {
       // Check if we have a cached auth state
@@ -33,31 +35,30 @@ export function useAdminAuth() {
         // Token invalid, clear cache and redirect
         localStorage.removeItem('admin_session')
         setIsAuthenticated(false)
-        router.replace('/admin/login')
         setLoading(false)
+        router.replace('/admin/login')
       } else {
         // No cached session, verify with backend
-        if (!hasChecked.current) {
-          hasChecked.current = true
-          try {
-            const res = await fetch('/api/admin/verify')
-            if (res.ok) {
-              setIsAuthenticated(true)
-              localStorage.setItem('admin_session', 'true')
-            } else {
-              router.replace('/admin/login')
-            }
-          } catch {
+        try {
+          const res = await fetch('/api/admin/verify')
+          if (res.ok) {
+            setIsAuthenticated(true)
+            localStorage.setItem('admin_session', 'true')
+          } else {
+            setIsAuthenticated(false)
             router.replace('/admin/login')
-          } finally {
-            setLoading(false)
           }
+        } catch {
+          setIsAuthenticated(false)
+          router.replace('/admin/login')
+        } finally {
+          setLoading(false)
         }
       }
     }
 
     checkAuth()
-  }, [router, router.isReady])
+  }, [router.isReady])
 
   return { isAuthenticated, loading }
 }
