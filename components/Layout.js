@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import Head from 'next/head'
 
 export default function Layout({ children, singlePage = false }) {
   const router = useRouter()
@@ -75,6 +76,11 @@ export default function Layout({ children, singlePage = false }) {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <Head>
+        <title>Kija Maharjan</title>
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
       {!isTouchDevice && (
         <>
           <div 
@@ -166,34 +172,6 @@ export default function Layout({ children, singlePage = false }) {
       <main className="flex-1 pb-0">
         {children}
       </main>
-
-      <footer className="bg-dark border-t border-gold/10 py-6 md:py-8 px-5 md:px-16 lg:px-20 mt-auto">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="font-serif text-base text-cream">
-            K<span className="text-gold">M</span>
-          </div>
-          <div className="text-[10px] tracking-[2px] text-text-dim uppercase">
-            © 2025 Kija Maharjan
-          </div>
-          <div className="flex gap-3">
-            <a href="https://github.com/Kija-Maharjan" target="_blank" rel="noreferrer" className="w-8 h-8 border border-gold/20 flex items-center justify-center transition-all duration-300 hover:border-gold hover:bg-gold-dim" title="GitHub">
-              <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 stroke-gold fill-none stroke-[1.5]">
-                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
-              </svg>
-            </a>
-            <a href="https://linkedin.com/in/Kija-Maharjan" target="_blank" rel="noreferrer" className="w-8 h-8 border border-gold/20 flex items-center justify-center transition-all duration-300 hover:border-gold hover:bg-gold-dim" title="LinkedIn">
-              <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 stroke-gold fill-none stroke-[1.5]">
-                <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
-              </svg>
-            </a>
-            <a href="https://instagram.com/kijamaharjan" target="_blank" rel="noreferrer" className="w-8 h-8 border border-gold/20 flex items-center justify-center transition-all duration-300 hover:border-gold hover:bg-gold-dim" title="Instagram">
-              <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 stroke-gold fill-none stroke-[1.5]">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-              </svg>
-            </a>
-          </div>
-        </div>
-      </footer>
     </div>
   )
 }
