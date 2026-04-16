@@ -2,16 +2,20 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
+import { useTheme } from '../hooks/useTheme'
 
 export default function Layout({ children, singlePage = false }) {
   const router = useRouter()
+  const { theme, toggleTheme } = useTheme()
   const [menuOpen, setMenuOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const [mousePos, setMousePos] = useState({ x: -100, y: -100 })
   const [ringPos, setRingPos] = useState({ x: -100, y: -100 })
   const [scrolled, setScrolled] = useState(false)
   const [isTouchDevice, setIsTouchDevice] = useState(false)
 
   useEffect(() => {
+    setMounted(true)
     setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0)
   }, [])
 
@@ -94,12 +98,13 @@ export default function Layout({ children, singlePage = false }) {
         </>
       )}
 
-      <nav className="fixed top-0 left-0 right-0 z-[100] transition-all duration-300 h-16 md:h-20 bg-dark/80 backdrop-blur-md border-b border-white/5">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8 flex items-center justify-between h-full">
-          <Link href="/" className="font-serif text-2xl md:text-3xl font-semibold text-cream tracking-wider">
-            K<span style={{ color: 'var(--gold)' }}>M</span>
-          </Link>
+      {/* KM Logo - Fixed top left */}
+      <Link href="/" className="fixed top-4 left-6 z-[101] font-serif text-2xl font-semibold text-cream tracking-wider hover:opacity-80 transition-opacity">
+        K<span style={{ color: 'var(--gold)' }}>M</span>
+      </Link>
 
+      <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-[100] transition-all duration-300 bg-dark/40 backdrop-blur-xl border border-white/10 rounded-lg px-6 py-3">
+        <div className="flex items-center justify-center h-full">
           <ul className="hidden lg:flex items-center gap-6 list-none m-0">
             {navLinks.map(link => (
               <li key={link.href}>
@@ -125,13 +130,13 @@ export default function Layout({ children, singlePage = false }) {
 
           <Link
             href="/admin/login"
-            className="hidden lg:block text-[9px] tracking-[2px] uppercase font-medium text-text-dim hover:text-gold transition-colors duration-300 border border-gold/20 hover:border-gold/40 px-4 py-2"
+            className="hidden lg:block text-[9px] tracking-[2px] uppercase font-medium text-text-dim hover:text-gold transition-colors duration-300 border border-gold/20 hover:border-gold/40 px-4 py-2 ml-6"
           >
             Login
           </Link>
 
           <button
-            className="lg:hidden flex flex-col gap-1.5 bg-transparent border-none cursor-pointer p-1 z-[200]"
+            className="lg:hidden flex flex-col gap-1.5 bg-transparent border-none cursor-pointer p-1"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
           >

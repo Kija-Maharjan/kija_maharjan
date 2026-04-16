@@ -71,7 +71,7 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-y: scroll; }
 
 body {
   background: var(--dark);
@@ -309,6 +309,25 @@ a { text-decoration: none; color: inherit; }
   width: 100%;
   box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
 }
+
+/* Blurred input variant */
+.form-input.backdrop-blur-md {
+  background: rgba(34, 34, 34, 0.3);
+  border-color: rgba(184, 150, 12, 0.15);
+  backdrop-filter: blur(12px);
+}
+
+.form-input.backdrop-blur-md:hover, .form-textarea.backdrop-blur-md:hover, .form-select.backdrop-blur-md:hover {
+  border-color: rgba(184, 150, 12, 0.3);
+  background: rgba(34, 34, 34, 0.4);
+}
+
+.form-input.backdrop-blur-md:focus, .form-textarea.backdrop-blur-md:focus, .form-select.backdrop-blur-md:focus {
+  border-color: var(--input-border-focus);
+  background: rgba(34, 34, 34, 0.5);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1), inset 0 0 8px rgba(184,150,12,0.1);
+}
+
 .form-input:hover, .form-textarea:hover, .form-select:hover {
   border-color: var(--input-border-hover);
   background: rgba(var(--input-bg-rgb), 0.8);
@@ -316,7 +335,7 @@ a { text-decoration: none; color: inherit; }
 .form-input:focus, .form-textarea:focus, .form-select:focus {
   border-color: var(--input-border-focus);
   background: var(--input-bg);
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1), 0 0 12px rgba(184,150,12,0.15);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1), inset 0 0 8px rgba(184,150,12,0.1);
 }
 .form-input::placeholder, .form-textarea::placeholder { color: var(--text-dim); }
 .form-textarea { min-height: 120px; resize: vertical; font-size: 12px; }

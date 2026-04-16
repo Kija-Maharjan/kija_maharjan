@@ -40,8 +40,12 @@ export default function AdminLogin() {
         <title>Admin Login — Kija Maharjan</title>
         <link rel="icon" type="image/png" href="/logo.png" />
       </Head>
-      <div className="min-h-screen flex items-center justify-center p-5" style={{ backgroundColor: 'var(--dark)' }}>
-        <div className="w-full max-w-md">
+      <div className="min-h-screen flex items-center justify-center p-5 bg-dark relative" style={{ backgroundColor: 'var(--dark)' }}>
+        {/* Backdrop blur overlay */}
+        <div className="fixed inset-0 bg-dark/30 backdrop-blur-sm z-40" />
+        
+        {/* Floating login box */}
+        <div className="w-full max-w-md relative z-50">
           <div className="text-center mb-10">
             <div className="font-serif text-5xl font-light mb-2" style={{ color: 'var(--cream)' }}>
               K<span style={{ color: 'var(--gold)' }}>M</span>
@@ -54,13 +58,13 @@ export default function AdminLogin() {
             </div>
           </div>
 
-          <div className="p-10 md:p-12 border" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-light)' }}>
+          <div className="p-10 md:p-12 border bg-dark/50 backdrop-blur-xl rounded-xl" style={{ borderColor: 'rgba(184,150,12,0.25)' }}>
             <div className="text-[9px] tracking-[3px] uppercase mb-8 text-center" style={{ color: 'var(--gold)' }}>
               Sign In
             </div>
 
             {error && (
-              <div className="p-3 text-xs mb-5 text-center border" style={{ backgroundColor: 'rgba(239,68,68,0.1)', borderColor: 'rgba(239,68,68,0.3)', color: '#ef4444' }}>
+              <div className="p-3 text-xs mb-5 text-center border rounded-lg" style={{ backgroundColor: 'rgba(239,68,68,0.1)', borderColor: 'rgba(239,68,68,0.3)', color: '#ef4444' }}>
                 {error}
               </div>
             )}
@@ -73,7 +77,7 @@ export default function AdminLogin() {
                   placeholder="Enter username"
                   value={form.username}
                   onChange={e => setForm({ ...form, username: e.target.value })}
-                  className="form-input"
+                  className="form-input bg-dark/40 backdrop-blur-md"
                   required
                 />
               </div>
@@ -85,7 +89,7 @@ export default function AdminLogin() {
                     placeholder="Enter password"
                     value={form.password}
                     onChange={e => setForm({ ...form, password: e.target.value })}
-                    className="form-input pr-10"
+                    className="form-input pr-10 bg-dark/40 backdrop-blur-md"
                     required
                   />
                   <button
@@ -110,7 +114,7 @@ export default function AdminLogin() {
                   </button>
                 </div>
               </div>
-              <button type="submit" className="btn-primary py-4 tracking-[3px] mt-4" disabled={loading}>
+              <button type="submit" className="btn-primary py-4 tracking-[3px] mt-4 rounded-lg" disabled={loading}>
                 {loading ? 'Signing in...' : 'Sign In'}
               </button>
             </form>
