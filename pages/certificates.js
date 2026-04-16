@@ -1,4 +1,5 @@
 import { supabase } from '../lib/supabase'
+import Layout from '../components/Layout'
 
 export async function getServerSideProps() {
   const { data: certs } = await supabase
@@ -10,35 +11,45 @@ export async function getServerSideProps() {
 
 export default function Certificates({ certs }) {
   return (
-    <div className="section section-alt">
-      <div className="section-header">
-        <span className="section-num">04</span>
-        <div className="section-line" />
-        <h1 className="section-title">Certificates & <em>Learning</em></h1>
-      </div>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-        {certs.length === 0 ? (
-          <div className="loader">No certificates yet</div>
-        ) : certs.map(cert => (
-          <div key={cert.id} className="cert-item" style={{ background: 'var(--dark2)', padding: '28px 36px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', transition: 'all 0.3s', borderLeft: '2px solid transparent' }}
-            onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--gold)'; e.currentTarget.style.paddingLeft = '44px' }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor = 'transparent'; e.currentTarget.style.paddingLeft = '36px' }}
-          >
-            <div>
-              <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '20px', color: 'var(--cream)', fontWeight: 400 }}>{cert.name}</div>
-              <div style={{ fontSize: '10px', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--text-dim)', marginTop: '4px' }}>{cert.issuer}</div>
-              {cert.date && <div style={{ fontSize: '10px', color: 'var(--text-dim)', marginTop: '4px' }}>{cert.date}</div>}
-            </div>
-            <div>
-              <span className={`badge ${cert.status === 'In Progress' ? '' : 'badge-green'}`}>{cert.status || 'Completed'}</span>
-              {cert.url && (
-                <a href={cert.url} target="_blank" rel="noreferrer" style={{ display: 'block', marginTop: '8px', fontSize: '9px', letterSpacing: '1px', color: 'var(--gold)', textTransform: 'uppercase' }}>View →</a>
-              )}
-            </div>
+    <Layout>
+      <div className="section-padding">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center gap-5 mb-12">
+            <span className="font-serif text-sm text-gold tracking-[2px]">04</span>
+            <div className="w-12 h-px bg-gold/50" />
+            <h1 className="font-serif text-3xl md:text-5xl font-light text-cream">
+              Certificates & <em className="text-gold italic">Learning</em>
+            </h1>
           </div>
-        ))}
+
+          <div className="flex flex-col gap-0.5">
+            {certs.length === 0 ? (
+              <div className="loader">No certificates yet</div>
+            ) : certs.map(cert => (
+              <div
+                key={cert.id}
+                className="bg-dark-2 p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-l-2 border-transparent hover:border-gold hover:pl-10 transition-all duration-300 group cursor-default"
+              >
+                <div>
+                  <h3 className="font-serif text-lg text-cream font-normal">{cert.name}</h3>
+                  <div className="text-[10px] tracking-[2px] uppercase text-text-dim mt-1">{cert.issuer}</div>
+                  {cert.date && <div className="text-[10px] text-text-dim mt-1">{cert.date}</div>}
+                </div>
+                <div className="flex flex-col items-start md:items-end gap-2">
+                  <span className={`badge ${cert.status === 'In Progress' ? '' : 'badge-green'}`}>
+                    {cert.status || 'Completed'}
+                  </span>
+                  {cert.url && (
+                    <a href={cert.url} target="_blank" rel="noreferrer" className="text-[9px] tracking-[1px] text-gold uppercase group-hover:underline">
+                      View →
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-    </div>
+    </Layout>
   )
 }

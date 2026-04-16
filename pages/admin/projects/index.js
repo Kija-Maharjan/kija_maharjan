@@ -11,7 +11,7 @@ export default function AdminProjects() {
   const fetchProjects = async () => {
     const res = await fetch('/api/projects')
     const data = await res.json()
-    setProjects(data)
+    setProjects(Array.isArray(data) ? data : [])
     setLoading(false)
   }
 
@@ -31,32 +31,35 @@ export default function AdminProjects() {
   return (
     <AdminLayout title="Projects">
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
-        <div style={{ fontSize: '11px', color: 'var(--text-dim)', letterSpacing: '1px' }}>{projects.length} projects total</div>
-        <div style={{ display: 'flex', gap: '12px' }}>
-          <Link href="/admin/github" className="btn-outline" style={{ padding: '10px 20px', fontSize: '9px' }}>⟳ GitHub Sync</Link>
-          <Link href="/admin/projects/new" className="btn-primary" style={{ padding: '10px 20px', fontSize: '9px' }}>+ New Project</Link>
+      
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+        <div className="text-xs text-text-dim tracking-wide">{projects.length} projects total</div>
+        <div className="flex gap-3">
+          <Link href="/admin/github" className="btn-outline text-[10px] px-5 py-2.5">⟳ GitHub Sync</Link>
+          <Link href="/admin/projects/new" className="btn-primary text-[10px] px-5 py-2.5">+ New Project</Link>
         </div>
       </div>
 
       {loading ? (
         <div className="loader">Loading...</div>
       ) : projects.length === 0 ? (
-        <div className="loader">No projects yet. Add one!</div>
+        <div className="text-center py-16 text-text-dim text-xs">
+          No projects yet. Add one!
+        </div>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+        <div className="flex flex-col gap-0.5">
           {projects.map(p => (
-            <div key={p.id} style={{ background: 'var(--dark2)', padding: '24px 28px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', border: '1px solid rgba(184,150,12,0.05)', gap: '16px' }}>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '20px', color: 'var(--cream)', marginBottom: '4px' }}>{p.name}</div>
-                <div style={{ fontSize: '10px', color: 'var(--text-dim)', marginBottom: '8px' }}>{p.category}</div>
-                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                  {p.github_url && <a href={p.github_url} target="_blank" rel="noreferrer" style={{ fontSize: '9px', color: 'var(--gold)', letterSpacing: '1px' }}>GitHub ↗</a>}
-                  {p.hosted_url && <a href={p.hosted_url} target="_blank" rel="noreferrer" style={{ fontSize: '9px', color: '#a8e6a8', letterSpacing: '1px' }}>Live ↗</a>}
+            <div key={p.id} className="bg-dark-2 p-6 md:p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border border-gold/5 hover:border-gold/20 transition-colors">
+              <div className="flex-1">
+                <div className="font-serif text-lg text-cream mb-1">{p.name}</div>
+                <div className="text-xs text-text-dim mb-3">{p.category}</div>
+                <div className="flex gap-4 flex-wrap">
+                  {p.github_url && <a href={p.github_url} target="_blank" rel="noreferrer" className="text-[9px] text-gold tracking-wide hover:underline">GitHub ↗</a>}
+                  {p.hosted_url && <a href={p.hosted_url} target="_blank" rel="noreferrer" className="text-[9px] text-green-400 tracking-wide hover:underline">Live ↗</a>}
                 </div>
               </div>
-              <div style={{ display: 'flex', gap: '10px', flexShrink: 0 }}>
-                <Link href={`/admin/projects/edit/${p.id}`} className="btn-outline" style={{ padding: '8px 16px', fontSize: '9px' }}>Edit</Link>
+              <div className="flex gap-2.5 shrink-0">
+                <Link href={`/admin/projects/edit/${p.id}`} className="btn-outline text-[10px] px-4 py-2">Edit</Link>
                 <button className="btn-danger" onClick={() => deleteProject(p.id)}>Delete</button>
               </div>
             </div>
@@ -66,5 +69,3 @@ export default function AdminProjects() {
     </AdminLayout>
   )
 }
-
-AdminProjects.getInitialProps = () => ({ adminPage: true })

@@ -2,16 +2,24 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-export default function Layout({ children }) {
+export default function Layout({ children, singlePage = false }) {
   const router = useRouter()
   const [menuOpen, setMenuOpen] = useState(false)
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
-  const [ringPos, setRingPos] = useState({ x: 0, y: 0 })
+  const [mousePos, setMousePos] = useState({ x: -100, y: -100 })
+  const [ringPos, setRingPos] = useState({ x: -100, y: -100 })
+  const [scrolled, setScrolled] = useState(false)
+  const [isTouchDevice, setIsTouchDevice] = useState(false)
 
   useEffect(() => {
+    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0)
+  }, [])
+
+  useEffect(() => {
+    if (isTouchDevice) return
+
     let animFrame
-    let target = { x: 0, y: 0 }
-    let current = { x: 0, y: 0 }
+    let target = { x: -100, y: -100 }
+    let current = { x: -100, y: -100 }
 
     const onMove = (e) => {
       target.x = e.clientX
@@ -20,86 +28,172 @@ export default function Layout({ children }) {
     }
 
     const animate = () => {
-      current.x += (target.x - current.x) * 0.12
-      current.y += (target.y - current.y) * 0.12
+      current.x += (target.x - current.x) * 0.15
+      current.y += (target.y - current.y) * 0.15
       setRingPos({ x: current.x, y: current.y })
       animFrame = requestAnimationFrame(animate)
     }
 
     window.addEventListener('mousemove', onMove)
     animFrame = requestAnimationFrame(animate)
+    
     return () => {
       window.removeEventListener('mousemove', onMove)
-      cancelAnimationFrame(animFrame)
+      if (animFrame) cancelAnimationFrame(animFrame)
     }
+  }, [isTouchDevice])
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  useEffect(() => {
+    if (menuOpen) document.body.style.overflow = 'hidden'
+    else document.body.style.overflow = 'auto'
+    return () => { document.body.style.overflow = 'auto' }
+  }, [menuOpen])
+
   const navLinks = [
-    { href: '/', label: 'Home' },
-    { href: '/about', label: 'About' },
-    { href: '/services', label: 'Services' },
-    { href: '/projects', label: 'Projects' },
-    { href: '/certificates', label: 'Certificates' },
-    { href: '/contact', label: 'Contact' },
+    { href: '/', label: 'Home', section: 'home' },
+    { href: '/#about', label: 'About', section: 'about' },
+    { href: '/#services', label: 'Services', section: 'services' },
+    { href: '/#projects', label: 'Projects', section: 'projects' },
+    { href: '/#certificates', label: 'Certificates', section: 'certificates' },
+    { href: '/#contact', label: 'Contact', section: 'contact' },
   ]
 
-  const isActive = (href) => {
-    if (href === '/') return router.pathname === '/'
-    return router.pathname.startsWith(href)
+  const scrollToSection = (e, sectionId) => {
+    e.preventDefault()
+    setMenuOpen(false)
+    const element = document.getElementById(sectionId)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
   }
 
   return (
-    <>
-      {/* Custom Cursor */}
-      <div className="cursor" style={{ left: mousePos.x, top: mousePos.y }} />
-      <div className="cursor-ring" style={{ left: ringPos.x, top: ringPos.y }} />
+    <div className="min-h-screen flex flex-col">
+      {!isTouchDevice && (
+        <>
+          <div 
+            className="cursor-dot"
+            style={{ left: mousePos.x, top: mousePos.y }}
+          />
+          <div 
+            className="cursor-ring"
+            style={{ left: ringPos.x, top: ringPos.y }}
+          />
+        </>
+      )}
 
-      {/* Nav */}
-      <nav>
-        <Link href="/" className="nav-logo">K<span>M</span></Link>
-        <ul className={`nav-links ${menuOpen ? 'open' : ''}`}>
-          {navLinks.map(link => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                className={isActive(link.href) ? 'active' : ''}
-                onClick={() => setMenuOpen(false)}
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <button
-          className={`hamburger ${menuOpen ? 'open' : ''}`}
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-        >
-          <span /><span /><span />
-        </button>
+      <nav className="fixed top-0 left-0 right-0 z-[100] transition-all duration-300 h-16 md:h-20 bg-dark/80 backdrop-blur-md border-b border-white/5">
+        <div className="max-w-6xl mx-auto px-6 lg:px-8 flex items-center justify-between h-full">
+          <Link href="/" className="font-serif text-xl md:text-2xl font-semibold text-cream tracking-wider flex items-center gap-2">
+            <svg className="w-4 h-4 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            <span>K<span className="text-gold">M</span></span>
+          </Link>
+
+          <ul className="hidden lg:flex items-center gap-6 list-none m-0">
+            {navLinks.map(link => (
+              <li key={link.href}>
+                {singlePage ? (
+                  <a
+                    href={link.href}
+                    onClick={(e) => scrollToSection(e, link.section)}
+                    className="text-[9px] tracking-[2px] uppercase font-medium text-text-dim hover:text-gold transition-colors duration-300"
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <Link
+                    href={link.href}
+                    className="text-[9px] tracking-[2px] uppercase font-medium text-text-dim hover:text-gold transition-colors duration-300"
+                  >
+                    {link.label}
+                  </Link>
+                )}
+              </li>
+            ))}
+          </ul>
+
+          <Link
+            href="/admin/login"
+            className="hidden lg:block text-[9px] tracking-[2px] uppercase font-medium text-text-dim hover:text-gold transition-colors duration-300 border border-gold/20 hover:border-gold/40 px-4 py-2"
+          >
+            Login
+          </Link>
+
+          <button
+            className="lg:hidden flex flex-col gap-1.5 bg-transparent border-none cursor-pointer p-1 z-[200]"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+          >
+            <span className={`block w-6 h-0.5 bg-cream transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+            <span className={`block w-6 h-0.5 bg-cream transition-all duration-300 ${menuOpen ? 'opacity-0' : ''}`} />
+            <span className={`block w-6 h-0.5 bg-cream transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+          </button>
+        </div>
       </nav>
 
-      {/* Page Content */}
-      <main className="page-wrapper">
+      {menuOpen && (
+        <div className="fixed inset-0 bg-dark/90 backdrop-blur-md z-[150] flex flex-col items-center justify-center gap-8 lg:hidden">
+          {navLinks.map(link => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={(e) => {
+                if (singlePage) {
+                  scrollToSection(e, link.section)
+                } else {
+                  setMenuOpen(false)
+                }
+              }}
+              className="text-cream text-sm tracking-[4px] uppercase font-light hover:text-gold transition-colors"
+            >
+              {link.label}
+            </a>
+          ))}
+          <Link href="/admin/login" onClick={() => setMenuOpen(false)} className="text-gold text-xs tracking-[3px] uppercase mt-4 hover:text-gold-light">
+            Admin Login
+          </Link>
+        </div>
+      )}
+
+      <main className="flex-1 pb-0">
         {children}
       </main>
 
-      {/* Footer */}
-      <footer>
-        <div className="footer-logo">K<span>M</span></div>
-        <div className="footer-copy">© 2025 Kija Maharjan · kijamaharjan.xyz</div>
-        <div className="footer-socials">
-          <a href="https://github.com/Kija-Maharjan" target="_blank" rel="noreferrer" className="footer-social" title="GitHub">
-            <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
-          </a>
-          <a href="https://linkedin.com/in/Kija-Maharjan" target="_blank" rel="noreferrer" className="footer-social" title="LinkedIn">
-            <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-          </a>
-          <a href="https://instagram.com/kijamaharjan" target="_blank" rel="noreferrer" className="footer-social" title="Instagram">
-            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          </a>
+      <footer className="bg-dark border-t border-gold/10 py-6 md:py-8 px-5 md:px-16 lg:px-20 mt-auto">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="font-serif text-base text-cream">
+            K<span className="text-gold">M</span>
+          </div>
+          <div className="text-[10px] tracking-[2px] text-text-dim uppercase">
+            © 2025 Kija Maharjan
+          </div>
+          <div className="flex gap-3">
+            <a href="https://github.com/Kija-Maharjan" target="_blank" rel="noreferrer" className="w-8 h-8 border border-gold/20 flex items-center justify-center transition-all duration-300 hover:border-gold hover:bg-gold-dim" title="GitHub">
+              <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 stroke-gold fill-none stroke-[1.5]">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+              </svg>
+            </a>
+            <a href="https://linkedin.com/in/Kija-Maharjan" target="_blank" rel="noreferrer" className="w-8 h-8 border border-gold/20 flex items-center justify-center transition-all duration-300 hover:border-gold hover:bg-gold-dim" title="LinkedIn">
+              <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 stroke-gold fill-none stroke-[1.5]">
+                <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+              </svg>
+            </a>
+            <a href="https://instagram.com/kijamaharjan" target="_blank" rel="noreferrer" className="w-8 h-8 border border-gold/20 flex items-center justify-center transition-all duration-300 hover:border-gold hover:bg-gold-dim" title="Instagram">
+              <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 stroke-gold fill-none stroke-[1.5]">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+            </a>
+          </div>
         </div>
       </footer>
-    </>
+    </div>
   )
 }

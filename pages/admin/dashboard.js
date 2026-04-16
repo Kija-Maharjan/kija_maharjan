@@ -1,51 +1,76 @@
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
-import AdminLayout from '../../components/AdminLayout'
 import Link from 'next/link'
+import AdminLayout from '../../components/AdminLayout'
 
 export default function Dashboard() {
-  const router = useRouter()
   const [stats, setStats] = useState({ projects: 0, certs: 0, messages: 0 })
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     Promise.all([
-      fetch('/api/projects').then(r => r.json()),
-      fetch('/api/certificates').then(r => r.json()),
+      fetch('/api/projects').then(r => r.json()).catch(() => []),
+      fetch('/api/certificates').then(r => r.json()).catch(() => []),
     ]).then(([projects, certs]) => {
-      setStats(s => ({ ...s, projects: projects.length || 0, certs: certs.length || 0 }))
-    }).catch(() => {})
+      setStats({
+        projects: Array.isArray(projects) ? projects.length : 0,
+        certs: Array.isArray(certs) ? certs.length : 0,
+        messages: 0
+      })
+      setLoading(false)
+    })
   }, [])
 
   const cards = [
-    { label: 'Total Projects', value: stats.projects, href: '/admin/projects', color: 'var(--gold)' },
-    { label: 'Certificates', value: stats.certs, href: '/admin/certificates', color: '#a8e6a8' },
-    { label: 'Quick Actions', value: '→', href: '/admin/projects', color: 'var(--text-dim)' },
+    { label: 'Total Projects', value: stats.projects, href: '/admin/projects', color: 'text-gold', bg: 'bg-gold-dim' },
+    { label: 'Certificates', value: stats.certs, href: '/admin/certificates', color: 'text-green-400', bg: 'bg-green-900/20' },
+    { label: 'Messages', value: stats.messages, href: '/admin/messages', color: 'text-text-dim', bg: 'bg-dark-3' },
+  ]
+
+  const quickActions = [
+    { href: '/admin/projects/new', label: '+ Add Project', primary: true },
+    { href: '/admin/github', label: '⟳ Sync GitHub', primary: false },
+    { href: '/admin/certificates/new', label: '+ Add Certificate', primary: false },
+    { href: '/admin/messages', label: 'View Messages', primary: false },
   ]
 
   return (
     <AdminLayout title="Dashboard">
-      {/* Stat cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '48px' }}>
+      <div className="grid md:grid-cols-3 gap-4 mb-12">
         {cards.map((card, i) => (
-          <Link key={i} href={card.href} style={{ background: 'var(--dark2)', padding: '32px', border: '1px solid rgba(184,150,12,0.1)', textDecoration: 'none', transition: 'border-color 0.3s', display: 'block' }}>
-            <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '48px', color: card.color, fontWeight: 300, lineHeight: 1 }}>{card.value}</div>
-            <div style={{ fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--text-dim)', marginTop: '8px' }}>{card.label}</div>
+          <Link
+            key={i}
+            href={card.href}
+            className={`${card.bg} p-8 border border-gold/10 text-decoration-none block transition-all duration-300 hover:border-gold/30 hover:-translate-y-0.5`}
+          >
+            <div className={`font-serif text-5xl ${card.color} font-light leading-none mb-2`}>
+              {loading ? '...' : card.value}
+            </div>
+            <div className="text-[9px] tracking-[2px] uppercase text-text-dim">{card.label}</div>
           </Link>
         ))}
       </div>
 
-      {/* Quick links */}
-      <div style={{ background: 'var(--dark2)', padding: '32px', border: '1px solid rgba(184,150,12,0.1)' }}>
-        <div style={{ fontSize: '9px', letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: '24px' }}>Quick Actions</div>
-        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-          <Link href="/admin/projects/new" className="btn-primary" style={{ padding: '10px 24px', fontSize: '9px' }}>+ Add Project</Link>
-          <Link href="/admin/github" className="btn-outline" style={{ padding: '10px 24px', fontSize: '9px' }}>⟳ Sync GitHub</Link>
-          <Link href="/admin/certificates/new" className="btn-outline" style={{ padding: '10px 24px', fontSize: '9px' }}>+ Add Certificate</Link>
-          <Link href="/admin/messages" className="btn-outline" style={{ padding: '10px 24px', fontSize: '9px' }}>View Messages</Link>
+      <div className="bg-dark-2 p-8 border border-gold/10">
+        <div className="text-[9px] tracking-[3px] uppercase text-gold mb-6">Quick Actions</div>
+        <div className="flex flex-wrap gap-3">
+          {quickActions.map((action, i) => (
+            <Link
+              key={i}
+              href={action.href}
+              className={action.primary ? 'btn-primary text-[10px] px-6 py-2.5' : 'btn-outline text-[10px] px-6 py-2.5'}
+            >
+              {action.label}
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-8 bg-dark-2 p-8 border border-gold/10">
+        <div className="text-[9px] tracking-[3px] uppercase text-gold mb-6">Recent Activity</div>
+        <div className="text-sm text-text-dim text-center py-8">
+          No recent activity. Start by adding a project or syncing your GitHub repos.
         </div>
       </div>
     </AdminLayout>
   )
 }
-
-Dashboard.getInitialProps = () => ({ adminPage: true })

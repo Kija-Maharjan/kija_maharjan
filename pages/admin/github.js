@@ -44,32 +44,37 @@ export default function GithubSync() {
     <AdminLayout title="GitHub Sync">
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
 
-      <div style={{ background: 'var(--dark2)', padding: '28px', border: '1px solid rgba(184,150,12,0.1)', marginBottom: '32px' }}>
-        <div style={{ fontSize: '12px', color: 'var(--text)', lineHeight: 1.7, marginBottom: '20px' }}>
-          Pull your repositories directly from GitHub and add them to your projects database. Click <strong style={{ color: 'var(--gold)' }}>Fetch Repos</strong> to load your repos, then <strong style={{ color: 'var(--gold)' }}>Sync</strong> to add them to your site.
+      <div className="bg-dark-2 p-7 border border-gold/10 mb-8">
+        <div className="text-xs text-text leading-relaxed mb-5">
+          Pull your repositories directly from GitHub and add them to your projects database. Click <strong className="text-gold">Fetch Repos</strong> to load your repos, then <strong className="text-gold">Sync</strong> to add them to your site.
         </div>
-        <button className="btn-primary" onClick={fetchRepos} disabled={fetching} style={{ padding: '12px 28px' }}>
+        <button className="btn-primary px-7 py-3" onClick={fetchRepos} disabled={fetching}>
           {fetching ? 'Fetching...' : '⟳ Fetch My GitHub Repos'}
         </button>
       </div>
 
-      {repos.length > 0 && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+      {repos.length > 0 ? (
+        <div className="flex flex-col gap-0.5">
           {repos.map(repo => (
-            <div key={repo.github_id} style={{ background: 'var(--dark2)', padding: '20px 28px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', border: '1px solid rgba(184,150,12,0.05)', gap: '16px' }}>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '18px', color: 'var(--cream)', marginBottom: '4px' }}>{repo.name}</div>
-                <div style={{ fontSize: '11px', color: 'var(--text-dim)', marginBottom: '6px' }}>{repo.description || 'No description'}</div>
-                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                  {repo.language && <span style={{ fontSize: '9px', color: 'var(--gold)', letterSpacing: '1px', border: '1px solid rgba(184,150,12,0.2)', padding: '2px 8px' }}>{repo.language}</span>}
-                  {repo.stars > 0 && <span style={{ fontSize: '9px', color: 'var(--text-dim)' }}>★ {repo.stars}</span>}
-                  {repo.homepage && <a href={repo.homepage} target="_blank" rel="noreferrer" style={{ fontSize: '9px', color: '#a8e6a8' }}>Live ↗</a>}
-                  <a href={repo.github_url} target="_blank" rel="noreferrer" style={{ fontSize: '9px', color: 'var(--gold)' }}>GitHub ↗</a>
+            <div key={repo.github_id} className="bg-dark-2 p-5 md:p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border border-gold/5">
+              <div className="flex-1">
+                <div className="font-serif text-lg text-cream mb-1">{repo.name}</div>
+                <div className="text-xs text-text-dim mb-3">{repo.description || 'No description'}</div>
+                <div className="flex flex-wrap gap-3">
+                  {repo.language && (
+                    <span className="text-[9px] text-gold tracking-[1px] border border-gold/20 px-2 py-1">{repo.language}</span>
+                  )}
+                  {repo.stars > 0 && (
+                    <span className="text-[9px] text-text-dim">★ {repo.stars}</span>
+                  )}
+                  {repo.homepage && (
+                    <a href={repo.homepage} target="_blank" rel="noreferrer" className="text-[9px] text-green-400 hover:underline">Live ↗</a>
+                  )}
+                  <a href={repo.github_url} target="_blank" rel="noreferrer" className="text-[9px] text-gold hover:underline">GitHub ↗</a>
                 </div>
               </div>
               <button
-                className="btn-outline"
-                style={{ padding: '8px 20px', fontSize: '9px', flexShrink: 0 }}
+                className="btn-outline text-[10px] px-5 py-2 shrink-0"
                 onClick={() => syncRepo(repo)}
                 disabled={syncing === repo.name}
               >
@@ -78,8 +83,11 @@ export default function GithubSync() {
             </div>
           ))}
         </div>
+      ) : (
+        <div className="text-center text-text-dim text-xs py-16">
+          Click "Fetch My GitHub Repos" to load your repositories
+        </div>
       )}
     </AdminLayout>
   )
 }
-GithubSync.getInitialProps = () => ({ adminPage: true })

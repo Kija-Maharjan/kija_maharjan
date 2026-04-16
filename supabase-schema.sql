@@ -33,10 +33,19 @@ CREATE TABLE IF NOT EXISTS messages (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- Settings table (for storing app settings like excluded repos)
+CREATE TABLE IF NOT EXISTS settings (
+  id SERIAL PRIMARY KEY,
+  key TEXT UNIQUE NOT NULL,
+  value JSONB,
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
 -- Enable Row Level Security
 ALTER TABLE projects ENABLE ROW LEVEL SECURITY;
 ALTER TABLE certificates ENABLE ROW LEVEL SECURITY;
 ALTER TABLE messages ENABLE ROW LEVEL SECURITY;
+ALTER TABLE settings ENABLE ROW LEVEL SECURITY;
 
 -- Allow public reads on projects and certificates
 CREATE POLICY "Public read projects" ON projects FOR SELECT USING (true);
@@ -46,6 +55,7 @@ CREATE POLICY "Public read certificates" ON certificates FOR SELECT USING (true)
 CREATE POLICY "All access projects" ON projects FOR ALL USING (true);
 CREATE POLICY "All access certificates" ON certificates FOR ALL USING (true);
 CREATE POLICY "All access messages" ON messages FOR ALL USING (true);
+CREATE POLICY "All access settings" ON settings FOR ALL USING (true);
 
 -- Insert your existing projects
 INSERT INTO projects (name, description, category, tech_stack, github_url) VALUES

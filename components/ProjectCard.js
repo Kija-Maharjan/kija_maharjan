@@ -17,20 +17,20 @@ export default function ProjectCard({ project, showAdmin = false, onDelete }) {
 
       <div className="project-links" style={{ marginTop: '20px' }}>
         {project.github_url && (
-          <a href={project.github_url} target="_blank" rel="noreferrer" className="btn-outline" style={{ padding: '8px 20px', fontSize: '9px' }}>
+          <a href={project.github_url} target="_blank" rel="noreferrer" className="btn-outline text-[10px] px-5 py-2.5">
             GitHub →
           </a>
         )}
         {project.hosted_url && (
-          <a href={project.hosted_url} target="_blank" rel="noreferrer" className="btn-primary" style={{ padding: '8px 20px', fontSize: '9px' }}>
+          <a href={project.hosted_url} target="_blank" rel="noreferrer" className="btn-primary text-[10px] px-5 py-2.5">
             Live Demo →
           </a>
         )}
       </div>
 
       {showAdmin && (
-        <div style={{ marginTop: '16px', display: 'flex', gap: '10px', borderTop: '1px solid rgba(184,150,12,0.1)', paddingTop: '16px' }}>
-          <Link href={`/admin/projects/edit/${project.id}`} className="btn-outline" style={{ padding: '6px 16px', fontSize: '9px' }}>
+        <div className="flex gap-2.5 mt-4 border-t border-gold/10 pt-4">
+          <Link href={`/admin/projects/edit/${project.id}`} className="btn-outline text-[10px] px-4 py-2">
             Edit
           </Link>
           <button className="btn-danger" onClick={() => onDelete(project.id)}>

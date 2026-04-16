@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 export default function AdminLogin() {
   const router = useRouter()
   const [form, setForm] = useState({ username: '', password: '' })
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -30,65 +32,85 @@ export default function AdminLogin() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--dark)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
-      <div style={{ width: '100%', maxWidth: '400px' }}>
-        {/* Logo */}
-        <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-          <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '48px', fontWeight: 300, color: 'var(--cream)' }}>
-            K<span style={{ color: 'var(--gold)' }}>M</span>
+    <div className="min-h-screen bg-dark flex items-center justify-center p-5">
+      <div className="w-full max-w-md">
+        <div className="text-center mb-10">
+          <div className="font-serif text-5xl font-light text-cream mb-2">
+            K<span className="text-gold">M</span>
           </div>
-          <div style={{ fontSize: '9px', letterSpacing: '4px', textTransform: 'uppercase', color: 'var(--text-dim)', marginTop: '8px' }}>
+          <div className="text-[9px] tracking-[4px] uppercase text-text-dim mb-4">
             Admin Access
+          </div>
+          <div className="text-[8px] tracking-[2px] text-red-400/60 uppercase">
+            Admins Only
           </div>
         </div>
 
-        {/* Card */}
-        <div style={{ background: 'var(--dark2)', padding: '48px 40px', border: '1px solid rgba(184,150,12,0.1)' }}>
-          <div style={{ fontSize: '9px', letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: '32px', textAlign: 'center' }}>
+        <div className="bg-dark-2 p-10 md:p-12 border border-gold/10">
+          <div className="text-[9px] tracking-[3px] uppercase text-gold mb-8 text-center">
             Sign In
           </div>
 
           {error && (
-            <div style={{ background: 'rgba(220,50,50,0.1)', border: '1px solid rgba(220,50,50,0.3)', color: '#e07070', padding: '12px 16px', fontSize: '11px', marginBottom: '20px', textAlign: 'center' }}>
+            <div className="bg-red-900/20 border border-red-500/30 text-red-300 p-3 text-xs mb-5 text-center">
               {error}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <div className="form-group">
-              <label className="form-label">Username</label>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <div>
+              <label className="text-[9px] tracking-[2px] uppercase text-text-dim block mb-2">Username</label>
               <input
-                className="form-input"
                 type="text"
-                placeholder="Admin username"
+                placeholder="Enter username"
                 value={form.username}
                 onChange={e => setForm({ ...form, username: e.target.value })}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label className="form-label">Password</label>
-              <input
                 className="form-input"
-                type="password"
-                placeholder="Password"
-                value={form.password}
-                onChange={e => setForm({ ...form, password: e.target.value })}
                 required
               />
             </div>
-            <button type="submit" className="btn-primary" disabled={loading} style={{ padding: '16px', letterSpacing: '3px', marginTop: '8px', opacity: loading ? 0.7 : 1 }}>
+            <div>
+              <label className="text-[9px] tracking-[2px] uppercase text-text-dim block mb-2">Password</label>
+              <div className="relative">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Enter password"
+                  value={form.password}
+                  onChange={e => setForm({ ...form, password: e.target.value })}
+                  className="form-input pr-10"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-text-dim hover:text-gold transition-colors"
+                >
+                  {showPassword ? (
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24" />
+                      <line x1="1" y1="1" x2="23" y2="23" />
+                    </svg>
+                  ) : (
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                      <circle cx="12" cy="12" r="3" />
+                    </svg>
+                  )}
+                </button>
+              </div>
+            </div>
+            <button type="submit" className="btn-primary py-4 tracking-[3px] mt-4" disabled={loading}>
               {loading ? 'Signing in...' : 'Sign In'}
             </button>
           </form>
         </div>
 
-        <div style={{ textAlign: 'center', marginTop: '24px', fontSize: '10px', color: 'var(--text-dim)' }}>
-          <a href="/" style={{ color: 'var(--gold)', letterSpacing: '2px', textTransform: 'uppercase', fontSize: '9px' }}>← Back to site</a>
+        <div className="text-center mt-6">
+          <Link href="/" className="text-[9px] tracking-[2px] uppercase text-gold hover:underline">
+            ← Back to site
+          </Link>
         </div>
       </div>
     </div>
   )
 }
-
-AdminLogin.getInitialProps = () => ({ adminPage: true })

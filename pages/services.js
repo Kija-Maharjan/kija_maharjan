@@ -1,3 +1,5 @@
+import Layout from '../components/Layout'
+
 const services = [
   { num: '01', name: 'Website Design & Development', desc: 'End-to-end website creation — from wireframes to deployment. Responsive, fast, and visually compelling digital experiences tailored to your brand.' },
   { num: '02', name: 'POS Systems', desc: 'Custom point-of-sale solutions for restaurants and cafes. Streamline orders, track inventory, and manage your business with ease.' },
@@ -9,25 +11,33 @@ const services = [
 
 export default function Services() {
   return (
-    <div className="section">
-      <div className="section-header">
-        <span className="section-num">02</span>
-        <div className="section-line" />
-        <h1 className="section-title">My <em>Services</em></h1>
-      </div>
-
-      <div className="grid-3">
-        {services.map((s) => (
-          <div key={s.num} className="service-card" style={{ background: 'var(--dark2)', padding: '48px 36px', position: 'relative', transition: 'transform 0.3s' }}
-            onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-4px)'}
-            onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
-          >
-            <div style={{ position: 'absolute', top: '24px', right: '28px', fontFamily: 'Cormorant Garamond, serif', fontSize: '56px', color: 'rgba(184,150,12,0.06)', fontWeight: 300, lineHeight: 1 }}>{s.num}</div>
-            <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '22px', color: 'var(--cream)', marginBottom: '12px', fontWeight: 400 }}>{s.name}</div>
-            <div style={{ fontSize: '12px', lineHeight: 1.8, color: 'var(--text-dim)' }}>{s.desc}</div>
+    <Layout>
+      <div className="section-padding">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center gap-5 mb-16">
+            <span className="font-serif text-sm text-gold tracking-[2px]">02</span>
+            <div className="w-12 h-px bg-gold/50" />
+            <h1 className="font-serif text-3xl md:text-5xl font-light text-cream">
+              My <em className="text-gold italic">Services</em>
+            </h1>
           </div>
-        ))}
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-0.5">
+            {services.map((service) => (
+              <div
+                key={service.num}
+                className="bg-dark-2 p-8 md:p-10 relative group hover:-translate-y-1 transition-all duration-300"
+              >
+                <div className="absolute top-6 right-7 font-serif text-5xl text-gold/5 font-light leading-none group-hover:text-gold/10 transition-colors duration-300">
+                  {service.num}
+                </div>
+                <h3 className="font-serif text-lg text-cream mb-3 font-normal pr-12">{service.name}</h3>
+                <p className="text-xs leading-relaxed text-text-dim group-hover:text-text transition-colors">{service.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-    </div>
+    </Layout>
   )
 }
