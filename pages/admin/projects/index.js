@@ -40,7 +40,8 @@ export default function AdminProjects() {
       
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
         <div className="text-xs tracking-wide" style={{ color: 'var(--text-dim)' }}>{projects.length} projects total</div>
-        <div className="flex gap-3">
+        <div className="flex gap-3 flex-wrap">
+          <Link href="/admin/settings" className="btn-outline text-[10px] px-5 py-2.5">⚙ Visibility</Link>
           <Link href="/admin/github" className="btn-outline text-[10px] px-5 py-2.5">⟳ GitHub Sync</Link>
           <Link href="/admin/projects/new" className="btn-primary text-[10px] px-5 py-2.5">+ New Project</Link>
         </div>

@@ -32,6 +32,7 @@ export default function Dashboard() {
 
   const quickActions = [
     { href: '/admin/projects/new', label: '+ Add Project', primary: true },
+    { href: '/admin/settings', label: '⚙ Settings', primary: false },
     { href: '/admin/github', label: '⟳ Sync GitHub', primary: false },
     { href: '/admin/certificates/new', label: '+ Add Certificate', primary: false },
     { href: '/admin/messages', label: 'View Messages', primary: false },

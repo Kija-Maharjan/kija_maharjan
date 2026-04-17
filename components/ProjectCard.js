@@ -1,5 +1,14 @@
 import Link from 'next/link'
 
+// Export function to determine card size based on description
+export function getProjectCardSize(description) {
+  const descLength = (description || '').length
+  if (descLength > 150) {
+    return 'md:col-span-2'
+  }
+  return 'md:col-span-1'
+}
+
 export default function ProjectCard({ project, showAdmin = false, onDelete }) {
   return (
     <div className="project-card">
