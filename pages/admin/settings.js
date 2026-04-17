@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import AdminLayout from '../../../components/AdminLayout'
-import Toast from '../../../components/Toast'
-import { useAdminAuth } from '../../../hooks/useAdminAuth'
+import AdminLayout from '../../components/AdminLayout'
+import Toast from '../../components/Toast'
+import { useAdminAuth } from '../../hooks/useAdminAuth'
 
 export default function AdminSettings() {
   const { isAuthenticated, loading: authLoading } = useAdminAuth()
