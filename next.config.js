@@ -10,8 +10,6 @@ const nextConfig = {
       },
     ],
   },
-  // Enable automatic static optimization
-  swcMinify: true,
   // Headers for SEO
   async headers() {
     return [
