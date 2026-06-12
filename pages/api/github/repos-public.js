@@ -10,7 +10,7 @@ export default async function handler(req, res) {
 
   try {
     // Fetch GitHub repos
-    const response = await fetch('https://api.github.com/users/Kija-Maharjan/repos?sort=updated&per_page=100', {
+    const response = await fetch(`https://api.github.com/users/${process.env.GITHUB_USERNAME}/repos?sort=updated&per_page=100`, {
       headers: {
         Authorization: `token ${process.env.GITHUB_TOKEN}`,
         'User-Agent': 'KijaPortfolio',
