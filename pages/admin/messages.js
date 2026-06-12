@@ -47,7 +47,7 @@ export default function Messages({ messages }) {
 export async function getServerSideProps({ req }) {
   const { isAdmin } = await import('../../lib/auth')
   if (!isAdmin(req)) return { redirect: { destination: '/admin/login', permanent: false } }
-  const { supabase } = await import('../../lib/supabase')
-  const { data: messages } = await supabase.from('messages').select('*').order('created_at', { ascending: false })
+  const { supabaseAdmin } = await import('../../lib/supabase')
+  const { data: messages } = await supabaseAdmin.from('messages').select('*').order('created_at', { ascending: false })
   return { props: { messages: messages || [] } }
 }
