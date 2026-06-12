@@ -28,27 +28,32 @@ export default function Projects({ projects }) {
   }, [])
 
   const fetchSettingsAndRepos = async () => {
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), 10000)
+
     try {
-      // Fetch visibility settings from admin
-      const settingsRes = await fetch('/api/admin/settings')
-      const settings = await settingsRes.json()
+      const [settingsRes, reposRes] = await Promise.all([
+        fetch('/api/admin/settings', { signal: controller.signal }),
+        fetch('/api/github/repos-public', { signal: controller.signal })
+      ])
+
+      const [settings, repos] = await Promise.all([
+        settingsRes.json(),
+        reposRes.json()
+      ])
+
       setVisibleCategories(settings.visible_categories || categories)
       setVisibleRepos(settings.visible_repos || [])
       setSelectedCategories(new Set(settings.visible_categories || categories))
+      setGithubRepos(Array.isArray(repos) ? repos : [])
     } catch (err) {
-      console.error('Failed to fetch settings', err)
-      setVisibleCategories(categories)
-      setSelectedCategories(new Set(categories))
+      console.error('Failed to fetch data', err)
+      if (err.name !== 'AbortError') {
+        setVisibleCategories(categories)
+        setSelectedCategories(new Set(categories))
+      }
     }
-
-    try {
-      // Fetch GitHub repos
-      const res = await fetch('/api/github/repos-public')
-      const data = await res.json()
-      setGithubRepos(Array.isArray(data) ? data : [])
-    } catch (err) {
-      console.error('Failed to fetch GitHub repos')
-    }
+    clearTimeout(timeout)
     setLoading(false)
   }
 
