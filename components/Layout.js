@@ -98,10 +98,10 @@ export default function Layout({ children, singlePage = false }) {
         </>
       )}
 
-      <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-[100] transition-all duration-300 bg-dark/40 backdrop-blur-xl border border-white/10 rounded-lg px-6 py-3 flex items-center gap-8">
+      <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-[100] transition-all duration-300 bg-plum/40 backdrop-blur-xl border border-white/10 rounded-lg px-6 py-3 flex items-center gap-8">
         {/* KM Logo */}
-        <Link href="/" className="font-serif text-2xl font-semibold text-cream tracking-wider hover:opacity-80 transition-opacity flex-shrink-0">
-          K<span style={{ color: 'var(--gold)' }}>M</span>
+        <Link href="/" className="font-serif text-2xl font-semibold text-pearl tracking-wider hover:opacity-80 transition-opacity flex-shrink-0">
+          K<span style={{ color: 'var(--accent)' }}>M</span>
         </Link>
 
         <div className="flex items-center justify-center h-full">
@@ -112,14 +112,14 @@ export default function Layout({ children, singlePage = false }) {
                   <a
                     href={link.href}
                     onClick={(e) => scrollToSection(e, link.section)}
-                    className="text-[9px] tracking-[2px] uppercase font-medium text-text-dim hover:text-gold transition-colors duration-300"
+                    className="text-[9px] tracking-[2px] uppercase font-medium text-mauve-dim hover:text-lavender transition-colors duration-300"
                   >
                     {link.label}
                   </a>
                 ) : (
                   <Link
                     href={link.href}
-                    className="text-[9px] tracking-[2px] uppercase font-medium text-text-dim hover:text-gold transition-colors duration-300"
+                    className="text-[9px] tracking-[2px] uppercase font-medium text-mauve-dim hover:text-lavender transition-colors duration-300"
                   >
                     {link.label}
                   </Link>
@@ -130,7 +130,7 @@ export default function Layout({ children, singlePage = false }) {
 
           <Link
             href="/admin/login"
-            className="hidden lg:block text-[9px] tracking-[2px] uppercase font-medium text-text-dim hover:text-gold transition-colors duration-300 border border-gold/20 hover:border-gold/40 px-4 py-2 ml-6"
+            className="hidden lg:block text-[9px] tracking-[2px] uppercase font-medium text-mauve-dim hover:text-lavender transition-colors duration-300 border border-lavender/20 hover:border-lavender/40 px-4 py-2 ml-6"
           >
             Login
           </Link>
@@ -140,15 +140,15 @@ export default function Layout({ children, singlePage = false }) {
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
           >
-            <span className={`block w-6 h-0.5 bg-cream transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
-            <span className={`block w-6 h-0.5 bg-cream transition-all duration-300 ${menuOpen ? 'opacity-0' : ''}`} />
-            <span className={`block w-6 h-0.5 bg-cream transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+            <span className={`block w-6 h-0.5 bg-pearl transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+            <span className={`block w-6 h-0.5 bg-pearl transition-all duration-300 ${menuOpen ? 'opacity-0' : ''}`} />
+            <span className={`block w-6 h-0.5 bg-pearl transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
           </button>
         </div>
       </nav>
 
       {menuOpen && (
-        <div className="fixed inset-0 bg-dark/90 backdrop-blur-md z-[150] flex flex-col items-center justify-center gap-8 lg:hidden">
+        <div className="fixed inset-0 bg-plum/90 backdrop-blur-md z-[150] flex flex-col items-center justify-center gap-8 lg:hidden">
           {navLinks.map(link => (
             <a
               key={link.href}
@@ -160,27 +160,27 @@ export default function Layout({ children, singlePage = false }) {
                   setMenuOpen(false)
                 }
               }}
-              className="text-cream text-sm tracking-[4px] uppercase font-light hover:text-gold transition-colors"
+              className="text-pearl text-sm tracking-[4px] uppercase font-light hover:text-lavender transition-colors"
             >
               {link.label}
             </a>
           ))}
-          <Link href="/admin/login" onClick={() => setMenuOpen(false)} className="text-gold text-xs tracking-[3px] uppercase mt-4 hover:text-gold-light">
+          <Link href="/admin/login" onClick={() => setMenuOpen(false)} className="text-lavender text-xs tracking-[3px] uppercase mt-4 hover:text-lavender-light">
             Admin Login
           </Link>
           {mounted && (
             <button
               onClick={toggleTheme}
-              className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-gold/10 transition-colors duration-300 mt-4"
+              className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-lavender/10 transition-colors duration-300 mt-4"
               aria-label="Toggle theme"
               title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
             >
               {theme === 'dark' ? (
-                <svg className="w-5 h-5 text-gold" viewBox="0 0 24 24" fill="currentColor">
+                <svg className="w-5 h-5 text-lavender" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
                 </svg>
               ) : (
-                <svg className="w-5 h-5 text-gold" viewBox="0 0 24 24" fill="currentColor">
+                <svg className="w-5 h-5 text-lavender" viewBox="0 0 24 24" fill="currentColor">
                   <circle cx="12" cy="12" r="5" />
                   <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                   <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />

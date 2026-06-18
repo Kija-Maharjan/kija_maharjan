@@ -79,7 +79,7 @@ export default function AdminSettings() {
     setSaving(false)
   }
 
-  if (authLoading) return <AdminLayout title="Settings"><div className="text-center py-8 text-text-dim">Loading...</div></AdminLayout>
+  if (authLoading) return <AdminLayout title="Settings"><div className="text-center py-8 text-mauve-dim">Loading...</div></AdminLayout>
   if (!isAuthenticated) return null
 
   return (
@@ -89,18 +89,18 @@ export default function AdminSettings() {
       <div className="space-y-8">
         {/* Categories */}
         <div className="p-7 border" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-light)' }}>
-          <div className="text-[9px] tracking-[3px] uppercase mb-6" style={{ color: 'var(--gold)' }}>Visible Categories</div>
+          <div className="text-[9px] tracking-[3px] uppercase mb-6" style={{ color: 'var(--accent)' }}>Visible Categories</div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
             {categories.map(cat => (
-              <label key={cat} className="flex items-center gap-3 cursor-pointer p-3 border rounded transition-all" style={{ borderColor: visibleCategories.includes(cat) ? 'var(--gold)' : 'var(--border-light)' }}>
+              <label key={cat} className="flex items-center gap-3 cursor-pointer p-3 border rounded transition-all" style={{ borderColor: visibleCategories.includes(cat) ? 'var(--accent)' : 'var(--border-light)' }}>
                 <input
                   type="checkbox"
                   checked={visibleCategories.includes(cat)}
                   onChange={() => toggleCategory(cat)}
                   className="w-4 h-4 cursor-pointer"
-                  style={{ accentColor: 'var(--gold)' }}
+                  style={{ accentColor: 'var(--accent)' }}
                 />
-                <span style={{ color: 'var(--text)' }}>{cat}</span>
+                <span style={{ color: 'var(--mauve)' }}>{cat}</span>
               </label>
             ))}
           </div>
@@ -108,25 +108,25 @@ export default function AdminSettings() {
 
         {/* GitHub Repos */}
         <div className="p-7 border" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-light)' }}>
-          <div className="text-[9px] tracking-[3px] uppercase mb-6" style={{ color: 'var(--gold)' }}>Visible GitHub Repos</div>
+          <div className="text-[9px] tracking-[3px] uppercase mb-6" style={{ color: 'var(--accent)' }}>Visible GitHub Repos</div>
           {loading ? (
-            <div className="text-center py-4 text-text-dim">Loading repos...</div>
+            <div className="text-center py-4 text-mauve-dim">Loading repos...</div>
           ) : allRepos.length === 0 ? (
-            <div className="text-center py-4 text-text-dim text-xs">No synced repos found</div>
+            <div className="text-center py-4 text-mauve-dim text-xs">No synced repos found</div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
               {allRepos.map(repo => (
-                <label key={repo.id} className="flex items-start gap-3 cursor-pointer p-3 border rounded transition-all" style={{ borderColor: visibleRepos.includes(repo.name) ? 'var(--gold)' : 'var(--border-light)' }}>
+                <label key={repo.id} className="flex items-start gap-3 cursor-pointer p-3 border rounded transition-all" style={{ borderColor: visibleRepos.includes(repo.name) ? 'var(--accent)' : 'var(--border-light)' }}>
                   <input
                     type="checkbox"
                     checked={visibleRepos.includes(repo.name)}
                     onChange={() => toggleRepo(repo.name)}
                     className="w-4 h-4 cursor-pointer mt-1"
-                    style={{ accentColor: 'var(--gold)' }}
+                    style={{ accentColor: 'var(--accent)' }}
                   />
                   <div className="flex-1">
-                    <div style={{ color: 'var(--cream)' }} className="text-sm">{repo.name}</div>
-                    <div style={{ color: 'var(--text-dim)' }} className="text-xs">{repo.category || 'GitHub'}</div>
+                    <div style={{ color: 'var(--pearl)' }} className="text-sm">{repo.name}</div>
+                    <div style={{ color: 'var(--mauve-dim)' }} className="text-xs">{repo.category || 'GitHub'}</div>
                   </div>
                 </label>
               ))}

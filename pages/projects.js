@@ -89,13 +89,13 @@ export default function Projects({ projects }) {
 
   return (
     <Layout>
-      <div className="section-padding bg-dark-2 overflow-x-hidden">
+      <div className="section-padding bg-plum-light overflow-x-hidden">
         <div className="max-w-7xl mx-auto overflow-x-hidden">
           <div className="flex items-center gap-5 mb-12">
-            <span className="font-serif text-sm text-gold tracking-[2px]">03</span>
-            <div className="w-12 h-px bg-gold/50" />
-            <h1 className="font-serif text-3xl md:text-5xl font-light text-cream">
-              Past <em className="text-gold italic">Projects</em>
+            <span className="font-serif text-sm text-lavender tracking-[2px]">03</span>
+            <div className="w-12 h-px bg-lavender/50" />
+            <h1 className="font-serif text-3xl md:text-5xl font-light text-pearl">
+              Past <em className="text-lavender italic">Projects</em>
             </h1>
           </div>
 
@@ -106,11 +106,11 @@ export default function Projects({ projects }) {
                 onClick={() => toggleCategory(cat)}
                 className={`px-4 py-2 text-[9px] tracking-[2px] uppercase font-sans cursor-pointer border transition-all duration-300 flex items-center gap-2 ${
                   selectedCategories.has(cat)
-                    ? 'border-gold bg-gold-dim text-gold'
-                    : 'border-gold/20 text-text-dim hover:border-gold/40'
+                    ? 'border-lavender bg-lavender-dim text-lavender'
+                    : 'border-lavender/20 text-mauve-dim hover:border-lavender/40'
                 }`}
               >
-                <span className={`w-4 h-4 border border-current flex items-center justify-center text-xs ${selectedCategories.has(cat) ? 'bg-gold text-dark-2' : ''}`}>
+                <span className={`w-4 h-4 border border-current flex items-center justify-center text-xs ${selectedCategories.has(cat) ? 'bg-lavender text-plum-light' : ''}`}>
                   {selectedCategories.has(cat) ? '✓' : ''}
                 </span>
                 {cat}
@@ -121,7 +121,7 @@ export default function Projects({ projects }) {
           {loading ? (
             <div className="loader">Loading...</div>
           ) : filtered.length === 0 ? (
-            <div className="text-center py-16 text-text-dim text-xs">No projects found</div>
+            <div className="text-center py-16 text-mauve-dim text-xs">No projects found</div>
           ) : (
             <div className="masonry-grid">
               {filtered.map((item, index) => (
@@ -133,7 +133,7 @@ export default function Projects({ projects }) {
           )}
 
           {!loading && githubRepos.length > 0 && (
-            <div className="mt-8 text-center text-xs text-text-dim">
+            <div className="mt-8 text-center text-xs text-mauve-dim">
               Showing {visibleGithubRepos.length} of {githubRepos.length} GitHub repositories
             </div>
           )}

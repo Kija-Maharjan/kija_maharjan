@@ -7,20 +7,25 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        gold: {
-          DEFAULT: '#b8960c',
-          light: '#d4a017',
-          dim: 'rgba(184,150,12,0.15)',
+        plum: {
+          DEFAULT: '#3A2942',
+          light: '#4A3952',
+          lighter: '#5A4962',
+          dim: 'rgba(58,41,66,0.6)',
         },
-        dark: {
-          DEFAULT: '#111010',
-          2: '#1a1a1a',
-          3: '#222',
+        pearl: '#F4E7FB',
+        blush: '#F2DDDC',
+        rose: '#F6BCBA',
+        mauve: '#E3AADD',
+        orchid: '#C8A8E9',
+        lavender: {
+          DEFAULT: '#C3C7F4',
+          dim: 'rgba(195,199,244,0.15)',
+          lighter: 'rgba(195,199,244,0.25)',
         },
-        cream: '#f5f0ea',
         text: {
-          DEFAULT: '#c8c4bc',
-          dim: 'rgba(200,196,188,0.5)',
+          DEFAULT: '#E3AADD',
+          dim: 'rgba(227,170,221,0.5)',
         },
       },
       fontFamily: {

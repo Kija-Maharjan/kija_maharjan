@@ -25,7 +25,7 @@ export default function Dashboard() {
   }, [authLoading, isAuthenticated])
 
   const cards = [
-    { label: 'Total Projects', value: stats.projects, href: '/admin/projects', bgStyle: 'rgba(184,150,12,0.1)', textColor: 'var(--gold)' },
+    { label: 'Total Projects', value: stats.projects, href: '/admin/projects', bgStyle: 'rgba(195,199,244,0.1)', textColor: 'var(--accent)' },
     { label: 'Certificates', value: stats.certs, href: '/admin/certificates', bgStyle: 'rgba(76,175,80,0.1)', textColor: '#4caf50' },
     { label: 'Messages', value: stats.messages, href: '/admin/messages', bgStyle: 'rgba(156,39,176,0.1)', textColor: '#9c27b0' },
   ]
@@ -61,13 +61,13 @@ export default function Dashboard() {
             <div className="font-serif text-5xl font-light leading-none mb-2" style={{ color: card.textColor }}>
               {loading ? '...' : card.value}
             </div>
-            <div className="text-[9px] tracking-[2px] uppercase" style={{ color: 'var(--text-dim)' }}>{card.label}</div>
+            <div className="text-[9px] tracking-[2px] uppercase" style={{ color: 'var(--mauve-dim)' }}>{card.label}</div>
           </Link>
         ))}
       </div>
 
       <div className="p-8 border transition-all" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-light)' }}>
-        <div className="text-[9px] tracking-[3px] uppercase mb-6" style={{ color: 'var(--gold)' }}>Quick Actions</div>
+        <div className="text-[9px] tracking-[3px] uppercase mb-6" style={{ color: 'var(--accent)' }}>Quick Actions</div>
         <div className="flex flex-wrap gap-3">
           {quickActions.map((action, i) => (
             <Link
@@ -82,8 +82,8 @@ export default function Dashboard() {
       </div>
 
       <div className="mt-8 p-8 border transition-all" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-light)' }}>
-        <div className="text-[9px] tracking-[3px] uppercase mb-6" style={{ color: 'var(--gold)' }}>Recent Activity</div>
-        <div className="text-sm text-center py-8" style={{ color: 'var(--text-dim)' }}>
+        <div className="text-[9px] tracking-[3px] uppercase mb-6" style={{ color: 'var(--accent)' }}>Recent Activity</div>
+        <div className="text-sm text-center py-8" style={{ color: 'var(--mauve-dim)' }}>
           No recent activity. Start by adding a project or syncing your GitHub repos.
         </div>
       </div>

@@ -19,7 +19,7 @@ export default function GithubRepos() {
     }
   }, [isAuthenticated])
 
-  if (authLoading) return <AdminLayout title="GitHub Repos"><div className="text-center py-8 text-text-dim">Loading...</div></AdminLayout>
+  if (authLoading) return <AdminLayout title="GitHub Repos"><div className="text-center py-8 text-mauve-dim">Loading...</div></AdminLayout>
   if (!isAuthenticated) return null
 
   const fetchData = async () => {
@@ -122,14 +122,14 @@ export default function GithubRepos() {
     <AdminLayout title="GitHub Repos">
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
       
-      <div className="bg-dark-2 p-6 border border-gold/10 mb-6">
+      <div className="bg-plum-light p-6 border border-lavender/10 mb-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
           <div>
-            <h3 className="font-serif text-lg text-cream mb-1">Show/Hide Repos</h3>
-            <p className="text-xs text-text-dim">
+            <h3 className="font-serif text-lg text-pearl mb-1">Show/Hide Repos</h3>
+            <p className="text-xs text-mauve-dim">
               Toggle repos to show or hide them from your portfolio. 
-              <span className="text-gold ml-2">{visibleCount} visible</span>, 
-              <span className="text-text-dim ml-1">{excludedCount} hidden</span>
+              <span className="text-lavender ml-2">{visibleCount} visible</span>, 
+              <span className="text-mauve-dim ml-1">{excludedCount} hidden</span>
             </p>
           </div>
           <div className="flex gap-3">
@@ -165,13 +165,13 @@ export default function GithubRepos() {
           {repos.map(repo => (
             <div 
               key={repo.id} 
-              className={`bg-dark-2 p-4 md:p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border border-gold/5 transition-all ${
+              className={`bg-plum-light p-4 md:p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border border-lavender/5 transition-all ${
                 excluded.includes(repo.name) ? 'opacity-50' : ''
               }`}
             >
               <div className="flex-1 w-full">
                 <div className="flex items-center gap-3 mb-1">
-                  <h4 className="font-serif text-base text-cream">{repo.name}</h4>
+                  <h4 className="font-serif text-base text-pearl">{repo.name}</h4>
                   <label className="relative inline-flex items-center cursor-pointer ml-auto md:ml-0">
                     <input
                       type="checkbox"
@@ -179,19 +179,19 @@ export default function GithubRepos() {
                       onChange={() => toggleRepo(repo.name)}
                       className="sr-only peer"
                     />
-                    <div className="w-11 h-6 bg-dark-3 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-text-dim after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gold peer-checked:after:bg-dark peer-checked:after:ms-4"></div>
-                    <span className="ms-3 text-xs text-text-dim">
+                    <div className="w-11 h-6 bg-plum-lighter peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-text-dim after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-lavender peer-checked:after:bg-plum peer-checked:after:ms-4"></div>
+                    <span className="ms-3 text-xs text-mauve-dim">
                       {excluded.includes(repo.name) ? 'Hidden' : 'Visible'}
                     </span>
                   </label>
                 </div>
-                <p className="text-xs text-text-dim mb-2">{repo.description || 'No description'}</p>
+                <p className="text-xs text-mauve-dim mb-2">{repo.description || 'No description'}</p>
                 <div className="flex flex-wrap gap-3">
                   {repo.language && (
-                    <span className="text-[9px] text-gold border border-gold/20 px-2 py-0.5">{repo.language}</span>
+                    <span className="text-[9px] text-lavender border border-lavender/20 px-2 py-0.5">{repo.language}</span>
                   )}
-                  <span className="text-[9px] text-text-dim">★ {repo.stars}</span>
-                  <a href={repo.github_url} target="_blank" rel="noreferrer" className="text-[9px] text-gold hover:underline">GitHub ↗</a>
+                  <span className="text-[9px] text-mauve-dim">★ {repo.stars}</span>
+                  <a href={repo.github_url} target="_blank" rel="noreferrer" className="text-[9px] text-lavender hover:underline">GitHub ↗</a>
                   {repo.homepage && (
                     <a href={repo.homepage} target="_blank" rel="noreferrer" className="text-[9px] text-green-400 hover:underline">Live ↗</a>
                   )}

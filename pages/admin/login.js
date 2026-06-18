@@ -48,7 +48,7 @@ export default function AdminLogin() {
         <title>Admin Login — Kija Maharjan</title>
         <link rel="icon" type="image/png" href="/logo.png" />
       </Head>
-      <div className="min-h-screen flex items-center justify-center p-5 relative overflow-hidden" style={{ backgroundColor: 'var(--dark)' }}>
+      <div className="min-h-screen flex items-center justify-center p-5 relative overflow-hidden" style={{ backgroundColor: 'var(--plum)' }}>
         {/* Background blur effect - shows page behind */}
         <div 
           className="fixed inset-0 z-40" 
@@ -62,13 +62,13 @@ export default function AdminLogin() {
         {/* Floating login box */}
         <div className="w-full max-w-lg relative z-50">
           {/* Login Form Box */}
-          <div className="p-10 md:p-12 border bg-dark/20 backdrop-blur-3xl rounded-lg" style={{ borderColor: 'rgba(255,255,255,0.2)', boxShadow: '0 8px 32px rgba(0,0,0,0.2), inset 0 1px rgba(255,255,255,0.1)' }}>
+          <div className="p-10 md:p-12 border bg-plum/20 backdrop-blur-3xl rounded-lg" style={{ borderColor: 'rgba(255,255,255,0.2)', boxShadow: '0 8px 32px rgba(0,0,0,0.2), inset 0 1px rgba(255,255,255,0.1)' }}>
             {/* Header - Inside the box */}
             <div className="text-center mb-8 pb-8 border-b border-white/10">
-              <div className="font-serif text-4xl font-light mb-2" style={{ color: 'var(--cream)' }}>
-                K<span style={{ color: 'var(--gold)' }}>M</span>
+              <div className="font-serif text-4xl font-light mb-2" style={{ color: 'var(--pearl)' }}>
+                K<span style={{ color: 'var(--accent)' }}>M</span>
               </div>
-              <div className="text-[9px] tracking-[4px] uppercase mb-2" style={{ color: 'var(--text-dim)' }}>
+              <div className="text-[9px] tracking-[4px] uppercase mb-2" style={{ color: 'var(--mauve-dim)' }}>
                 Admin Access
               </div>
               <div className="text-[8px] tracking-[2px] uppercase" style={{ color: '#ef4444' }}>
@@ -76,7 +76,7 @@ export default function AdminLogin() {
               </div>
             </div>
 
-            <div className="text-[9px] tracking-[3px] uppercase mb-8 text-center" style={{ color: 'var(--gold)' }}>
+            <div className="text-[9px] tracking-[3px] uppercase mb-8 text-center" style={{ color: 'var(--accent)' }}>
               Sign In
             </div>
 
@@ -88,12 +88,12 @@ export default function AdminLogin() {
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-5" autoComplete="off" noValidate>
               <div>
-                <label className="text-[9px] tracking-[2px] uppercase block mb-2" style={{ color: 'var(--text-dim)' }}>Username</label>
+                <label className="text-[9px] tracking-[2px] uppercase block mb-2" style={{ color: 'var(--mauve-dim)' }}>Username</label>
                 <input
                   ref={usernameRef}
                   type="text"
                   placeholder="Enter username"
-                  className="form-input bg-dark/40 backdrop-blur-md w-full"
+                  className="form-input bg-plum/40 backdrop-blur-md w-full"
                   required
                   autoComplete="off"
                   spellCheck="false"
@@ -101,13 +101,13 @@ export default function AdminLogin() {
                 />
               </div>
               <div>
-                <label className="text-[9px] tracking-[2px] uppercase block mb-2" style={{ color: 'var(--text-dim)' }}>Password</label>
+                <label className="text-[9px] tracking-[2px] uppercase block mb-2" style={{ color: 'var(--mauve-dim)' }}>Password</label>
                 <div className="relative flex items-center">
                   <input
                     ref={passwordRef}
                     type={showPassword ? 'text' : 'password'}
                     placeholder="Enter password"
-                    className="form-input pr-10 bg-dark/40 backdrop-blur-md w-full"
+                    className="form-input pr-10 bg-plum/40 backdrop-blur-md w-full"
                     required
                     autoComplete="off"
                     spellCheck="false"
@@ -116,9 +116,9 @@ export default function AdminLogin() {
                   <div
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-3 top-1/2 -translate-y-1/2 transition-colors cursor-pointer select-none"
-                    style={{ color: 'var(--text-dim)' }}
-                    onMouseEnter={(e) => e.currentTarget.style.color = 'var(--gold)'}
-                    onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-dim)'}
+                    style={{ color: 'var(--mauve-dim)' }}
+                    onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
+                    onMouseLeave={(e) => e.currentTarget.style.color = 'var(--mauve-dim)'}
                     role="button"
                     tabIndex="-1"
                   >
@@ -145,11 +145,11 @@ export default function AdminLogin() {
                   onChange={(e) => setRememberMe(e.target.checked)}
                   className="w-4 h-4 rounded"
                   style={{ 
-                    accentColor: 'var(--gold)',
+                    accentColor: 'var(--accent)',
                     cursor: 'pointer'
                   }}
                 />
-                <span className="text-[9px] tracking-[1px] uppercase" style={{ color: 'var(--text-dim)' }}>
+                <span className="text-[9px] tracking-[1px] uppercase" style={{ color: 'var(--mauve-dim)' }}>
                   Remember me
                 </span>
               </label>
@@ -163,7 +163,7 @@ export default function AdminLogin() {
 
             {/* Back to site - Inside the box at bottom */}
             <div className="text-center mt-8 pt-6 border-t border-white/10">
-              <Link href="/" className="text-[9px] tracking-[2px] uppercase hover:text-gold transition-colors" style={{ color: 'var(--gold)' }}>
+              <Link href="/" className="text-[9px] tracking-[2px] uppercase hover:text-lavender transition-colors" style={{ color: 'var(--accent)' }}>
                 ← Back to site
               </Link>
             </div>

@@ -10,13 +10,13 @@ export default function About() {
 
   return (
     <Layout>
-      <div className="section-padding bg-dark-2">
+      <div className="section-padding bg-plum-light">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center gap-5 mb-16">
-            <span className="font-serif text-sm text-gold tracking-[2px]">01</span>
-            <div className="w-12 h-px bg-gold/50" />
-            <h1 className="font-serif text-3xl md:text-5xl font-light text-cream">
-              About <em className="text-gold italic">Me</em>
+            <span className="font-serif text-sm text-lavender tracking-[2px]">01</span>
+            <div className="w-12 h-px bg-lavender/50" />
+            <h1 className="font-serif text-3xl md:text-5xl font-light text-pearl">
+              About <em className="text-lavender italic">Me</em>
             </h1>
           </div>
 
@@ -42,10 +42,10 @@ export default function About() {
               {stats.map((stat, i) => (
                 <div
                   key={i}
-                  className="bg-dark-3 p-6 md:p-8 border-l-2 border-transparent hover:border-gold transition-all duration-300 group cursor-default"
+                  className="bg-plum-lighter p-6 md:p-8 border-l-2 border-transparent hover:border-lavender transition-all duration-300 group cursor-default"
                 >
-                  <div className="font-serif text-4xl md:text-5xl font-light text-gold leading-tight">{stat.num}</div>
-                  <div className="text-[9px] tracking-[2px] uppercase text-text-dim mt-2 group-hover:text-text transition-colors">{stat.label}</div>
+                  <div className="font-serif text-4xl md:text-5xl font-light text-lavender leading-tight">{stat.num}</div>
+                  <div className="text-[9px] tracking-[2px] uppercase text-mauve-dim mt-2 group-hover:text-text transition-colors">{stat.label}</div>
                 </div>
               ))}
             </div>

@@ -39,7 +39,7 @@ export default function AdminProjects() {
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
       
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
-        <div className="text-xs tracking-wide" style={{ color: 'var(--text-dim)' }}>{projects.length} projects total</div>
+        <div className="text-xs tracking-wide" style={{ color: 'var(--mauve-dim)' }}>{projects.length} projects total</div>
         <div className="flex gap-3 flex-wrap">
           <Link href="/admin/settings" className="btn-outline text-[10px] px-5 py-2.5">⚙ Visibility</Link>
           <Link href="/admin/github" className="btn-outline text-[10px] px-5 py-2.5">⟳ GitHub Sync</Link>
@@ -50,7 +50,7 @@ export default function AdminProjects() {
       {loading ? (
         <div className="loader">Loading...</div>
       ) : projects.length === 0 ? (
-        <div className="text-center py-16 text-xs" style={{ color: 'var(--text-dim)' }}>
+        <div className="text-center py-16 text-xs" style={{ color: 'var(--mauve-dim)' }}>
           No projects yet. Add one!
         </div>
       ) : (
@@ -58,10 +58,10 @@ export default function AdminProjects() {
           {projects.map(p => (
             <div key={p.id} className="p-6 md:p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border transition-colors" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-light)' }} onMouseEnter={(e) => e.currentTarget.style.borderColor = 'var(--border-strong)'} onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--border-light)'}>
               <div className="flex-1">
-                <div className="font-serif text-lg mb-1" style={{ color: 'var(--cream)' }}>{p.name}</div>
-                <div className="text-xs mb-3" style={{ color: 'var(--text-dim)' }}>{p.category}</div>
+                <div className="font-serif text-lg mb-1" style={{ color: 'var(--pearl)' }}>{p.name}</div>
+                <div className="text-xs mb-3" style={{ color: 'var(--mauve-dim)' }}>{p.category}</div>
                 <div className="flex gap-4 flex-wrap">
-                  {p.github_url && <a href={p.github_url} target="_blank" rel="noreferrer" className="text-[9px] tracking-wide hover:underline" style={{ color: 'var(--gold)' }}>GitHub ↗</a>}
+                  {p.github_url && <a href={p.github_url} target="_blank" rel="noreferrer" className="text-[9px] tracking-wide hover:underline" style={{ color: 'var(--accent)' }}>GitHub ↗</a>}
                   {p.hosted_url && <a href={p.hosted_url} target="_blank" rel="noreferrer" className="text-[9px] tracking-wide hover:underline" style={{ color: '#4caf50' }}>Live ↗</a>}
                 </div>
               </div>

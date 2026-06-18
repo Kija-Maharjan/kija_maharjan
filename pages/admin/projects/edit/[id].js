@@ -22,7 +22,7 @@ export default function EditProject() {
     })
   }, [id])
 
-  if (authLoading) return <AdminLayout title="Edit Project"><div className="text-center py-8 text-text-dim">Loading...</div></AdminLayout>
+  if (authLoading) return <AdminLayout title="Edit Project"><div className="text-center py-8 text-mauve-dim">Loading...</div></AdminLayout>
   if (!isAuthenticated) return null
 
   const handleSubmit = async (e) => {

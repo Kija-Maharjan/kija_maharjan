@@ -13,7 +13,7 @@ export default function NewProject() {
   const [toast, setToast] = useState(null)
   const [loading, setLoading] = useState(false)
 
-  if (authLoading) return <AdminLayout title="New Project"><div className="text-center py-8 text-text-dim">Loading...</div></AdminLayout>
+  if (authLoading) return <AdminLayout title="New Project"><div className="text-center py-8 text-mauve-dim">Loading...</div></AdminLayout>
   if (!isAuthenticated) return null
 
   const handleSubmit = async (e) => {

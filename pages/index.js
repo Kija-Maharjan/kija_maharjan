@@ -108,22 +108,22 @@ export default function Home({ projects, certs }) {
       )}
 
       <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden" style={{ paddingTop: '80px' }}>
-        <div className="absolute inset-0 bg-gradient-to-br from-dark via-dark to-dark-2" />
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-gold/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-gold/3 rounded-full blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-br from-plum via-plum to-plum-light" />
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-lavender/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-lavender/3 rounded-full blur-3xl" />
 
         <div className="relative z-10 w-full max-w-4xl mx-auto px-6 text-center">
           <div className={`mb-12 transition-all duration-700 ${isVisible('home') ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-            <div className="font-serif text-8xl md:text-9xl font-light text-cream tracking-wider">
-              K<span style={{ color: 'var(--gold)' }}>M</span>
+            <div className="font-serif text-8xl md:text-9xl font-light text-pearl tracking-wider">
+              K<span style={{ color: 'var(--accent)' }}>M</span>
             </div>
           </div>
 
-          <div className={`text-[9px] tracking-[5px] text-gold uppercase mb-6 transition-all duration-700 delay-100 ${isVisible('home') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className={`text-[9px] tracking-[5px] text-lavender uppercase mb-6 transition-all duration-700 delay-100 ${isVisible('home') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             Based in Kathmandu, Nepal
           </div>
 
-          <div className={`text-[11px] tracking-[4px] text-text-dim uppercase mt-5 mb-8 transition-all duration-700 delay-200 ${isVisible('home') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className={`text-[11px] tracking-[4px] text-mauve-dim uppercase mt-5 mb-8 transition-all duration-700 delay-200 ${isVisible('home') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             Fullstack Developer &nbsp;·&nbsp; UI Designer &nbsp;·&nbsp; Freelancer
           </div>
 
@@ -137,33 +137,33 @@ export default function Home({ projects, certs }) {
           </div>
 
           <div className={`flex justify-center gap-3.5 mt-8 transition-all duration-700 delay-500 ${isVisible('home') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <a href="https://github.com/Kija-Maharjan" target="_blank" rel="noreferrer" className="w-10 h-10 border border-gold/30 flex items-center justify-center transition-all duration-300 hover:border-gold hover:bg-gold-dim">
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ color: 'var(--gold)' }}>
+            <a href="https://github.com/Kija-Maharjan" target="_blank" rel="noreferrer" className="w-10 h-10 border border-lavender/30 flex items-center justify-center transition-all duration-300 hover:border-lavender hover:bg-lavender-dim">
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ color: 'var(--accent)' }}>
                 <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
               </svg>
             </a>
-            <a href="https://linkedin.com/in/Kija-Maharjan" target="_blank" rel="noreferrer" className="w-10 h-10 border border-gold/30 flex items-center justify-center transition-all duration-300 hover:border-gold hover:bg-gold-dim">
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ color: 'var(--gold)' }}>
+            <a href="https://linkedin.com/in/Kija-Maharjan" target="_blank" rel="noreferrer" className="w-10 h-10 border border-lavender/30 flex items-center justify-center transition-all duration-300 hover:border-lavender hover:bg-lavender-dim">
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ color: 'var(--accent)' }}>
                 <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
               </svg>
             </a>
           </div>
         </div>
 
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3 text-[9px] tracking-[3px] text-text-dim uppercase">
-          <div className="w-8 h-px bg-gold" />
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3 text-[9px] tracking-[3px] text-mauve-dim uppercase">
+          <div className="w-8 h-px bg-lavender" />
           Scroll to explore
         </div>
       </section>
 
-      <section id="about" className="section-padding bg-dark-2">
+      <section id="about" className="section-padding bg-plum-light">
         <div className="max-w-7xl mx-auto">
           <div className={`mb-16 transition-all duration-700 ${isVisible('about') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <div className="flex items-center gap-5 mb-16">
-              <span className="font-serif text-sm text-gold tracking-[2px]">01</span>
-              <div className="w-12 h-px bg-gold/50" />
-              <h2 className="font-serif text-3xl md:text-5xl font-light text-cream">
-                About <em className="text-gold italic">Me</em>
+              <span className="font-serif text-sm text-lavender tracking-[2px]">01</span>
+              <div className="w-12 h-px bg-lavender/50" />
+              <h2 className="font-serif text-3xl md:text-5xl font-light text-pearl">
+                About <em className="text-lavender italic">Me</em>
               </h2>
             </div>
           </div>
@@ -190,10 +190,10 @@ export default function Home({ projects, certs }) {
               {stats.map((stat, i) => (
                 <div
                   key={i}
-                  className="bg-dark-3 p-6 md:p-8 border-l-2 border-transparent hover:border-gold transition-all duration-300 group cursor-default"
+                  className="bg-plum-lighter p-6 md:p-8 border-l-2 border-transparent hover:border-lavender transition-all duration-300 group cursor-default"
                 >
-                  <div className="font-serif text-4xl md:text-5xl font-light text-gold leading-tight">{stat.num}</div>
-                  <div className="text-[9px] tracking-[2px] uppercase text-text-dim mt-2 group-hover:text-text transition-colors">{stat.label}</div>
+                  <div className="font-serif text-4xl md:text-5xl font-light text-lavender leading-tight">{stat.num}</div>
+                  <div className="text-[9px] tracking-[2px] uppercase text-mauve-dim mt-2 group-hover:text-text transition-colors">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -205,10 +205,10 @@ export default function Home({ projects, certs }) {
         <div className="max-w-7xl mx-auto">
           <div className={`mb-16 transition-all duration-700 ${isVisible('services') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <div className="flex items-center gap-5 mb-16">
-              <span className="font-serif text-sm text-gold tracking-[2px]">02</span>
-              <div className="w-12 h-px bg-gold/50" />
-              <h2 className="font-serif text-3xl md:text-5xl font-light text-cream">
-                My <em className="text-gold italic">Services</em>
+              <span className="font-serif text-sm text-lavender tracking-[2px]">02</span>
+              <div className="w-12 h-px bg-lavender/50" />
+              <h2 className="font-serif text-3xl md:text-5xl font-light text-pearl">
+                My <em className="text-lavender italic">Services</em>
               </h2>
             </div>
           </div>
@@ -217,30 +217,30 @@ export default function Home({ projects, certs }) {
             {services.map((service, i) => (
               <div
                 key={service.num}
-                className={`bg-dark-2 p-8 md:p-10 relative group hover:-translate-y-1 transition-all duration-300 ${
+                className={`bg-plum-light p-8 md:p-10 relative group hover:-translate-y-1 transition-all duration-300 ${
                   isVisible('services') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
                 style={{ transitionDelay: `${i * 100}ms` }}
               >
-                <div className="absolute top-6 right-7 font-serif text-5xl text-gold/5 font-light leading-none group-hover:text-gold/10 transition-colors duration-300">
+                <div className="absolute top-6 right-7 font-serif text-5xl text-lavender/5 font-light leading-none group-hover:text-lavender/10 transition-colors duration-300">
                   {service.num}
                 </div>
-                <h3 className="font-serif text-lg text-cream mb-3 font-normal pr-12">{service.name}</h3>
-                <p className="text-xs leading-relaxed text-text-dim group-hover:text-text transition-colors">{service.desc}</p>
+                <h3 className="font-serif text-lg text-pearl mb-3 font-normal pr-12">{service.name}</h3>
+                <p className="text-xs leading-relaxed text-mauve-dim group-hover:text-text transition-colors">{service.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="projects" className="section-padding bg-dark-2">
+      <section id="projects" className="section-padding bg-plum-light">
         <div className="max-w-7xl mx-auto">
           <div className={`mb-12 transition-all duration-700 ${isVisible('projects') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <div className="flex items-center gap-5 mb-12">
-              <span className="font-serif text-sm text-gold tracking-[2px]">03</span>
-              <div className="w-12 h-px bg-gold/50" />
-              <h2 className="font-serif text-3xl md:text-5xl font-light text-cream">
-                Past <em className="text-gold italic">Projects</em>
+              <span className="font-serif text-sm text-lavender tracking-[2px]">03</span>
+              <div className="w-12 h-px bg-lavender/50" />
+              <h2 className="font-serif text-3xl md:text-5xl font-light text-pearl">
+                Past <em className="text-lavender italic">Projects</em>
               </h2>
             </div>
 
@@ -251,8 +251,8 @@ export default function Home({ projects, certs }) {
                   onClick={() => setFilter(cat)}
                   className={`px-4 py-2 text-[9px] tracking-[2px] uppercase font-sans cursor-pointer border transition-all duration-300 ${
                     filter === cat
-                      ? 'border-gold bg-gold-dim text-gold'
-                      : 'border-gold/20 text-text-dim hover:border-gold/40'
+                      ? 'border-lavender bg-lavender-dim text-lavender'
+                      : 'border-lavender/20 text-mauve-dim hover:border-lavender/40'
                   }`}
                 >
                   {cat}
@@ -264,7 +264,7 @@ export default function Home({ projects, certs }) {
           {githubLoading ? (
             <div className="loader">Loading projects...</div>
           ) : filteredProjects.length === 0 ? (
-            <div className="text-center py-16 text-text-dim text-xs">No projects found</div>
+            <div className="text-center py-16 text-mauve-dim text-xs">No projects found</div>
           ) : (
             <div className="grid md:grid-cols-2 gap-0.5">
               {filteredProjects.map((project) => (
@@ -274,9 +274,9 @@ export default function Home({ projects, certs }) {
           )}
 
           {!githubLoading && githubRepos.length > 0 && (
-            <div className="mt-8 text-center text-xs text-text-dim">
+            <div className="mt-8 text-center text-xs text-mauve-dim">
               Showing {visibleRepos.length} of {githubRepos.length} GitHub repositories. 
-              <a href="/admin/github-repos" className="text-gold ml-2 hover:underline">Manage repos →</a>
+              <a href="/admin/github-repos" className="text-lavender ml-2 hover:underline">Manage repos →</a>
             </div>
           )}
         </div>
@@ -286,10 +286,10 @@ export default function Home({ projects, certs }) {
         <div className="max-w-7xl mx-auto">
           <div className={`mb-12 transition-all duration-700 ${isVisible('certificates') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <div className="flex items-center gap-5 mb-12">
-              <span className="font-serif text-sm text-gold tracking-[2px]">04</span>
-              <div className="w-12 h-px bg-gold/50" />
-              <h2 className="font-serif text-3xl md:text-5xl font-light text-cream">
-                Certificates & <em className="text-gold italic">Learning</em>
+              <span className="font-serif text-sm text-lavender tracking-[2px]">04</span>
+              <div className="w-12 h-px bg-lavender/50" />
+              <h2 className="font-serif text-3xl md:text-5xl font-light text-pearl">
+                Certificates & <em className="text-lavender italic">Learning</em>
               </h2>
             </div>
           </div>
@@ -300,21 +300,21 @@ export default function Home({ projects, certs }) {
             ) : certs.map((cert) => (
               <div
                 key={cert.id}
-                className={`bg-dark-2 p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-l-2 border-transparent hover:border-gold hover:pl-10 transition-all duration-300 group cursor-default ${
+                className={`bg-plum-light p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-l-2 border-transparent hover:border-lavender hover:pl-10 transition-all duration-300 group cursor-default ${
                   isVisible('certificates') ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
                 }`}
               >
                 <div>
-                  <h3 className="font-serif text-lg text-cream font-normal">{cert.name}</h3>
-                  <div className="text-[10px] tracking-[2px] uppercase text-text-dim mt-1">{cert.issuer}</div>
-                  {cert.date && <div className="text-[10px] text-text-dim mt-1">{cert.date}</div>}
+                  <h3 className="font-serif text-lg text-pearl font-normal">{cert.name}</h3>
+                  <div className="text-[10px] tracking-[2px] uppercase text-mauve-dim mt-1">{cert.issuer}</div>
+                  {cert.date && <div className="text-[10px] text-mauve-dim mt-1">{cert.date}</div>}
                 </div>
                 <div className="flex flex-col items-start md:items-end gap-2">
                   <span className={`badge ${cert.status === 'In Progress' ? '' : 'badge-green'}`}>
                     {cert.status || 'Completed'}
                   </span>
                   {cert.url && (
-                    <a href={cert.url} target="_blank" rel="noreferrer" className="text-[9px] tracking-[1px] text-gold uppercase group-hover:underline">
+                    <a href={cert.url} target="_blank" rel="noreferrer" className="text-[9px] tracking-[1px] text-lavender uppercase group-hover:underline">
                       View →
                     </a>
                   )}
@@ -325,34 +325,34 @@ export default function Home({ projects, certs }) {
         </div>
       </section>
 
-      <section id="contact" className="section-padding bg-dark-2">
+      <section id="contact" className="section-padding bg-plum-light">
         <div className="max-w-7xl mx-auto text-center">
           <div className={`mb-12 transition-all duration-700 ${isVisible('contact') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <div className="flex items-center justify-center gap-5 mb-12">
-              <span className="font-serif text-sm text-gold tracking-[2px]">05</span>
-              <div className="w-12 h-px bg-gold/50" />
-              <h2 className="font-serif text-3xl md:text-5xl font-light text-cream">
-                Get In <em className="text-gold italic">Touch</em>
+              <span className="font-serif text-sm text-lavender tracking-[2px]">05</span>
+              <div className="w-12 h-px bg-lavender/50" />
+              <h2 className="font-serif text-3xl md:text-5xl font-light text-pearl">
+                Get In <em className="text-lavender italic">Touch</em>
               </h2>
             </div>
 
-            <p className="font-serif text-2xl md:text-4xl font-light text-cream max-w-xl mx-auto leading-snug mb-14">
-              Have a project in mind? Let us build something <em className="text-gold italic">remarkable</em> together.
+            <p className="font-serif text-2xl md:text-4xl font-light text-pearl max-w-xl mx-auto leading-snug mb-14">
+              Have a project in mind? Let us build something <em className="text-lavender italic">remarkable</em> together.
             </p>
           </div>
 
           <div className={`grid grid-cols-1 md:grid-cols-3 gap-0.5 max-w-2xl mx-auto mb-14 transition-all duration-700 delay-100 ${isVisible('contact') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <a href="mailto:maharjankija@gmail.com" className="bg-dark-3 p-6 md:p-8 flex flex-col items-center gap-3 hover:bg-dark transition-colors">
-              <div className="text-[8px] tracking-[2px] uppercase text-text-dim">Email</div>
-              <div className="text-[11px] text-cream break-all">maharjankija@gmail.com</div>
+            <a href="mailto:maharjankija@gmail.com" className="bg-plum-lighter p-6 md:p-8 flex flex-col items-center gap-3 hover:bg-plum transition-colors">
+              <div className="text-[8px] tracking-[2px] uppercase text-mauve-dim">Email</div>
+              <div className="text-[11px] text-pearl break-all">maharjankija@gmail.com</div>
             </a>
-            <a href="tel:+9779761722461" className="bg-dark-3 p-6 md:p-8 flex flex-col items-center gap-3 hover:bg-dark transition-colors">
-              <div className="text-[8px] tracking-[2px] uppercase text-text-dim">Phone</div>
-              <div className="text-[11px] text-cream">+977 9761722461</div>
+            <a href="tel:+9779761722461" className="bg-plum-lighter p-6 md:p-8 flex flex-col items-center gap-3 hover:bg-plum transition-colors">
+              <div className="text-[8px] tracking-[2px] uppercase text-mauve-dim">Phone</div>
+              <div className="text-[11px] text-pearl">+977 9761722461</div>
             </a>
-            <div className="bg-dark-3 p-6 md:p-8 flex flex-col items-center gap-3">
-              <div className="text-[8px] tracking-[2px] uppercase text-text-dim">Location</div>
-              <div className="text-[11px] text-cream">Kathmandu, Nepal</div>
+            <div className="bg-plum-lighter p-6 md:p-8 flex flex-col items-center gap-3">
+              <div className="text-[8px] tracking-[2px] uppercase text-mauve-dim">Location</div>
+              <div className="text-[11px] text-pearl">Kathmandu, Nepal</div>
             </div>
           </div>
 
@@ -394,27 +394,27 @@ export default function Home({ projects, certs }) {
         </div>
       </section>
 
-      <footer className="bg-dark border-t border-gold/10 py-6 md:py-8 px-5 md:px-16 lg:px-20">
+      <footer className="bg-plum border-t border-lavender/10 py-6 md:py-8 px-5 md:px-16 lg:px-20">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="font-serif text-base text-cream">
-            K<span className="text-gold">M</span>
+          <div className="font-serif text-base text-pearl">
+            K<span className="text-lavender">M</span>
           </div>
-          <div className="text-[10px] tracking-[2px] text-text-dim uppercase">
+          <div className="text-[10px] tracking-[2px] text-mauve-dim uppercase">
             © 2025 Kija Maharjan
           </div>
           <div className="flex gap-3">
-            <a href="https://github.com/Kija-Maharjan" target="_blank" rel="noreferrer" className="w-8 h-8 border border-gold/20 flex items-center justify-center transition-all duration-300 hover:border-gold hover:bg-gold-dim" title="GitHub">
-              <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 stroke-gold fill-none stroke-[1.5]">
+            <a href="https://github.com/Kija-Maharjan" target="_blank" rel="noreferrer" className="w-8 h-8 border border-lavender/20 flex items-center justify-center transition-all duration-300 hover:border-lavender hover:bg-lavender-dim" title="GitHub">
+              <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 stroke-lavender fill-none stroke-[1.5]">
                 <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
               </svg>
             </a>
-            <a href="https://linkedin.com/in/Kija-Maharjan" target="_blank" rel="noreferrer" className="w-8 h-8 border border-gold/20 flex items-center justify-center transition-all duration-300 hover:border-gold hover:bg-gold-dim" title="LinkedIn">
-              <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 stroke-gold fill-none stroke-[1.5]">
+            <a href="https://linkedin.com/in/Kija-Maharjan" target="_blank" rel="noreferrer" className="w-8 h-8 border border-lavender/20 flex items-center justify-center transition-all duration-300 hover:border-lavender hover:bg-lavender-dim" title="LinkedIn">
+              <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 stroke-lavender fill-none stroke-[1.5]">
                 <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
               </svg>
             </a>
-            <a href="https://instagram.com/kijamaharjan" target="_blank" rel="noreferrer" className="w-8 h-8 border border-gold/20 flex items-center justify-center transition-all duration-300 hover:border-gold hover:bg-gold-dim" title="Instagram">
-              <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 stroke-gold fill-none stroke-[1.5]">
+            <a href="https://instagram.com/kijamaharjan" target="_blank" rel="noreferrer" className="w-8 h-8 border border-lavender/20 flex items-center justify-center transition-all duration-300 hover:border-lavender hover:bg-lavender-dim" title="Instagram">
+              <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 stroke-lavender fill-none stroke-[1.5]">
                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
               </svg>
             </a>

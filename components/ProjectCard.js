@@ -38,7 +38,7 @@ export default function ProjectCard({ project, showAdmin = false, onDelete }) {
       </div>
 
       {showAdmin && (
-        <div className="flex gap-2.5 mt-4 border-t border-gold/10 pt-4">
+        <div className="flex gap-2.5 mt-4 border-t border-lavender/10 pt-4">
           <Link href={`/admin/projects/edit/${project.id}`} className="btn-outline text-[10px] px-4 py-2">
             Edit
           </Link>

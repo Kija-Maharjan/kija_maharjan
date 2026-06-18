@@ -32,32 +32,32 @@ export default function Contact() {
     <Layout>
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
       
-      <div className="section-padding bg-dark-2">
+      <div className="section-padding bg-plum-light">
         <div className="max-w-7xl mx-auto text-center">
           <div className="flex items-center justify-center gap-5 mb-12">
-            <span className="font-serif text-sm text-gold tracking-[2px]">05</span>
-            <div className="w-12 h-px bg-gold/50" />
-            <h1 className="font-serif text-3xl md:text-5xl font-light text-cream">
-              Get In <em className="text-gold italic">Touch</em>
+            <span className="font-serif text-sm text-lavender tracking-[2px]">05</span>
+            <div className="w-12 h-px bg-lavender/50" />
+            <h1 className="font-serif text-3xl md:text-5xl font-light text-pearl">
+              Get In <em className="text-lavender italic">Touch</em>
             </h1>
           </div>
 
-          <p className="font-serif text-2xl md:text-4xl font-light text-cream max-w-xl mx-auto leading-snug mb-14">
-            Have a project in mind? Let us build something <em className="text-gold italic">remarkable</em> together.
+          <p className="font-serif text-2xl md:text-4xl font-light text-pearl max-w-xl mx-auto leading-snug mb-14">
+            Have a project in mind? Let us build something <em className="text-lavender italic">remarkable</em> together.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-0.5 max-w-2xl mx-auto mb-14">
-            <a href="mailto:maharjankija@gmail.com" className="bg-dark-3 p-6 md:p-8 flex flex-col items-center gap-3 hover:bg-dark transition-colors">
-              <div className="text-[8px] tracking-[2px] uppercase text-text-dim">Email</div>
-              <div className="text-[11px] text-cream break-all">maharjankija@gmail.com</div>
+            <a href="mailto:maharjankija@gmail.com" className="bg-plum-lighter p-6 md:p-8 flex flex-col items-center gap-3 hover:bg-plum transition-colors">
+              <div className="text-[8px] tracking-[2px] uppercase text-mauve-dim">Email</div>
+              <div className="text-[11px] text-pearl break-all">maharjankija@gmail.com</div>
             </a>
-            <a href="tel:+9779761722461" className="bg-dark-3 p-6 md:p-8 flex flex-col items-center gap-3 hover:bg-dark transition-colors">
-              <div className="text-[8px] tracking-[2px] uppercase text-text-dim">Phone</div>
-              <div className="text-[11px] text-cream">+977 9761722461</div>
+            <a href="tel:+9779761722461" className="bg-plum-lighter p-6 md:p-8 flex flex-col items-center gap-3 hover:bg-plum transition-colors">
+              <div className="text-[8px] tracking-[2px] uppercase text-mauve-dim">Phone</div>
+              <div className="text-[11px] text-pearl">+977 9761722461</div>
             </a>
-            <div className="bg-dark-3 p-6 md:p-8 flex flex-col items-center gap-3">
-              <div className="text-[8px] tracking-[2px] uppercase text-text-dim">Location</div>
-              <div className="text-[11px] text-cream">Kathmandu, Nepal</div>
+            <div className="bg-plum-lighter p-6 md:p-8 flex flex-col items-center gap-3">
+              <div className="text-[8px] tracking-[2px] uppercase text-mauve-dim">Location</div>
+              <div className="text-[11px] text-pearl">Kathmandu, Nepal</div>
             </div>
           </div>
 

@@ -69,14 +69,14 @@ export default function AdminLayout({ children, title }) {
       <div className="px-6 py-7" style={{ borderBottom: '1px solid var(--border-light)', background: 'linear-gradient(135deg, rgba(184,150,12,0.08) 0%, transparent 100%)' }}>
         <Link href="/" className="flex items-center gap-3 group">
           <div>
-            <div className="text-[10px] tracking-[2px] uppercase font-semibold" style={{ color: 'var(--cream)' }}>Admin Console</div>
-            <div className="text-[8px] tracking-[2px] uppercase mt-1" style={{ color: 'var(--gold)' }}>Dashboard</div>
+            <div className="text-[10px] tracking-[2px] uppercase font-semibold" style={{ color: 'var(--pearl)' }}>Admin Console</div>
+            <div className="text-[8px] tracking-[2px] uppercase mt-1" style={{ color: 'var(--accent)' }}>Dashboard</div>
           </div>
         </Link>
       </div>
 
       <nav className="flex-1 px-4 py-5 overflow-y-auto">
-        <div className="text-[7px] tracking-[3px] uppercase px-2 mb-4 mt-2 font-medium" style={{ color: 'var(--text-dim)' }}>Menu</div>
+        <div className="text-[7px] tracking-[3px] uppercase px-2 mb-4 mt-2 font-medium" style={{ color: 'var(--mauve-dim)' }}>Menu</div>
         {navItems.map(item => (
           <Link
             key={item.href}
@@ -85,13 +85,13 @@ export default function AdminLayout({ children, title }) {
           >
             <span className="shrink-0">{item.icon}</span>
             <span className="flex-1">{item.label}</span>
-            {isActive(item.href) && <span className="w-1 h-1 rounded-full bg-gold shrink-0" />}
+            {isActive(item.href) && <span className="w-1 h-1 rounded-full bg-lavender shrink-0" />}
           </Link>
         ))}
       </nav>
 
       <div className="px-4 py-5" style={{ borderTop: '1px solid var(--border-light)', background: 'rgba(184,150,12,0.05)' }}>
-        <Link href="/" className="flex items-center gap-2.5 px-3 py-2.5 rounded text-[9px] tracking-[2px] uppercase transition-all mb-1.5" style={{ color: 'var(--text-dim)' }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'rgba(184,150,12,0.1)'; e.currentTarget.style.color = 'var(--gold)'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = 'var(--text-dim)'; }}>
+        <Link href="/" className="flex items-center gap-2.5 px-3 py-2.5 rounded text-[9px] tracking-[2px] uppercase transition-all mb-1.5" style={{ color: 'var(--mauve-dim)' }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'rgba(195,199,244,0.1)'; e.currentTarget.style.color = 'var(--accent)'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = 'var(--mauve-dim)'; }}>
           <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M19 12H5M12 19l-7-7 7-7"/>
           </svg>
@@ -99,7 +99,7 @@ export default function AdminLayout({ children, title }) {
         </Link>
         <button
           onClick={() => setLogoutModal(true)}
-          className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded text-[9px] tracking-[2px] uppercase transition-all" style={{ color: 'var(--text-dim)' }} onMouseEnter={(e) => { e.currentTarget.style.color = '#ef4444'; e.currentTarget.style.backgroundColor = 'rgba(239,68,68,0.1)'; }} onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-dim)'; e.currentTarget.style.backgroundColor = 'transparent'; }}
+          className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded text-[9px] tracking-[2px] uppercase transition-all" style={{ color: 'var(--mauve-dim)' }} onMouseEnter={(e) => { e.currentTarget.style.color = '#ef4444'; e.currentTarget.style.backgroundColor = 'rgba(239,68,68,0.1)'; }} onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--mauve-dim)'; e.currentTarget.style.backgroundColor = 'transparent'; }}
         >
           <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
@@ -142,24 +142,24 @@ export default function AdminLayout({ children, title }) {
           <header className="admin-topbar">
             <div className="flex items-center gap-3">
               <button
-                className="lg:hidden w-9 h-9 flex items-center justify-center border border-gold/20 hover:border-gold/50 transition-colors"
+                className="lg:hidden w-9 h-9 flex items-center justify-center border border-lavender/20 hover:border-lavender/50 transition-colors"
                 onClick={() => setSidebarOpen(!sidebarOpen)}
                 aria-label="Toggle menu"
               >
                 {sidebarOpen ? (
-                  <svg className="w-4 h-4 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <svg className="w-4 h-4 text-lavender" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                     <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
                   </svg>
                 ) : (
-                  <svg className="w-4 h-4 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <svg className="w-4 h-4 text-lavender" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                     <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
                   </svg>
                 )}
               </button>
               {title && (
                 <div>
-                  <div className="text-[8px] tracking-[3px] uppercase text-gold/50 hidden sm:block">Admin</div>
-                  <h1 className="font-serif text-lg md:text-2xl font-light text-cream leading-tight">{title}</h1>
+                  <div className="text-[8px] tracking-[3px] uppercase text-lavender/50 hidden sm:block">Admin</div>
+                  <h1 className="font-serif text-lg md:text-2xl font-light text-pearl leading-tight">{title}</h1>
                 </div>
               )}
             </div>
@@ -181,9 +181,9 @@ export default function AdminLayout({ children, title }) {
       {/* Logout Modal */}
       {logoutModal && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[200] flex items-center justify-center p-4">
-          <div className="bg-dark-2 border border-gold/20 p-8 w-full max-w-sm">
-            <div className="font-serif text-2xl text-cream mb-2">Sign out?</div>
-            <p className="text-xs text-text-dim mb-7 leading-relaxed tracking-wide">You will be redirected to the home page.</p>
+          <div className="bg-plum-light border border-lavender/20 p-8 w-full max-w-sm">
+            <div className="font-serif text-2xl text-pearl mb-2">Sign out?</div>
+            <p className="text-xs text-mauve-dim mb-7 leading-relaxed tracking-wide">You will be redirected to the home page.</p>
             <div className="flex gap-3">
               <button onClick={logout} className="btn-danger flex-1 py-3 text-[10px]">Confirm</button>
               <button onClick={() => setLogoutModal(false)} className="btn-outline flex-1 py-3 text-[10px]">Cancel</button>
