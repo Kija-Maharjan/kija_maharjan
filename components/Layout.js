@@ -63,6 +63,9 @@ export default function Layout({ children, singlePage = false }) {
   const navLinks = [
     { href: '/', label: 'Home', section: 'home' },
     { href: '/#about', label: 'About', section: 'about' },
+    { href: '/gym', label: 'Gym', section: null },
+    { href: '/art', label: 'Art', section: null },
+    { href: '/community', label: 'Community', section: null },
     { href: '/#services', label: 'Services', section: 'services' },
     { href: '/#projects', label: 'Projects', section: 'projects' },
     { href: '/#certificates', label: 'Certificates', section: 'certificates' },
@@ -108,7 +111,7 @@ export default function Layout({ children, singlePage = false }) {
           <ul className="hidden lg:flex items-center gap-6 list-none m-0">
             {navLinks.map(link => (
               <li key={link.href}>
-                {singlePage ? (
+                {singlePage && link.section ? (
                   <a
                     href={link.href}
                     onClick={(e) => scrollToSection(e, link.section)}
@@ -154,7 +157,7 @@ export default function Layout({ children, singlePage = false }) {
               key={link.href}
               href={link.href}
               onClick={(e) => {
-                if (singlePage) {
+                if (singlePage && link.section) {
                   scrollToSection(e, link.section)
                 } else {
                   setMenuOpen(false)

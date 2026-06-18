@@ -201,11 +201,54 @@ export default function Home({ projects, certs }) {
         </div>
       </section>
 
+      <section className="section-padding">
+        <div className="max-w-7xl mx-auto">
+          <div className={`mb-12 transition-all duration-700 ${isVisible('about') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className="flex items-center gap-5 mb-12">
+              <span className="font-serif text-sm text-lavender tracking-[2px]">Explore</span>
+              <div className="w-12 h-px bg-lavender/50" />
+              <h2 className="font-serif text-3xl md:text-5xl font-light text-pearl">
+                Dedicated <em className="text-lavender italic">Spaces</em>
+              </h2>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-0.5">
+            <a href="/gym" className={`group block bg-plum-light p-8 md:p-10 hover:-translate-y-1 transition-all duration-300 ${isVisible('about') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '0ms' }}>
+              <div className="font-serif text-4xl text-lavender/20 font-light mb-4 group-hover:text-lavender/30 transition-colors">Gym</div>
+              <h3 className="font-serif text-xl text-pearl mb-3">Fitness & Gym</h3>
+              <p className="text-xs leading-relaxed text-mauve-dim group-hover:text-text transition-colors mb-6">
+                Gym management platforms, workout trackers, and fitness apps built for the active life.
+              </p>
+              <span className="text-[9px] tracking-[2px] uppercase text-lavender group-hover:underline">Explore →</span>
+            </a>
+
+            <a href="/art" className={`group block bg-plum-light p-8 md:p-10 hover:-translate-y-1 transition-all duration-300 ${isVisible('about') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '100ms' }}>
+              <div className="font-serif text-4xl text-orchid/20 font-light mb-4 group-hover:text-orchid/30 transition-colors">Art</div>
+              <h3 className="font-serif text-xl text-pearl mb-3">Art & Design</h3>
+              <p className="text-xs leading-relaxed text-mauve-dim group-hover:text-text transition-colors mb-6">
+                Brand identity, fashion tech, and visually-driven creative digital experiences.
+              </p>
+              <span className="text-[9px] tracking-[2px] uppercase text-orchid group-hover:underline">Explore →</span>
+            </a>
+
+            <a href="/community" className={`group block bg-plum-light p-8 md:p-10 hover:-translate-y-1 transition-all duration-300 ${isVisible('about') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '200ms' }}>
+              <div className="font-serif text-4xl text-rose/20 font-light mb-4 group-hover:text-rose/30 transition-colors">Community</div>
+              <h3 className="font-serif text-xl text-pearl mb-3">Community & Food</h3>
+              <p className="text-xs leading-relaxed text-mauve-dim group-hover:text-text transition-colors mb-6">
+                POS systems, online menus, and platforms that bring people together through food.
+              </p>
+              <span className="text-[9px] tracking-[2px] uppercase text-rose group-hover:underline">Explore →</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
       <section id="services" className="section-padding">
         <div className="max-w-7xl mx-auto">
           <div className={`mb-16 transition-all duration-700 ${isVisible('services') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <div className="flex items-center gap-5 mb-16">
-              <span className="font-serif text-sm text-lavender tracking-[2px]">02</span>
+              <span className="font-serif text-sm text-lavender tracking-[2px]">03</span>
               <div className="w-12 h-px bg-lavender/50" />
               <h2 className="font-serif text-3xl md:text-5xl font-light text-pearl">
                 My <em className="text-lavender italic">Services</em>
@@ -237,7 +280,7 @@ export default function Home({ projects, certs }) {
         <div className="max-w-7xl mx-auto">
           <div className={`mb-12 transition-all duration-700 ${isVisible('projects') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <div className="flex items-center gap-5 mb-12">
-              <span className="font-serif text-sm text-lavender tracking-[2px]">03</span>
+              <span className="font-serif text-sm text-lavender tracking-[2px]">04</span>
               <div className="w-12 h-px bg-lavender/50" />
               <h2 className="font-serif text-3xl md:text-5xl font-light text-pearl">
                 Past <em className="text-lavender italic">Projects</em>
@@ -286,7 +329,7 @@ export default function Home({ projects, certs }) {
         <div className="max-w-7xl mx-auto">
           <div className={`mb-12 transition-all duration-700 ${isVisible('certificates') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <div className="flex items-center gap-5 mb-12">
-              <span className="font-serif text-sm text-lavender tracking-[2px]">04</span>
+              <span className="font-serif text-sm text-lavender tracking-[2px]">05</span>
               <div className="w-12 h-px bg-lavender/50" />
               <h2 className="font-serif text-3xl md:text-5xl font-light text-pearl">
                 Certificates & <em className="text-lavender italic">Learning</em>
@@ -329,7 +372,7 @@ export default function Home({ projects, certs }) {
         <div className="max-w-7xl mx-auto text-center">
           <div className={`mb-12 transition-all duration-700 ${isVisible('contact') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <div className="flex items-center justify-center gap-5 mb-12">
-              <span className="font-serif text-sm text-lavender tracking-[2px]">05</span>
+              <span className="font-serif text-sm text-lavender tracking-[2px]">06</span>
               <div className="w-12 h-px bg-lavender/50" />
               <h2 className="font-serif text-3xl md:text-5xl font-light text-pearl">
                 Get In <em className="text-lavender italic">Touch</em>
