@@ -1,52 +1,16 @@
-import { useState, useEffect } from 'react'
-import Layout from '../components/Layout'
-import ProjectCard, { getProjectCardSize } from '../components/ProjectCard'
 import { supabase } from '../lib/supabase'
-
-const ART_CATEGORIES = ['Brand & Fashion', 'Art', 'Design']
+import Layout from '../components/Layout'
 
 export async function getServerSideProps() {
-  const { data: projects } = await supabase
-    .from('projects')
+  const { data: posts } = await supabase
+    .from('art_posts')
     .select('*')
-    .in('category', ART_CATEGORIES)
     .order('created_at', { ascending: false })
 
-  return { props: { projects: projects || [] } }
+  return { props: { posts: posts || [] } }
 }
 
-export default function Art({ projects }) {
-  const [githubRepos, setGithubRepos] = useState([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    fetch('/api/github/repos-public')
-      .then(res => res.json())
-      .then(data => setGithubRepos(Array.isArray(data) ? data : []))
-      .catch(() => {})
-      .finally(() => setLoading(false))
-  }, [])
-
-  const visibleGithubRepos = githubRepos.filter(
-    repo => !repo.is_excluded && ART_CATEGORIES.includes(repo.category)
-  )
-
-  const allItems = [
-    ...projects.map(p => ({ ...p, type: 'project' })),
-    ...visibleGithubRepos.map(r => ({
-      id: r.id, name: r.name, description: r.description,
-      category: r.category, tech_stack: r.language ? [r.language] : [],
-      github_url: r.github_url, hosted_url: r.homepage || null, type: 'repo'
-    }))
-  ]
-
-  const mediums = [
-    { label: 'Brand Identity', desc: 'Logos, color systems, and visual language design' },
-    { label: 'Fashion Tech', desc: 'Digital storefronts and lookbook experiences' },
-    { label: 'Creative Dev', desc: 'Interactive galleries and artistic web experiences' },
-    { label: 'Visual Design', desc: 'UI/UX with an artistic edge' },
-  ]
-
+export default function Art({ posts }) {
   return (
     <Layout>
       <div className="min-h-[60vh] flex items-center justify-center relative overflow-hidden bg-plum">
@@ -56,53 +20,54 @@ export default function Art({ projects }) {
         <div className="relative z-10 text-center max-w-3xl mx-auto px-6">
           <div className="text-[9px] tracking-[5px] text-orchid uppercase mb-6">Creativity · Expression · Design</div>
           <h1 className="font-serif text-5xl md:text-7xl font-light text-pearl mb-6">
-            <em className="text-orchid italic">Art</em> & Design
+            <em className="text-orchid italic">Art</em> Gallery
           </h1>
           <p className="text-sm leading-relaxed text-text max-w-xl mx-auto">
-            Where code meets canvas — branding, fashion tech, and visually-driven digital experiences crafted with an artistic eye.
+            A collection of creative work — digital art, photography, sketches, and design explorations.
           </p>
         </div>
       </div>
 
       <div className="section-padding bg-plum-light">
         <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-0.5 mb-16">
-            {mediums.map((m, i) => (
-              <div key={i} className="bg-plum-lighter p-6 md:p-8 border-l-2 border-transparent hover:border-orchid transition-all duration-300">
-                <div className="font-serif text-sm text-orchid tracking-[2px] uppercase mb-3">{m.label}</div>
-                <p className="text-xs leading-relaxed text-mauve-dim">{m.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="max-w-3xl mx-auto mb-16">
-            <h2 className="font-serif text-2xl md:text-3xl font-light text-pearl mb-6 text-center">
-              Design at the <em className="text-orchid italic">Intersection</em>
-            </h2>
-            <p className="text-sm leading-relaxed text-text text-center">
-              Every brand has a story — I help tell it through design. From fashion lookbooks to brand identity systems, 
-              I build digital experiences that are as visually compelling as they are functional. 
-              My approach blends minimalist aesthetics with bold creative choices.
-            </p>
-          </div>
-
           <div className="flex items-center gap-5 mb-12">
-            <span className="font-serif text-sm text-orchid tracking-[2px]">Portfolio</span>
+            <span className="font-serif text-sm text-orchid tracking-[2px]">Gallery</span>
             <div className="w-12 h-px bg-orchid/50" />
             <h2 className="font-serif text-2xl md:text-3xl font-light text-pearl">
-              Creative <em className="text-orchid italic">Projects</em>
+              Creative <em className="text-orchid italic">Works</em>
             </h2>
           </div>
 
-          {loading ? (
-            <div className="loader">Loading projects...</div>
-          ) : allItems.length === 0 ? (
-            <div className="text-center py-16 text-mauve-dim text-xs">No art & design projects yet</div>
+          {posts.length === 0 ? (
+            <div className="text-center py-16 text-mauve-dim text-xs">
+              No art posted yet — check back soon!
+            </div>
           ) : (
-            <div className="masonry-grid">
-              {allItems.map((item, index) => (
-                <div key={`${item.type}-${item.id}`} className={`masonry-item ${getProjectCardSize(item.description)}`}>
-                  <ProjectCard project={item} />
+            <div className="columns-1 md:columns-2 lg:columns-3 gap-0.5 space-y-0.5">
+              {posts.map(post => (
+                <div key={post.id} className="break-inside-avoid bg-plum-light group relative overflow-hidden hover:-translate-y-0.5 transition-all duration-300">
+                  {post.image_url ? (
+                    <div className="relative">
+                      <img
+                        src={post.image_url}
+                        alt={post.title}
+                        className="w-full h-auto object-cover"
+                      />
+                      <div className="absolute inset-0 bg-plum/0 group-hover:bg-plum/60 transition-all duration-300 flex items-end">
+                        <div className="p-5 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                          <h3 className="font-serif text-lg text-pearl">{post.title}</h3>
+                          <div className="text-[9px] tracking-[2px] uppercase text-orchid mt-1">{post.medium}</div>
+                          {post.description && <p className="text-xs text-mauve-dim mt-2">{post.description}</p>}
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="p-6 md:p-8">
+                      <h3 className="font-serif text-lg text-pearl">{post.title}</h3>
+                      {post.medium && <div className="text-[9px] tracking-[2px] uppercase text-orchid mt-1">{post.medium}</div>}
+                      {post.description && <p className="text-sm text-mauve-dim mt-2">{post.description}</p>}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

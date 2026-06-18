@@ -3,10 +3,12 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { useTheme } from '../hooks/useTheme'
+import { useVisitorAuth } from '../hooks/useVisitorAuth'
 
 export default function Layout({ children, singlePage = false }) {
   const router = useRouter()
   const { theme, toggleTheme } = useTheme()
+  const { user, loading: authLoading, logout } = useVisitorAuth()
   const [menuOpen, setMenuOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [mousePos, setMousePos] = useState({ x: -100, y: -100 })
@@ -131,12 +133,24 @@ export default function Layout({ children, singlePage = false }) {
             ))}
           </ul>
 
-          <Link
-            href="/admin/login"
-            className="hidden lg:block text-[9px] tracking-[2px] uppercase font-medium text-mauve-dim hover:text-lavender transition-colors duration-300 border border-lavender/20 hover:border-lavender/40 px-4 py-2 ml-6"
-          >
-            Login
-          </Link>
+          {user ? (
+            <div className="hidden lg:flex items-center gap-3">
+              <span className="text-[9px] tracking-[2px] uppercase text-lavender">{user.username}</span>
+              <button
+                onClick={async () => { await logout(); window.location.href = '/' }}
+                className="text-[9px] tracking-[2px] uppercase font-medium text-mauve-dim hover:text-lavender transition-colors duration-300 border border-lavender/20 hover:border-lavender/40 px-4 py-2"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <Link
+              href="/login"
+              className="hidden lg:block text-[9px] tracking-[2px] uppercase font-medium text-mauve-dim hover:text-lavender transition-colors duration-300 border border-lavender/20 hover:border-lavender/40 px-4 py-2 ml-6"
+            >
+              Login
+            </Link>
+          )}
 
           <button
             className="lg:hidden flex flex-col gap-1.5 bg-transparent border-none cursor-pointer p-1"
@@ -168,7 +182,19 @@ export default function Layout({ children, singlePage = false }) {
               {link.label}
             </a>
           ))}
-          <Link href="/admin/login" onClick={() => setMenuOpen(false)} className="text-lavender text-xs tracking-[3px] uppercase mt-4 hover:text-lavender-light">
+          {user ? (
+            <button
+              onClick={async () => { await logout(); window.location.href = '/' }}
+              className="text-lavender text-xs tracking-[3px] uppercase mt-4"
+            >
+              Logout {user.username}
+            </button>
+          ) : (
+            <Link href="/login" onClick={() => setMenuOpen(false)} className="text-lavender text-xs tracking-[3px] uppercase mt-4 hover:text-lavender-light">
+              Login
+            </Link>
+          )}
+          <Link href="/admin/login" onClick={() => setMenuOpen(false)} className="text-mauve-dim text-[9px] tracking-[2px] uppercase mt-2 hover:text-pearl">
             Admin Login
           </Link>
           {mounted && (

@@ -1,48 +1,29 @@
-import { useState, useEffect } from 'react'
-import Layout from '../components/Layout'
-import ProjectCard, { getProjectCardSize } from '../components/ProjectCard'
 import { supabase } from '../lib/supabase'
+import Layout from '../components/Layout'
+import Link from 'next/link'
 
 export async function getServerSideProps() {
-  const { data: projects } = await supabase
-    .from('projects')
+  const { data: posts } = await supabase
+    .from('gym_posts')
     .select('*')
-    .eq('category', 'Fitness')
     .order('created_at', { ascending: false })
 
-  return { props: { projects: projects || [] } }
+  return { props: { posts: posts || [] } }
 }
 
-export default function Gym({ projects }) {
-  const [githubRepos, setGithubRepos] = useState([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    fetch('/api/github/repos-public')
-      .then(res => res.json())
-      .then(data => setGithubRepos(Array.isArray(data) ? data : []))
-      .catch(() => {})
-      .finally(() => setLoading(false))
-  }, [])
-
-  const visibleGithubRepos = githubRepos.filter(
-    repo => !repo.is_excluded && repo.category === 'Fitness'
-  )
-
-  const allItems = [
-    ...projects.map(p => ({ ...p, type: 'project' })),
-    ...visibleGithubRepos.map(r => ({
-      id: r.id, name: r.name, description: r.description,
-      category: r.category, tech_stack: r.language ? [r.language] : [],
-      github_url: r.github_url, hosted_url: r.homepage || null, type: 'repo'
-    }))
-  ]
+export default function Gym({ posts }) {
+  const difficultyColor = (d) => {
+    if (d === 'Beginner') return '#4caf50'
+    if (d === 'Intermediate') return 'var(--accent)'
+    if (d === 'Advanced') return '#e07070'
+    return 'var(--mauve-dim)'
+  }
 
   const stats = [
-    { num: '5+', label: 'Fitness Projects' },
-    { num: '3', label: 'Gym Platforms' },
-    { num: '2', label: 'Active Apps' },
-    { num: '∞', label: 'Push-ups Coded' },
+    { num: posts.length, label: 'Workouts' },
+    { num: [...new Set(posts.map(p => p.workout_type).filter(Boolean))].length, label: 'Types' },
+    { num: '∞', label: 'Reps Coded' },
+    { num: '💪', label: 'Gains' },
   ]
 
   return (
@@ -56,7 +37,7 @@ export default function Gym({ projects }) {
             <em className="text-lavender italic">Fitness</em> & Gym
           </h1>
           <p className="text-sm leading-relaxed text-text max-w-xl mx-auto">
-            From gym management platforms to personal fitness trackers — building technology that helps people move, grow, and stay consistent.
+            Workout logs, training routines, and fitness updates — sharing the journey of staying consistent and getting stronger every day.
           </p>
         </div>
       </div>
@@ -72,34 +53,42 @@ export default function Gym({ projects }) {
             ))}
           </div>
 
-          <div className="max-w-3xl mx-auto mb-16">
-            <h2 className="font-serif text-2xl md:text-3xl font-light text-pearl mb-6 text-center">
-              Built for the <em className="text-lavender italic">Active Life</em>
-            </h2>
-            <p className="text-sm leading-relaxed text-text text-center">
-              I develop fitness-focused digital solutions — from gym member management systems and workout trackers 
-              to nutrition planning apps. Each project is designed with the end-user in mind: clean interfaces, 
-              reliable data tracking, and seamless mobile experiences.
-            </p>
-          </div>
-
           <div className="flex items-center gap-5 mb-12">
-            <span className="font-serif text-sm text-lavender tracking-[2px]">Projects</span>
+            <span className="font-serif text-sm text-lavender tracking-[2px]">Workouts</span>
             <div className="w-12 h-px bg-lavender/50" />
             <h2 className="font-serif text-2xl md:text-3xl font-light text-pearl">
-              Gym & <em className="text-lavender italic">Fitness</em>
+              Training <em className="text-lavender italic">Log</em>
             </h2>
           </div>
 
-          {loading ? (
-            <div className="loader">Loading projects...</div>
-          ) : allItems.length === 0 ? (
-            <div className="text-center py-16 text-mauve-dim text-xs">No fitness projects yet</div>
+          {posts.length === 0 ? (
+            <div className="text-center py-16 text-mauve-dim text-xs">
+              No workouts posted yet — check back soon!
+            </div>
           ) : (
-            <div className="masonry-grid">
-              {allItems.map((item, index) => (
-                <div key={`${item.type}-${item.id}`} className={`masonry-item ${getProjectCardSize(item.description)}`}>
-                  <ProjectCard project={item} />
+            <div className="flex flex-col gap-0.5">
+              {posts.map(post => (
+                <div key={post.id} className="bg-plum-light p-6 md:p-8 border-l-2 border-transparent hover:border-lavender transition-all duration-300 group cursor-default">
+                  <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-2">
+                        {post.workout_type && (
+                          <span className="text-[8px] tracking-[2px] uppercase px-2 py-0.5 border border-lavender/20 text-lavender">{post.workout_type}</span>
+                        )}
+                        {post.difficulty && (
+                          <span className="text-[8px] tracking-[2px] uppercase" style={{ color: difficultyColor(post.difficulty) }}>{post.difficulty}</span>
+                        )}
+                      </div>
+                      <h3 className="font-serif text-lg text-pearl mb-2">{post.title}</h3>
+                      {post.content && <p className="text-sm leading-relaxed text-mauve-dim whitespace-pre-line">{post.content}</p>}
+                    </div>
+                    <div className="text-[9px] text-mauve-dim shrink-0">{new Date(post.created_at).toLocaleDateString()}</div>
+                  </div>
+                  {post.image_url && (
+                    <div className="mt-4 max-w-md">
+                      <img src={post.image_url} alt={post.title} className="w-full rounded" />
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

@@ -52,6 +52,21 @@ export default function AdminLayout({ children, title }) {
         <circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
       </svg>
     )},
+    { href: '/admin/gym', label: 'Gym Posts', icon: (
+      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M6.5 6.5h11M6.5 17.5h11M3 12h18M3 6.5v11M21 6.5v11"/>
+      </svg>
+    )},
+    { href: '/admin/art', label: 'Art Gallery', icon: (
+      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
+      </svg>
+    )},
+    { href: '/admin/reviews', label: 'Reviews', icon: (
+      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M12 20l-3-3H5a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v10a2 2 0 01-2 2h-4l-3 3z"/><path d="M8 9h8M8 13h6"/>
+      </svg>
+    )},
     { href: '/admin/messages', label: 'Messages', icon: (
       <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
         <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>

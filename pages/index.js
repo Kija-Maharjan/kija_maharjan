@@ -1,15 +1,11 @@
 import Layout from '../components/Layout'
 import { useState, useEffect } from 'react'
-import ProjectCard from '../components/ProjectCard'
 
-export default function Home({ projects, certs }) {
-  const [githubRepos, setGithubRepos] = useState([])
-  const [filter, setFilter] = useState('All')
+export default function Home({ certs }) {
   const [visibleSections, setVisibleSections] = useState(new Set())
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' })
   const [toast, setToast] = useState(null)
   const [loading, setLoading] = useState(false)
-  const [githubLoading, setGithubLoading] = useState(true)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -30,14 +26,6 @@ export default function Home({ projects, certs }) {
     return () => observer.disconnect()
   }, [])
 
-  useEffect(() => {
-    fetch('/api/github/repos-public')
-      .then(res => res.json())
-      .then(data => setGithubRepos(Array.isArray(data) ? data : []))
-      .catch(() => {})
-      .finally(() => setGithubLoading(false))
-  }, [])
-
   const isVisible = (sectionId) => visibleSections.has(sectionId)
 
   const stats = [
@@ -55,28 +43,6 @@ export default function Home({ projects, certs }) {
     { num: '05', name: 'Web Hosting Setup', desc: 'Get your website live and running smoothly. Domain configuration, server setup, SSL certificates, and ongoing maintenance support.' },
     { num: '06', name: 'UI / UX Design', desc: 'Intuitive interfaces and seamless user experiences. Clean layouts, thoughtful interactions, and designs that users actually enjoy using.' },
   ]
-
-  const visibleRepos = githubRepos.filter(repo => !repo.is_excluded)
-  const allItems = [
-    ...projects.map(p => ({ ...p, type: 'project' })),
-    ...visibleRepos.map(r => ({
-      id: r.id,
-      name: r.name,
-      description: r.description,
-      category: r.language || 'GitHub',
-      tech_stack: r.language ? [r.language] : [],
-      github_url: r.github_url,
-      hosted_url: r.homepage || null,
-      type: 'repo'
-    }))
-  ]
-
-  const categories = ['All', 'Restaurant Tech', 'Cafe Tech', 'Education', 'Brand & Fashion', 'Browser Extension', 'Fitness', 'Personal Growth', 'Food & Community', 'GitHub']
-  const filteredProjects = filter === 'All'
-    ? allItems
-    : filter === 'GitHub'
-      ? allItems.filter(item => item.type === 'repo')
-      : allItems.filter(item => item.category === filter)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -276,60 +242,11 @@ export default function Home({ projects, certs }) {
         </div>
       </section>
 
-      <section id="projects" className="section-padding bg-plum-light">
-        <div className="max-w-7xl mx-auto">
-          <div className={`mb-12 transition-all duration-700 ${isVisible('projects') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <div className="flex items-center gap-5 mb-12">
-              <span className="font-serif text-sm text-lavender tracking-[2px]">04</span>
-              <div className="w-12 h-px bg-lavender/50" />
-              <h2 className="font-serif text-3xl md:text-5xl font-light text-pearl">
-                Past <em className="text-lavender italic">Projects</em>
-              </h2>
-            </div>
-
-            <div className="flex flex-wrap gap-2 mb-10">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setFilter(cat)}
-                  className={`px-4 py-2 text-[9px] tracking-[2px] uppercase font-sans cursor-pointer border transition-all duration-300 ${
-                    filter === cat
-                      ? 'border-lavender bg-lavender-dim text-lavender'
-                      : 'border-lavender/20 text-mauve-dim hover:border-lavender/40'
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {githubLoading ? (
-            <div className="loader">Loading projects...</div>
-          ) : filteredProjects.length === 0 ? (
-            <div className="text-center py-16 text-mauve-dim text-xs">No projects found</div>
-          ) : (
-            <div className="grid md:grid-cols-2 gap-0.5">
-              {filteredProjects.map((project) => (
-                <ProjectCard key={`${project.type}-${project.id}`} project={project} />
-              ))}
-            </div>
-          )}
-
-          {!githubLoading && githubRepos.length > 0 && (
-            <div className="mt-8 text-center text-xs text-mauve-dim">
-              Showing {visibleRepos.length} of {githubRepos.length} GitHub repositories. 
-              <a href="/admin/github-repos" className="text-lavender ml-2 hover:underline">Manage repos →</a>
-            </div>
-          )}
-        </div>
-      </section>
-
       <section id="certificates" className="section-padding">
         <div className="max-w-7xl mx-auto">
           <div className={`mb-12 transition-all duration-700 ${isVisible('certificates') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <div className="flex items-center gap-5 mb-12">
-              <span className="font-serif text-sm text-lavender tracking-[2px]">05</span>
+              <span className="font-serif text-sm text-lavender tracking-[2px]">04</span>
               <div className="w-12 h-px bg-lavender/50" />
               <h2 className="font-serif text-3xl md:text-5xl font-light text-pearl">
                 Certificates & <em className="text-lavender italic">Learning</em>
@@ -470,11 +387,6 @@ export default function Home({ projects, certs }) {
 
 export async function getServerSideProps() {
   const { supabase } = await import('../lib/supabase')
-  
-  const { data: projects } = await supabase
-    .from('projects')
-    .select('*')
-    .order('created_at', { ascending: false })
 
   const { data: certs } = await supabase
     .from('certificates')
@@ -483,7 +395,6 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      projects: projects || [],
       certs: certs || [],
     },
   }

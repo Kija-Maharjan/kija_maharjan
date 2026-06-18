@@ -1,7 +1,15 @@
 import { useState, useEffect } from 'react'
 import Layout from '../components/Layout'
-import ProjectCard, { getProjectCardSize } from '../components/ProjectCard'
+import ProjectCard from '../components/ProjectCard'
 import { supabase } from '../lib/supabase'
+
+const TYPES = [
+  { id: 'website', label: 'Websites' },
+  { id: 'extension', label: 'Extensions' },
+  { id: 'plymouth', label: 'Plymouth' },
+  { id: 'sddm', label: 'SDDM' },
+  { id: 'app', label: 'Apps' },
+]
 
 export async function getServerSideProps() {
   const { data: projects } = await supabase
@@ -16,91 +24,98 @@ export async function getServerSideProps() {
 
 export default function Projects({ projects }) {
   const [githubRepos, setGithubRepos] = useState([])
-  const [visibleCategories, setVisibleCategories] = useState([])
-  const [visibleRepos, setVisibleRepos] = useState([])
+  const [selectedTypes, setSelectedTypes] = useState(new Set(['website']))
   const [selectedCategories, setSelectedCategories] = useState(new Set())
   const [loading, setLoading] = useState(true)
+  const [previewProject, setPreviewProject] = useState(null)
 
-  const categories = ['Restaurant Tech', 'Cafe Tech', 'Education', 'Brand & Fashion', 'Browser Extension', 'Fitness', 'Personal Growth', 'Food & Community', 'GitHub']
+  const allCategories = ['Restaurant Tech', 'Cafe Tech', 'Education', 'Brand & Fashion', 'Browser Extension', 'Fitness', 'Personal Growth', 'Food & Community', 'GitHub']
 
   useEffect(() => {
-    fetchSettingsAndRepos()
+    fetch('/api/github/repos-public')
+      .then(res => res.json())
+      .then(data => setGithubRepos(Array.isArray(data) ? data : []))
+      .catch(() => {})
+      .finally(() => setLoading(false))
   }, [])
 
-  const fetchSettingsAndRepos = async () => {
-    const controller = new AbortController()
-    const timeout = setTimeout(() => controller.abort(), 10000)
+  const visibleGithubRepos = githubRepos.filter(repo => !repo.is_excluded)
 
-    try {
-      const [settingsRes, reposRes] = await Promise.all([
-        fetch('/api/admin/settings', { signal: controller.signal }),
-        fetch('/api/github/repos-public', { signal: controller.signal })
-      ])
-
-      const [settings, repos] = await Promise.all([
-        settingsRes.json(),
-        reposRes.json()
-      ])
-
-      setVisibleCategories(settings.visible_categories || categories)
-      setVisibleRepos(settings.visible_repos || [])
-      setSelectedCategories(new Set(settings.visible_categories || categories))
-      setGithubRepos(Array.isArray(repos) ? repos : [])
-    } catch (err) {
-      console.error('Failed to fetch data', err)
-      if (err.name !== 'AbortError') {
-        setVisibleCategories(categories)
-        setSelectedCategories(new Set(categories))
-      }
-    }
-    clearTimeout(timeout)
-    setLoading(false)
-  }
-
-  // Filter out excluded repos and respect admin visibility
-  const visibleGithubRepos = githubRepos.filter(repo => !repo.is_excluded && visibleRepos.includes(repo.name))
-
-  // Combine projects and repos
   const allItems = [
     ...projects.map(p => ({ ...p, type: 'project' })),
     ...visibleGithubRepos.map(r => ({
-      id: r.id,
-      name: r.name,
-      description: r.description,
-      category: r.category,
+      id: r.id, name: r.name, description: r.description,
+      category: r.category || r.language || 'GitHub',
       tech_stack: r.language ? [r.language] : [],
-      github_url: r.github_url,
-      hosted_url: r.homepage || null,
-      type: 'repo'
+      github_url: r.github_url, hosted_url: r.homepage || null,
+      project_type: 'website', type: 'repo'
     }))
   ]
-  
-  const toggleCategory = (cat) => {
-    const newSelected = new Set(selectedCategories)
-    if (newSelected.has(cat)) {
-      newSelected.delete(cat)
+
+  const toggleType = (type) => {
+    const newSet = new Set(selectedTypes)
+    if (newSet.has(type)) {
+      if (newSet.size > 1) newSet.delete(type)
     } else {
-      newSelected.add(cat)
+      newSet.add(type)
     }
-    setSelectedCategories(newSelected)
+    setSelectedTypes(newSet)
   }
 
-  const filtered = allItems.filter(item => selectedCategories.has(item.category))
+  const toggleCategory = (cat) => {
+    const newSet = new Set(selectedCategories)
+    if (newSet.has(cat)) newSet.delete(cat)
+    else newSet.add(cat)
+    setSelectedCategories(newSet)
+  }
+
+  const typeFiltered = selectedTypes.size
+    ? allItems.filter(item => selectedTypes.has(item.project_type || 'website'))
+    : allItems
+
+  const filtered = selectedCategories.size
+    ? typeFiltered.filter(item => selectedCategories.has(item.category))
+    : typeFiltered
 
   return (
     <Layout>
+      <div className="min-h-[50vh] flex items-center justify-center relative overflow-hidden bg-plum">
+        <div className="absolute inset-0 bg-gradient-to-br from-plum via-plum to-plum-light" />
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-lavender/5 rounded-full blur-3xl" />
+        <div className="relative z-10 text-center max-w-4xl mx-auto px-6">
+          <div className="text-[9px] tracking-[5px] text-lavender uppercase mb-6">
+            Websites · Extensions · Themes · Apps
+          </div>
+          <h1 className="font-serif text-5xl md:text-7xl font-light text-pearl mb-6">
+            My <em className="text-lavender italic">Projects</em>
+          </h1>
+          <p className="text-sm leading-relaxed text-text max-w-2xl mx-auto">
+            A showcase of everything I&apos;ve built — from full websites and POS systems to browser extensions,
+            Plymouth boot themes, SDDM login screens, and mobile apps. Browse by type or category below.
+          </p>
+        </div>
+      </div>
+
       <div className="section-padding bg-plum-light overflow-x-hidden">
         <div className="max-w-7xl mx-auto overflow-x-hidden">
-          <div className="flex items-center gap-5 mb-12">
-            <span className="font-serif text-sm text-lavender tracking-[2px]">03</span>
-            <div className="w-12 h-px bg-lavender/50" />
-            <h1 className="font-serif text-3xl md:text-5xl font-light text-pearl">
-              Past <em className="text-lavender italic">Projects</em>
-            </h1>
+          <div className="flex flex-wrap gap-2 mb-6">
+            {TYPES.map(t => (
+              <button
+                key={t.id}
+                onClick={() => toggleType(t.id)}
+                className={`px-5 py-2.5 text-[9px] tracking-[2px] uppercase font-sans cursor-pointer border transition-all duration-300 ${
+                  selectedTypes.has(t.id)
+                    ? 'border-lavender bg-lavender-dim text-lavender'
+                    : 'border-lavender/20 text-mauve-dim hover:border-lavender/40'
+                }`}
+              >
+                {t.label}
+              </button>
+            ))}
           </div>
 
           <div className="flex flex-wrap gap-2 mb-10">
-            {visibleCategories.map(cat => (
+            {allCategories.map(cat => (
               <button
                 key={cat}
                 onClick={() => toggleCategory(cat)}
@@ -110,7 +125,7 @@ export default function Projects({ projects }) {
                     : 'border-lavender/20 text-mauve-dim hover:border-lavender/40'
                 }`}
               >
-                <span className={`w-4 h-4 border border-current flex items-center justify-center text-xs ${selectedCategories.has(cat) ? 'bg-lavender text-plum-light' : ''}`}>
+                <span className={`w-3.5 h-3.5 border border-current flex items-center justify-center text-[8px] ${selectedCategories.has(cat) ? 'bg-lavender text-plum-light' : ''}`}>
                   {selectedCategories.has(cat) ? '✓' : ''}
                 </span>
                 {cat}
@@ -119,14 +134,84 @@ export default function Projects({ projects }) {
           </div>
 
           {loading ? (
-            <div className="loader">Loading...</div>
+            <div className="loader">Loading projects...</div>
           ) : filtered.length === 0 ? (
-            <div className="text-center py-16 text-mauve-dim text-xs">No projects found</div>
+            <div className="text-center py-16 text-mauve-dim text-xs">No projects match your filters</div>
           ) : (
-            <div className="masonry-grid">
-              {filtered.map((item, index) => (
-                <div key={`${item.type}-${item.id}`} className={`masonry-item ${getProjectCardSize(item.description)}`}>
-                  <ProjectCard project={item} />
+            <div className="flex flex-col gap-4">
+              {filtered.map((project) => (
+                <div
+                  key={`${project.type}-${project.id}`}
+                  className="bg-plum-light border border-transparent hover:border-lavender/20 transition-all duration-300 group"
+                >
+                  <div
+                    className="p-6 md:p-8 cursor-pointer"
+                    onClick={() => setPreviewProject(previewProject?.id === project.id ? null : project)}
+                  >
+                    <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
+                      <div className="flex-1">
+                        <div className="project-tag">{project.category || 'Project'}</div>
+                        <div className="project-name">{project.name}</div>
+                        <div className="project-desc">{project.description}</div>
+                        {project.tech_stack && (
+                          <div className="project-tech">
+                            {project.tech_stack.map((t, i) => (
+                              <span key={i} className="tech-tag">{t}</span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex gap-2.5 shrink-0">
+                        {project.github_url && (
+                          <a href={project.github_url} target="_blank" rel="noreferrer" className="btn-outline text-[10px] px-5 py-2.5" onClick={e => e.stopPropagation()}>
+                            GitHub →
+                          </a>
+                        )}
+                        {project.hosted_url && (
+                          <a href={project.hosted_url} target="_blank" rel="noreferrer" className="btn-primary text-[10px] px-5 py-2.5" onClick={e => e.stopPropagation()}>
+                            Live Demo →
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {previewProject?.id === project.id && (
+                    <div className="border-t border-lavender/10">
+                      {project.hosted_url ? (
+                        <div className="relative w-full" style={{ height: '70vh' }}>
+                          <iframe
+                            src={project.hosted_url}
+                            className="w-full h-full border-0"
+                            title={`${project.name} preview`}
+                            sandbox="allow-scripts allow-same-origin allow-forms"
+                            loading="lazy"
+                          />
+                          <div className="absolute top-3 right-3 flex gap-2">
+                            <a
+                              href={project.hosted_url}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="text-[8px] tracking-[2px] uppercase bg-plum/80 backdrop-blur-sm text-pearl px-3 py-1.5 rounded hover:bg-plum transition-colors"
+                            >
+                              Open in new tab ↗
+                            </a>
+                          </div>
+                        </div>
+                      ) : project.github_url ? (
+                        <div className="p-8 text-center">
+                          <p className="text-xs text-mauve-dim mb-4">No live demo available for this project</p>
+                          <a href={project.github_url} target="_blank" rel="noreferrer" className="btn-outline text-[10px] px-6 py-2.5">
+                            View on GitHub →
+                          </a>
+                        </div>
+                      ) : (
+                        <div className="p-8 text-center">
+                          <p className="text-xs text-mauve-dim">No preview available</p>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -134,7 +219,7 @@ export default function Projects({ projects }) {
 
           {!loading && githubRepos.length > 0 && (
             <div className="mt-8 text-center text-xs text-mauve-dim">
-              Showing {visibleGithubRepos.length} of {githubRepos.length} GitHub repositories
+              Includes {visibleGithubRepos.length} GitHub repositories
             </div>
           )}
         </div>
