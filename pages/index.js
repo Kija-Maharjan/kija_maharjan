@@ -98,7 +98,7 @@ export default function Home({ certs }) {
           </p>
 
           <div className={`flex flex-wrap justify-center gap-5 transition-all duration-700 delay-400 ${isVisible('home') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <a href="#projects" className="btn-primary">View My Work</a>
+            <a href="/projects" className="btn-primary">View My Work</a>
             <a href="#contact" className="btn-outline">Hire Me</a>
           </div>
 

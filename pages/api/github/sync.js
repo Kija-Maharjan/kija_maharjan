@@ -23,6 +23,7 @@ export default async function handler(req, res) {
       github_url: repo.github_url,
       hosted_url: repo.homepage || '',
       tech_stack: repo.language ? [repo.language] : [],
+      project_type: 'website',
     }
 
     let result

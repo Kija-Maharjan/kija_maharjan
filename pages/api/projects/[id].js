@@ -6,8 +6,8 @@ export default async function handler(req, res) {
   const { id } = req.query
 
   if (req.method === 'PUT') {
-    const { name, description, category, tech_stack, github_url, hosted_url } = req.body
-    const { data, error } = await supabase.from('projects').update({ name, description, category, tech_stack, github_url, hosted_url }).eq('id', id).select()
+    const { name, description, category, tech_stack, github_url, hosted_url, project_type } = req.body
+    const { data, error } = await supabase.from('projects').update({ name, description, category, tech_stack, github_url, hosted_url, project_type }).eq('id', id).select()
     if (error) return res.status(500).json({ error: error.message })
     return res.status(200).json(data[0])
   }

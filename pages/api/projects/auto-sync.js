@@ -138,6 +138,7 @@ export default async function handler(req, res) {
           hosted_url: repo.homepage || '',
           tech_stack: repo.language ? [repo.language] : [],
           category: category,
+          project_type: 'website',
         }
 
         if (existing) {

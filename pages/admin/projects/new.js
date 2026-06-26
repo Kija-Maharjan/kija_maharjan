@@ -5,11 +5,12 @@ import Toast from '../../../components/Toast'
 import { useAdminAuth } from '../../../hooks/useAdminAuth'
 
 const CATEGORIES = ['Restaurant Tech','Cafe Tech','Education','Brand & Fashion','Browser Extension','Fitness','Personal Growth','Food & Community','Web Development','Other']
+const TYPES = ['website', 'extension', 'plymouth', 'sddm', 'app']
 
 export default function NewProject() {
   const router = useRouter()
   const { isAuthenticated, loading: authLoading } = useAdminAuth()
-  const [form, setForm] = useState({ name: '', description: '', category: '', tech_stack: '', github_url: '', hosted_url: '' })
+  const [form, setForm] = useState({ name: '', description: '', category: '', tech_stack: '', github_url: '', hosted_url: '', project_type: 'website' })
   const [toast, setToast] = useState(null)
   const [loading, setLoading] = useState(false)
 
@@ -43,6 +44,12 @@ export default function NewProject() {
           <div className="form-group">
             <label className="form-label">Project Name *</label>
             <input className="form-input" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} required />
+          </div>
+          <div className="form-group">
+            <label className="form-label">Type</label>
+            <select className="form-select" value={form.project_type} onChange={e => setForm({ ...form, project_type: e.target.value })}>
+              {TYPES.map(t => <option key={t} value={t}>{t.charAt(0).toUpperCase() + t.slice(1)}</option>)}
+            </select>
           </div>
           <div className="form-group">
             <label className="form-label">Category</label>
