@@ -69,7 +69,7 @@ export default function Layout({ children, singlePage = false }) {
     { href: '/art', label: 'Art', section: null },
     { href: '/community', label: 'Community', section: null },
     { href: '/#services', label: 'Services', section: 'services' },
-    { href: '/#projects', label: 'Projects', section: 'projects' },
+    { href: '/projects', label: 'Projects', section: null },
     { href: '/#certificates', label: 'Certificates', section: 'certificates' },
     { href: '/#contact', label: 'Contact', section: 'contact' },
   ]

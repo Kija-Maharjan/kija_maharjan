@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import Layout from '../components/Layout'
-import ProjectCard from '../components/ProjectCard'
-import { supabase } from '../lib/supabase'
+import { supabaseAdmin } from '../lib/supabase'
 
 const TYPES = [
   { id: 'website', label: 'Websites' },
@@ -12,7 +11,7 @@ const TYPES = [
 ]
 
 export async function getServerSideProps() {
-  const { data: projects } = await supabase
+  const { data: projects } = await supabaseAdmin
     .from('projects')
     .select('*')
     .order('created_at', { ascending: false })
@@ -27,7 +26,6 @@ export default function Projects({ projects }) {
   const [selectedTypes, setSelectedTypes] = useState(new Set(['website']))
   const [selectedCategories, setSelectedCategories] = useState(new Set())
   const [loading, setLoading] = useState(true)
-  const [previewProject, setPreviewProject] = useState(null)
 
   const allCategories = ['Restaurant Tech', 'Cafe Tech', 'Education', 'Brand & Fashion', 'Browser Extension', 'Fitness', 'Personal Growth', 'Food & Community', 'GitHub']
 
@@ -79,25 +77,31 @@ export default function Projects({ projects }) {
 
   return (
     <Layout>
-      <div className="min-h-[50vh] flex items-center justify-center relative overflow-hidden bg-plum">
+      <div className="min-h-[60vh] flex items-center justify-center relative overflow-hidden bg-plum">
         <div className="absolute inset-0 bg-gradient-to-br from-plum via-plum to-plum-light" />
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-lavender/5 rounded-full blur-3xl" />
-        <div className="relative z-10 text-center max-w-4xl mx-auto px-6">
-          <div className="text-[9px] tracking-[5px] text-lavender uppercase mb-6">
-            Websites · Extensions · Themes · Apps
-          </div>
+        <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-lavender/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/3 left-1/4 w-64 h-64 bg-orchid/5 rounded-full blur-3xl" />
+        <div className="relative z-10 text-center max-w-3xl mx-auto px-6">
+          <div className="text-[9px] tracking-[5px] text-lavender uppercase mb-6">Code · Design · Ship</div>
           <h1 className="font-serif text-5xl md:text-7xl font-light text-pearl mb-6">
             My <em className="text-lavender italic">Projects</em>
           </h1>
-          <p className="text-sm leading-relaxed text-text max-w-2xl mx-auto">
-            A showcase of everything I&apos;ve built — from full websites and POS systems to browser extensions,
-            Plymouth boot themes, SDDM login screens, and mobile apps. Browse by type or category below.
+          <p className="text-sm leading-relaxed text-text max-w-xl mx-auto">
+            Websites, extensions, themes, and apps — a collection of everything I&apos;ve built.
           </p>
         </div>
       </div>
 
-      <div className="section-padding bg-plum-light overflow-x-hidden">
-        <div className="max-w-7xl mx-auto overflow-x-hidden">
+      <div className="section-padding bg-plum-light">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center gap-5 mb-8">
+            <span className="font-serif text-sm text-lavender tracking-[2px]">Portfolio</span>
+            <div className="w-12 h-px bg-lavender/50" />
+            <h2 className="font-serif text-2xl md:text-3xl font-light text-pearl">
+              All <em className="text-lavender italic">Work</em>
+            </h2>
+          </div>
+
           <div className="flex flex-wrap gap-2 mb-6">
             {TYPES.map(t => (
               <button
@@ -134,84 +138,44 @@ export default function Projects({ projects }) {
           </div>
 
           {loading ? (
-            <div className="loader">Loading projects...</div>
+            <div className="text-center py-16 text-mauve-dim text-xs">Loading projects...</div>
           ) : filtered.length === 0 ? (
             <div className="text-center py-16 text-mauve-dim text-xs">No projects match your filters</div>
           ) : (
-            <div className="flex flex-col gap-4">
+            <div className="columns-1 md:columns-2 lg:columns-3 gap-0.5 space-y-0.5">
               {filtered.map((project) => (
                 <div
                   key={`${project.type}-${project.id}`}
-                  className="bg-plum-light border border-transparent hover:border-lavender/20 transition-all duration-300 group"
+                  className="break-inside-avoid bg-plum-light group relative overflow-hidden border border-transparent hover:border-lavender/20 transition-all duration-300 p-6 md:p-8"
                 >
-                  <div
-                    className="p-6 md:p-8 cursor-pointer"
-                    onClick={() => setPreviewProject(previewProject?.id === project.id ? null : project)}
-                  >
-                    <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
-                      <div className="flex-1">
-                        <div className="project-tag">{project.category || 'Project'}</div>
-                        <div className="project-name">{project.name}</div>
-                        <div className="project-desc">{project.description}</div>
-                        {project.tech_stack && (
-                          <div className="project-tech">
-                            {project.tech_stack.map((t, i) => (
-                              <span key={i} className="tech-tag">{t}</span>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                      <div className="flex gap-2.5 shrink-0">
-                        {project.github_url && (
-                          <a href={project.github_url} target="_blank" rel="noreferrer" className="btn-outline text-[10px] px-5 py-2.5" onClick={e => e.stopPropagation()}>
-                            GitHub →
-                          </a>
-                        )}
-                        {project.hosted_url && (
-                          <a href={project.hosted_url} target="_blank" rel="noreferrer" className="btn-primary text-[10px] px-5 py-2.5" onClick={e => e.stopPropagation()}>
-                            Live Demo →
-                          </a>
-                        )}
-                      </div>
-                    </div>
+                  <div className="text-[8px] tracking-[3px] uppercase text-lavender mb-3 font-medium">
+                    {project.category || 'Project'}
                   </div>
-
-                  {previewProject?.id === project.id && (
-                    <div className="border-t border-lavender/10">
-                      {project.hosted_url ? (
-                        <div className="relative w-full" style={{ height: '70vh' }}>
-                          <iframe
-                            src={project.hosted_url}
-                            className="w-full h-full border-0"
-                            title={`${project.name} preview`}
-                            sandbox="allow-scripts allow-same-origin allow-forms"
-                            loading="lazy"
-                          />
-                          <div className="absolute top-3 right-3 flex gap-2">
-                            <a
-                              href={project.hosted_url}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="text-[8px] tracking-[2px] uppercase bg-plum/80 backdrop-blur-sm text-pearl px-3 py-1.5 rounded hover:bg-plum transition-colors"
-                            >
-                              Open in new tab ↗
-                            </a>
-                          </div>
-                        </div>
-                      ) : project.github_url ? (
-                        <div className="p-8 text-center">
-                          <p className="text-xs text-mauve-dim mb-4">No live demo available for this project</p>
-                          <a href={project.github_url} target="_blank" rel="noreferrer" className="btn-outline text-[10px] px-6 py-2.5">
-                            View on GitHub →
-                          </a>
-                        </div>
-                      ) : (
-                        <div className="p-8 text-center">
-                          <p className="text-xs text-mauve-dim">No preview available</p>
-                        </div>
-                      )}
+                  <h3 className="font-serif text-xl text-pearl mb-2">{project.name}</h3>
+                  <p className="text-xs leading-relaxed text-mauve-dim mb-4">
+                    {project.description}
+                  </p>
+                  {project.tech_stack && project.tech_stack.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 mb-4">
+                      {project.tech_stack.map((t, i) => (
+                        <span key={i} className="text-[8px] tracking-[1px] px-2.5 py-1 border border-lavender/25 text-lavender uppercase">
+                          {t}
+                        </span>
+                      ))}
                     </div>
                   )}
+                  <div className="flex gap-2.5">
+                    {project.github_url && (
+                      <a href={project.github_url} target="_blank" rel="noreferrer" className="btn-outline text-[9px] px-4 py-2">
+                        GitHub ↗
+                      </a>
+                    )}
+                    {project.hosted_url && (
+                      <a href={project.hosted_url} target="_blank" rel="noreferrer" className="btn-primary text-[9px] px-4 py-2">
+                        Live Demo ↗
+                      </a>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
