@@ -39,15 +39,19 @@ export default function Projects({ projects }) {
 
   const visibleGithubRepos = githubRepos.filter(repo => !repo.is_excluded)
 
+  const dbUrls = new Set(projects.map(p => p.github_url).filter(Boolean))
+
   const allItems = [
     ...projects.map(p => ({ ...p, type: 'project' })),
-    ...visibleGithubRepos.map(r => ({
-      id: r.id, name: r.name, description: r.description,
-      category: r.category || r.language || 'GitHub',
-      tech_stack: r.language ? [r.language] : [],
-      github_url: r.github_url, hosted_url: r.homepage || null,
-      project_type: 'website', type: 'repo'
-    }))
+    ...visibleGithubRepos
+      .filter(r => !dbUrls.has(r.github_url))
+      .map(r => ({
+        id: r.id, name: r.name, description: r.description,
+        category: r.category || r.language || 'GitHub',
+        tech_stack: r.language ? [r.language] : [],
+        github_url: r.github_url, hosted_url: r.homepage || null,
+        project_type: 'website', type: 'repo'
+      }))
   ]
 
   const toggleType = (type) => {
