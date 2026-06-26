@@ -2,9 +2,14 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import fs from 'fs'
 import path from 'path'
+import { rateLimit } from '../../../lib/rate-limit'
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end()
+
+  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'unknown'
+  const { allowed } = rateLimit(ip, { max: 5, windowMs: 60000 })
+  if (!allowed) return res.status(429).json({ error: 'Too many login attempts. Try again later.' })
 
   const { username, password } = req.body
   const adminUser = process.env.ADMIN_USERNAME || 'kija'
