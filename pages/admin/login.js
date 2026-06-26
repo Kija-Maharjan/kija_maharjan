@@ -116,9 +116,9 @@ export default function AdminLogin() {
                   <div
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-3 top-1/2 -translate-y-1/2 transition-colors cursor-pointer select-none"
-                    style={{ color: 'var(--mauve-dim)' }}
-                    onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
-                    onMouseLeave={(e) => e.currentTarget.style.color = 'var(--mauve-dim)'}
+                    style={{ color: 'var(--accent)' }}
+                    onMouseEnter={(e) => e.currentTarget.style.color = 'var(--pearl)'}
+                    onMouseLeave={(e) => e.currentTarget.style.color = 'var(--accent)'}
                     role="button"
                     tabIndex="-1"
                   >

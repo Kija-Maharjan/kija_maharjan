@@ -1,8 +1,8 @@
-import { supabase } from '../lib/supabase'
+import { supabaseAdmin } from '../lib/supabase'
 import Layout from '../components/Layout'
 
 export async function getServerSideProps() {
-  const { data: posts } = await supabase
+  const { data: posts } = await supabaseAdmin
     .from('art_posts')
     .select('*')
     .order('created_at', { ascending: false })
