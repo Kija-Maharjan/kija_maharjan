@@ -18,13 +18,21 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Username (min 3 chars) and password required.' })
   }
 
-  const { data: existing } = await supabase
+  const { data: existingUser } = await supabase
     .from('visitors')
     .select('id')
-    .or(`username.eq.${username},email.eq.${email || ''}`)
+    .eq('username', username)
     .maybeSingle()
 
-  if (existing) {
+  const { data: existingEmail } = email
+    ? await supabase
+        .from('visitors')
+        .select('id')
+        .eq('email', email)
+        .maybeSingle()
+    : null
+
+  if (existingUser || existingEmail) {
     return res.status(409).json({ error: 'Username or email already taken.' })
   }
 
